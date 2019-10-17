@@ -31,6 +31,7 @@ public class Terminal {
 	
 	public void addTransaction(String trans) {
 		// add to tsf list
+		tsf.add(trans);
 	}
 
 	public void setAccts(ArrayList<String> accts) {

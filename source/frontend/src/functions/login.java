@@ -36,10 +36,12 @@ public class login {
 	    		break;
 	    	}
 	    	if (!validateFile(acct)) {
-	    		return 1;
+	    		//error 
 	    	}
 	    	accts.add(acct);
 	    }
+	    sc.close();
+	    
 	    terminal.setAccts(accts);
 	    terminal.setMode(mode);
 		return terminal;
