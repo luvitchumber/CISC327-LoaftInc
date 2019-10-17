@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class login {
 	
-	static boolean String loginMode(frontend terminal, File acctsfile) {
+	public static int loginMode(Terminal terminal, File acctsfile) {
 		//1=error
 		
 		//get terminal input
