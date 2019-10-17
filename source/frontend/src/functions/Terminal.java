@@ -1,13 +1,15 @@
-package classes;
+package functions;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Terminal {
 	//state --> login/etc
 	//mode --> agent/machine
 	//input buffer
 	ArrayList<String> accts;
+	ArrayList<String> tsf;
 	String state;
 	String mode;
 	Scanner cli;
@@ -17,7 +19,7 @@ public class Terminal {
 		//
 		state = "out";
 		mode = "none";
-		in = new Scanner()
+		cli = new Scanner(System.in);
 		
 	}
 	//get --> 
@@ -25,6 +27,10 @@ public class Terminal {
 	public void setTSF(File tsfFile) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void addTransaction(String trans) {
+		// add to tsf list
 	}
 
 	public void setAccts(ArrayList<String> accts) {
@@ -40,5 +46,9 @@ public class Terminal {
 	public ArrayList<String> getvalidAccts() {
 		// TODO Auto-generated method stub
 		return this.accts;
+	}
+	public Scanner getCLIScanner() {
+		// TODO Auto-generated method stub
+		return cli;
 	}
 }

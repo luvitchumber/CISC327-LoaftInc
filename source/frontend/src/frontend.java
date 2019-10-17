@@ -1,7 +1,7 @@
 import java.io.File;
 
-import classes.Terminal;
-import classes.login;
+import functions.Terminal;
+import functions.login;
 
 public class frontend {
 
@@ -13,7 +13,7 @@ public class frontend {
 		Terminal terminal = new Terminal();
 		
 		//login (updates terminal state) [returns 0 for success and 1 for error]
-		login.loginMode(terminal,acctsFile);
+		terminal = login.loginMode(terminal,acctsFile);
 		
 		//read TSF
 		//add helper method here

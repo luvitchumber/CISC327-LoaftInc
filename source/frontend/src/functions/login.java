@@ -1,15 +1,15 @@
-package classes;
+package functions;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner; 
 
 public class login {
 	
-	public static int loginMode(Terminal terminal, File acctsfile) {
+	public static Terminal loginMode(Terminal terminal, File acctsfile) {
 		//1=error
 		
 		//get terminal input
-		Scanner scanner = new Scanner(System.in);
+		Scanner scanner = terminal.getCLIScanner();
 		System.out.print("Select One: (Agent/Machine) ");
 		String mode = scanner.next();
 		
@@ -23,7 +23,7 @@ public class login {
 		}else {
 			mode = "Error";
 			System.err.println("Selected mode is invalid, please select Agent or Machine");
-	        return 1;
+	        //throw error
 		}
 		
 		ArrayList<String> accts = new ArrayList<String>();
@@ -42,7 +42,7 @@ public class login {
 	    }
 	    terminal.setAccts(accts);
 	    terminal.setMode(mode);
-		return 0;
+		return terminal;
 	}
 	
 	static boolean validateFile(String acctNum) {

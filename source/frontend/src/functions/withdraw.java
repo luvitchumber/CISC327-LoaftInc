@@ -1,4 +1,4 @@
-package classes;
+package functions;
 
 import java.util.ArrayList;
 
@@ -9,6 +9,8 @@ public class withdraw {
 		
 		//if account in validAccounts
 			// if sufficient ammount and not at limit
+		String trans
+		terminal.addTransaction(trans);
 		return 0;
 	}
 
