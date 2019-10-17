@@ -3,8 +3,11 @@ package classes;
 public class frontend {
 	//state --> login/etc
 	//mode --> agent/machine
-	//
-	public void startFE() {
-		
+	//input buffer
+	public frontend() {
+		//set default values
+		//state = logged out
+		//
 	}
+	//get --> 
 }

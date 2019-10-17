@@ -1,5 +1,6 @@
-#import CLASSES
 import classes.frontend;
+import classes.login;
+
 public class start {
 
 	public static void main(String[] args) {
@@ -9,8 +10,10 @@ public class start {
 		//verify
 		//call frontend now with parameters to create instance loop
 		// call login to start instance
-		
-		frontend terminal1 = frontend();
+		//read valid_accts.txt
+			// send to frontend
+		frontend terminal1 = new frontend(valid_accts);
+		terminal1.setState(login.loginMode());
 	}
 
 }

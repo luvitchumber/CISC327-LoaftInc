@@ -18,7 +18,7 @@ public class login {
 		return state;
 	}
 	
-	static String loginMode(String args[]) {
+	static String loginMode() {
 		System.out.println("Chosen mode: "+args[0]); 
 		String mode = "";
 		String checkType = args[0].toLowerCase();
