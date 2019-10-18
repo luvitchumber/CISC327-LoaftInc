@@ -3,16 +3,18 @@ package functions;
 public class logout {
 	
 	public static boolean isLoggedOut(Terminal terminal) {
-		if (terminal.getState == "out" ) {
+		if (terminal.getState().equals("out")) {
 			return true;
 		} else return false;
 	}
 
-	public static Terminal logout(Terminal terminal, File tsfFile) {
+	public Terminal logout(Terminal terminal, File tsfFile) {
 		
 		if (!isLoggedOut(terminal)) {
-			terminal.setState == "out";
+			terminal.setState("out");
 		}
+		
+		return terminal;
 		
 	}
 }
