@@ -59,6 +59,7 @@ public class frontend {
 				break;
 			}else {
 				//error with input
+				System.err.println("Selected transaction is unavailable, please enter a valid transaction code");
 			}
 			//error --> command not recognized, enter one of the following
 			
