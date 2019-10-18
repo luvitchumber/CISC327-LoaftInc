@@ -24,9 +24,9 @@ public class Terminal {
 	}
 	//get --> 
 
-	public void setTSF(File tsfFile) {
+	public Terminal setTSF(File tsfFile) {
 		// TODO Auto-generated method stub
-		
+		// trans to TSF file
 	}
 	
 	public void addTransaction(String trans) {
@@ -137,24 +137,33 @@ public class Terminal {
 		} else return false;
 	}
 	//set limit based on user account type
-	public static double accountLimit (Terminal terminal) {
-		double limit;
-		if (terminal.getMode() == "Agent") {
+	public static double accountLimit (Terminal terminal, String type) {
+		double limit = 0;
+		
+		if (terminal.getMode() == "ATM") {
+			if (type == "dep") {
+				limit = 2000;
+			}else if(type == "wdr") {
+				limit = 1000;
+			}else if(type == "xfr") {
+				limit = 10000;
+			}
+		}else {
 			limit = 99999999;
-		} else limit = 2000;
-			return limit;
+		}
+		return limit;
 	}
 	//check if account exceeds daily limit
-	public static boolean dailyTransactionLimit (Terminal terminal, String type, String accNum, double limit) {
-		if (terminal.getMode() == "ATM" && terminal.transactionTotal(type,accNum) > limit) { // need to fix functionality of transactiontotal
-			return false;
+	public static boolean reachedDailyTransactionLimit (Terminal terminal, String type, String accNum, double dailyLimit) {
+		if (terminal.getMode() == "ATM" && terminal.transactionTotal(type,accNum) > dailyLimit) { // need to fix functionality of transactiontotal
+			return true;
 		} 
-			else return true; 
+			else return false; 
 	}
 	//check if input amount is valid
-	public static boolean amountInputValidation(Terminal terminal, String type, String accNum, String amount) {
+	public static boolean amountInputValidation(Terminal terminal, String type, String accNum, String amount, double dailyLimit) {
 		boolean result = true;
-		double limit = accountLimit(terminal);
+		double limit = accountLimit(terminal, type);
 		if (!isNumeric(amount)) {			
 			amount = "Invalid";
 			System.err.println("Invalid amount: Please input a numerical amount");
@@ -166,7 +175,7 @@ public class Terminal {
 			result = false;
 		}
 		
-		else if(!dailyTransactionLimit(terminal, type, accNum, 5000)) {
+		else if(reachedDailyTransactionLimit(terminal, type, accNum, dailyLimit)) {
 			amount = "Invalid";
 			System.err.println("Invalid amount: Account Exceeds daily limit");
 			result = false;		
