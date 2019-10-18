@@ -55,12 +55,10 @@ public class createacct {
 		} // end for-loop
 		
 		// ensure that the new account number isn't already in use
-		for (int i = 0; i < accts.size(); i++) {
-			if (acctNum == accts.get(i)) {
-				System.out.println("Account number already exists, please choose a new account number.");
-				inputAcctNum();
-			}			
-		} // end for-loop
+		if (accts.contains(acctNum)) {
+			System.out.println("This account number is already in use.");
+			inputAcctNum();
+		}
 	} // end checkAcctNum method
 
 	

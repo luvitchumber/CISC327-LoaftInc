@@ -27,18 +27,13 @@ public class deleteacct {
 		return acctName;
 	} // end inputAcctName method
 	
+	
+	// check if the account number entered is a valid account
 	public void doesExist(String acctNum, ArrayList<String> accts) {
-		
-		//iterate through all existing account numbers to check if the account to delete exists
-		for (int i = 0; i < accts.size(); i++) {
-			if (acctNum == accts.get(i)) {
-				return;     // if we have found the account number, we can continue
-			}			
-		} // end for-loop
-		
-		// if we have gotten to this point, the inputted account number does not exist.
-		System.out.println("This account number does not exist.")
-		inputAcctNum();
+		if (! accts.contains(acctNum)) {
+			System.out.println("This account number does not exist.");
+			inputAcctNum();
+		}
 	} // end doesExist method
 	
 	
