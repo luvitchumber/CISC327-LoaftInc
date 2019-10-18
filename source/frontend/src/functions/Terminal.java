@@ -16,13 +16,11 @@ public class Terminal {
 	public Terminal() {
 		//set default values
 		//state = logged out
-		//
 		state = "out";
 		mode = "none";
 		cli = new Scanner(System.in);
 		
 	}
-	//get --> 
 
 	public Terminal setTSF(File tsfFile) {
 		// TODO Auto-generated method stub

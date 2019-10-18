@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class login {
 	
+	//main login function
 	public static Terminal loginMode(Terminal terminal, File acctsfile) throws FileNotFoundException {
 		
 		//get terminal input
@@ -24,32 +25,36 @@ public class login {
 			System.err.println("Selected mode is invalid, please select Agent or Machine");
 	        //throw error
 		}
-		terminal.setMode(mode);
+		terminal.setMode(mode);			//set mode: agent/machine for the instance
+		
 		
 		
 		//validate valid_accts.txt file
 		ArrayList<String> accts = new ArrayList<String>();
 		
+		//scan valid_accts.txt file
 	    Scanner sc = new Scanner(acctsfile);
 	    String acct = "";
-	    while (sc.hasNextLine()) {
+	    while (sc.hasNextLine()) {		//while there is another line to parse through
 	    	acct = sc.nextLine();
 	    	if (acct == "0000000" && !sc.hasNextLine()) { //constraint, end of file = 0000000
-	    		break;
+	    		break;	//done parsing
 	    	}
-	    	if (!validateFile(acct)) { //perform check on single account
+	    	if (!validateFile(acct)) { 	//perform check on single account
 	    		//throw error 
 	    		System.err.println("Selected mode is invalid, please select Agent or Machine");
 	    	}
 	    	accts.add(acct);
     	}
-	    sc.close();
+	    sc.close();	//close scanner
 	    
-	    terminal.setAccts(accts);
-	    terminal.setMode(mode);
+	    terminal.setAccts(accts); 		//after confirming all of the entries, send to array list
+	    
 	    return terminal;
 	}
 	
+	
+	//validate single account number
 	static boolean validateFile(String acctNum) {
 		int check = 0;
 		
