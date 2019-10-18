@@ -111,7 +111,7 @@ public class deposit {
 	}
 	///////////////////////////////////////////////////////////////////////
 	
-	public Terminal depositToAccount(Terminal terminal, String account, double amount) 
+	public static Terminal depositToAccount(Terminal terminal) 
 	{
 		//read in valid accounts
 		ArrayList<String> validAccounts = terminal.getvalidAccts();

@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class login {
 	
-	public static Terminal loginMode(Terminal terminal, File acctsfile) {
+	public static Terminal loginMode(Terminal terminal, File acctsfile) throws FileNotFoundException {
 		
 		//get terminal input
 		Scanner scanner = terminal.getCLIScanner();

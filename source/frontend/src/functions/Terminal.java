@@ -34,9 +34,9 @@ public class Terminal {
 		tsf.add(trans);
 	}
 	
-	public double transactionTotal(void) {
-		tsf.print(trans);
-	}
+//	public double transactionTotal(void) {
+//		tsf.print(trans);
+//	}
 
 	public void setAccts(ArrayList<String> accts) {
 		// TODO Auto-generated method stub

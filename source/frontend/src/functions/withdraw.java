@@ -9,7 +9,7 @@ public class withdraw {
 		
 		//if account in validAccounts
 			// if sufficient ammount and not at limit
-		String trans
+		String trans;
 		terminal.addTransaction(trans);
 		return 0;
 	}
