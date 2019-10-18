@@ -34,9 +34,11 @@ public class Terminal {
 		tsf.add(trans);
 	}
 	
-//	public double transactionTotal(void) {
-//		tsf.print(trans);
-//	}
+	public double transactionTotal(String type, String account) {
+		//loop through transactions to find all that match type and account and add up
+		// use tokens to split trans
+		return 0;
+	}
 
 	public void setAccts(ArrayList<String> accts) {
 		// TODO Auto-generated method stub
@@ -126,5 +128,55 @@ public class Terminal {
 			System.err.println("Invalid account number: Account number does not exist");
 			result = false;
 		} return result;
+	}
+	
+	//check if user inputed deposit length is valid
+	public static boolean depositLen(String amount) {
+		if (amount.length() >= 3 && amount.length() <= 8) {
+			return true;
+		} else return false;
+	}
+	//set limit based on user account type
+	public static double accountLimit (Terminal terminal) {
+		double limit;
+		if (terminal.getMode() == "Agent") {
+			limit = 99999999;
+		} else limit = 2000;
+			return limit;
+	}
+	//check if account exceeds daily limit
+	public static boolean dailyTransactionLimit (Terminal terminal, String type, String accNum, double limit) {
+		if (terminal.getMode() == "ATM" && terminal.transactionTotal(type,accNum) > limit) { // need to fix functionality of transactiontotal
+			return false;
+		} 
+			else return true; 
+	}
+	//check if input amount is valid
+	public static boolean amountInputValidation(Terminal terminal, String type, String accNum, String amount) {
+		boolean result = true;
+		double limit = accountLimit(terminal);
+		if (!isNumeric(amount)) {			
+			amount = "Invalid";
+			System.err.println("Invalid amount: Please input a numerical amount");
+			result = false;
+		}
+		else if (!depositLen(amount)) {
+			amount = "Invalid";
+			System.err.println("Invalid amount: Please input amount between 3-8 digits");
+			result = false;
+		}
+		
+		else if(!dailyTransactionLimit(terminal, type, accNum, 5000)) {
+			amount = "Invalid";
+			System.err.println("Invalid amount: Account Exceeds daily limit");
+			result = false;		
+		}
+		else if (Double.parseDouble(amount) > limit) {
+			amount = "Invalid";
+			System.err.println("Invalid amount: Amount Exceeds transaction limit");
+			result =  false;		
+	
+		}
+		return result;
 	}
 }
