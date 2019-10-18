@@ -45,7 +45,22 @@ public class Terminal {
 
 	public void setMode(String mode) {
 		// TODO Auto-generated method stub
-		
+		this.mode = mode;
+	}
+	
+	public String getMode() {
+		// TODO Auto-generated method stub
+		return this.mode;
+	}
+	
+	public void setState(String state) {
+		// TODO Auto-generated method stub
+		this.state = state;
+	}
+	
+	public String getState() {
+		// TODO Auto-generated method stub
+		return this.state;
 	}
 
 	public ArrayList<String> getvalidAccts() {

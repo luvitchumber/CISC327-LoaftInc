@@ -14,19 +14,37 @@ public class frontend {
 		Terminal terminal = new Terminal();
 		
 		Scanner in = terminal.getCLIScanner();
-		//loop
+		
+		//Accepts inputs from user, runs continuously
 		while(true) {
-			//prompt command --> login/logout/createacct.....
+			
+			String input = in.next().toLowerCase();
+			
+			//Check on the user input for next step
+			if (input != "login" && terminal.getState() == "out") {	//only login, if not already logged in
+				//state must be "in" in order to do anything other than login
+				System.err.println("Selected transaction is unavailable, please login before continuing.");
+			}else if (input == "login") {
+				terminal = login.loginMode(terminal,acctsFile);
+			}else if (input == "logout") {
+				//logout function
+			}else if (input == "createacct") {
+				//createacct function
+			}else if (input == "deleteacct") {
+				//deleteacct function
+			}else if (input == "withdraw") {
+				//withdraw function
+			}else if (input == "deposit") {
+				//deposit function
+			}else if (input == "logout") {
+				//logout function
+			}else {
+				//error with input
+			}
+			//error --> command not recognized, enter one of the following
 			
 		}
-		
-		
-		
-		//example calls
-		
-		//login (updates terminal state) [returns 0 for success and 1 for error]
-		terminal = login.loginMode(terminal,acctsFile);
-		
+	
 		//read TSF
 		//add helper method here
 		terminal.setTSF(tsfFile);
