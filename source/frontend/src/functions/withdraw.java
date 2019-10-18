@@ -1,17 +1,28 @@
 package functions;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class withdraw {
 	
-	public int withdrawFromAccount(Terminal terminal, String account, double amount) {
+	public static Terminal withdrawFromAccount(Terminal terminal) {
+
 		ArrayList<String> validAccounts = terminal.getvalidAccts();
+		Scanner scanner = terminal.getCLIScanner();
+		double dailyLimit = 5000;
 		
-		//if account in validAccounts
-			// if sufficient ammount and not at limit
-		String trans;
-		terminal.addTransaction(trans);
-		return 0;
+		System.out.print("Input Account Number");
+		String accNum = scanner.next();
+		
+		if (Terminal.accountInputValidation(validAccounts, accNum)) {
+			System.out.print("Input Withdrawal Amount");
+			String wdrAmount = scanner.next();
+			if (Terminal.amountInputValidation(terminal, "wdr",accNum, wdrAmount, dailyLimit)) {
+				String trans = ("WDR" + " " + wdrAmount  + " " + accNum);
+				terminal.addTransaction(trans);
+			}			
+		}		
+		return terminal;
 	}
 
 }

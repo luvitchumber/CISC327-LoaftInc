@@ -7,9 +7,9 @@ public class deposit {
 	
 	public static Terminal depositToAccount(Terminal terminal) 
 	{
-		//read in valid accounts
 		ArrayList<String> validAccounts = terminal.getvalidAccts();
 		Scanner scanner = terminal.getCLIScanner();
+		double dailyLimit = 5000;
 		
 		System.out.print("Input Account Number");
 		String accNum = scanner.next();
@@ -17,7 +17,7 @@ public class deposit {
 		if (Terminal.accountInputValidation(validAccounts, accNum)) {
 			System.out.print("Input Deposit Amount");
 			String depAmount = scanner.next();
-			if (Terminal.amountInputValidation(terminal, "dep", accNum, depAmount)) {
+			if (Terminal.amountInputValidation(terminal, "dep", accNum, depAmount, dailyLimit)) {
 				String trans = ("DEP" + " " + accNum + " " + depAmount);
 				terminal.addTransaction(trans);
 			}			
