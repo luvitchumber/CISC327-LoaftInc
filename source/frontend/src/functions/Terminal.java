@@ -23,6 +23,7 @@ public class Terminal {
 	}
 
 	public Terminal setTSF(File tsfFile) {
+		return this;
 		// TODO Auto-generated method stub
 		// trans to TSF file
 	}
