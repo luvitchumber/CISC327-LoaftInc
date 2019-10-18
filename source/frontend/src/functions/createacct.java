@@ -3,12 +3,10 @@ package functions;
 public class createacct {
 		
 	public void createAcct(ArrayList<String> accts) {
-		
 		String acctNum;
 		String acctName;
 		
 		checkMode(Terminal.getMode());    // ensure that the user is in agent mode
-		this.validAccounts = Terminal.getvalidAccts();     // get valid accounts
 		
 		acctNum = inputAcctNum(accts);    // user will input new account number and program will validate it
 		acctName = inputAcctName();       // user will input new account name and program will validate it
@@ -26,11 +24,11 @@ public class createacct {
 	
 	
 	// take user input for the account name
-	public void inputAcctName() {
+	public String inputAcctName() {
 		System.out.println("Input new account name.");
 		String acctName = scanner.next();
 		checkAcctName(acctName);     // validate account name
-		this.acctName = acctName;
+		return acctName;
 	} // end inputAcctName method
 	
 	

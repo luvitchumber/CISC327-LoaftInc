@@ -2,8 +2,7 @@ package functions;
 
 public class deleteacct {
 	
-	public void deleteAcct(ArrayList<String> accts) {
-		
+	public void deleteAcct(ArrayList<String> accts) {	
 		String acctNum;
 		String acctName;
 		
@@ -15,14 +14,14 @@ public class deleteacct {
 		
 	} // end deleteAcct method
 	
-	public void inputAcctNum(ArrayList<String> accts) {
+	public String inputAcctNum(ArrayList<String> accts) {
 		System.out.println("Input account number to delete.");
 		String acctNum = scanner.next();
 		doesExist(acctNum, accts);       // validate account number
 		return acctNum;
 	} // end inputAcctMum method
 	
-	public void inputAcctName() {
+	public String inputAcctName() {
 		System.out.println("Input new account name.");
 		String acctName = scanner.next();
 		return acctName;
