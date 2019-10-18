@@ -2,38 +2,37 @@ package functions;
 
 public class deleteacct {
 	
-	String acctNum;
-	String acctName;
-	ArrayList<String> validAccounts;
-	
-	public void deleteAcct() {
-		checkMode(Terminal.getMode()); 
-		this.validAccounts = Terminal.getvalidAccts();
+	public void deleteAcct(ArrayList<String> accts) {
 		
-		inputAcctNum();     // user will input an account number to delete and program will validate it
-		inputAcctName();    // user will input the corresponding account name
-		addToTSF();         // add the deleted account name and number to the Transaction Summary File
+		String acctNum;
+		String acctName;
+		
+		checkMode(Terminal.getMode());    // ensure that the user is in agent mode
+		
+		acctNum = inputAcctNum(accts);    // user will input an account number to delete and program will validate it
+		acctName = inputAcctName();       // user will input the corresponding account name
+		addToTSF(acctNum, acctName);      // add the deleted account name and number to the Transaction Summary File
 		
 	} // end deleteAcct method
 	
-	public void inputAcctNum() {
+	public void inputAcctNum(ArrayList<String> accts) {
 		System.out.println("Input account number to delete.");
 		String acctNum = scanner.next();
-		doesExist(acctNum);       // validate account number
-		this.acctNum = acctNum;
+		doesExist(acctNum, accts);       // validate account number
+		return acctNum;
 	} // end inputAcctMum method
 	
 	public void inputAcctName() {
 		System.out.println("Input new account name.");
 		String acctName = scanner.next();
-		this.acctName = acctName;
+		return acctName;
 	} // end inputAcctName method
 	
-	public void doesExist(String acctNum) {
+	public void doesExist(String acctNum, ArrayList<String> accts) {
 		
 		//iterate through all existing account numbers to check if the account to delete exists
-		for (int i = 0; i < validAccounts.size(); i++) {
-			if (acctNum == validAccounts.get(i)) {
+		for (int i = 0; i < accts.size(); i++) {
+			if (acctNum == accts.get(i)) {
 				return;     // if we have found the account number, we can continue
 			}			
 		} // end for-loop
@@ -45,7 +44,7 @@ public class deleteacct {
 	
 	
 	// after validating the account name and number, we add it to the transaction summary file
-	public void addToTSF() {
+	public void addToTSF(String acctNum, String acctName) {
 		String trans = "DEL " + acctNum + " " + acctName;
 		Terminal.addTransaction(trans);
 	} // end addToTSF method

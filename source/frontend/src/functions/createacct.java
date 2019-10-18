@@ -1,28 +1,27 @@
 package functions;
 
 public class createacct {
-	
-	String acctNum;
-	String acctName;
-	ArrayList<String> validAccounts;
-	
-	
-	public void createAcct() {
+		
+	public void createAcct(ArrayList<String> accts) {
+		
+		String acctNum;
+		String acctName;
+		
 		checkMode(Terminal.getMode());    // ensure that the user is in agent mode
 		this.validAccounts = Terminal.getvalidAccts();     // get valid accounts
 		
-		inputAcctNum();    // user will input new account number and program will validate it
-		inputAcctName();   // user will input new account name and program will validate it
-		addToTSF();        // add the new account name and number to the Transaction Summary File
+		acctNum = inputAcctNum(accts);    // user will input new account number and program will validate it
+		acctName = inputAcctName();       // user will input new account name and program will validate it
+		addToTSF(acctNum, acctName);      // add the new account name and number to the Transaction Summary File
 	} // end createAcct
 	
 	
 	// take user input for the account number
-	public void inputAcctNum() {
+	public String inputAcctNum(ArrayList<String> accts) {
 		System.out.println("Input new account number.");
 		String acctNum = scanner.next();
-		checkAcctNum(acctNum);       // validate account number
-		this.acctNum = acctNum;
+		checkAcctNum(acctNum, accts);       // validate account number
+		return acctNum;
 	} // end inputAcctMum method
 	
 	
@@ -36,7 +35,7 @@ public class createacct {
 	
 	
 	// ensures that the new account number follows restrictions. If it does not, it prompts the user to enter a new account number
-	public void checkAcctNum(String acctNum) {
+	public void checkAcctNum(String acctNum, ArrayList<String> accts) {
 		
 		// check that the length of the new account number is 7
 		if (acctNum.length() != 7) {
@@ -58,8 +57,8 @@ public class createacct {
 		} // end for-loop
 		
 		// ensure that the new account number isn't already in use
-		for (int i = 0; i < validAccounts.size(); i++) {
-			if (acctNum == validAccounts.get(i)) {
+		for (int i = 0; i < accts.size(); i++) {
+			if (acctNum == accts.get(i)) {
 				System.out.println("Account number already exists, please choose a new account number.");
 				inputAcctNum();
 			}			
@@ -91,7 +90,7 @@ public class createacct {
 	} // end checkAcctName method
 	
 	// after validating the account name and number, we add it to the transaction summary file
-	public void addToTSF() {
+	public void addToTSF(String acctNum, String acctName) {
 		String trans = "NEW " + acctNum + " " + acctName;
 		Terminal.addTransaction(trans);
 	} // end addToTSF method
