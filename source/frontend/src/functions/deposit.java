@@ -14,14 +14,15 @@ public class deposit {
 	//set limit based on user account type
 	public static double accountLimit (Terminal terminal) {
 		double limit;
-		if (terminal.getMode == "Agent") {
+		if (terminal.getMode() == "Agent") {
 			limit = 99999999;
 		} else limit = 2000;
 			return limit;
 	}
 	//check if account exceeds daily limit
 	public static boolean dailyTransactionLimit (Terminal terminal) {
-		if (terminal.getMode() == "ATM" && terminal.transactionTotal() > 5000) {
+		//if (terminal.getMode() == "ATM" && terminal.transactionTotal() > 5000) { // need to fix functionality of transactiontotal
+		if (terminal.getMode() == "ATM") {
 			return false;
 		} 
 			else return true; 
