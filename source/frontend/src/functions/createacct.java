@@ -1,4 +1,7 @@
 package functions;
+import functions.Terminal;
+import java.util.Scanner;
+import java.util.ArrayList;
 
 public class createacct {
 		
@@ -76,7 +79,7 @@ public class createacct {
 			inputAcctName();
 		}
 		
-		// check that every character is the new account name is alphanumeric
+		// check that every character in the new account name is alphanumeric
 		for (int i; i < acctName.length(); i++) {
 			if (! Character.isDigit(acctName.charAt(i)) && ! Character.isLetter(acctName.charAt(i)) && ! acctName.charAt(i) == ' ') {
 				System.out.println("The account name can only contain alphanumeric characters.");

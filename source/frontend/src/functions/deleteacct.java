@@ -1,4 +1,7 @@
 package functions;
+import functions.Terminal;
+import java.util.Scanner;
+import java.util.ArrayList;
 
 public class deleteacct {
 	

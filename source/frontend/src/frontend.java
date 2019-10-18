@@ -7,6 +7,8 @@ import functions.deposit;
 import functions.login;
 import functions.transfer;
 import functions.withdraw;
+import functions.createacct;
+import functions.deleteacct;
 
 public class frontend {
 
