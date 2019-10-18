@@ -2,6 +2,7 @@ import java.io.File;
 import java.util.Scanner;
 
 import functions.Terminal;
+import functions.deposit;
 import functions.login;
 
 public class frontend {
@@ -46,8 +47,12 @@ public class frontend {
 				
 			}else if (input == "deposit") {
 				//deposit function
+<<<<<<< HEAD
 				//terminal = ;
 				
+=======
+				terminal = deposit.depositToAccount(terminal)
+>>>>>>> origin/master
 			}else if (input == "logout") {
 				//logout function
 				//terminal = ;
