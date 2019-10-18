@@ -19,6 +19,7 @@ public class deposit {
 			String depAmount = scanner.next();
 			if (Terminal.amountInputValidation(terminal, "dep", accNum, depAmount, dailyLimit)) {
 				String trans = ("DEP" + " " + accNum + " " + depAmount);
+				
 				terminal.addTransaction(trans);
 			}			
 		}		

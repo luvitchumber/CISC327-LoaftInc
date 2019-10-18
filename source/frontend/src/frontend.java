@@ -64,7 +64,7 @@ public class frontend {
 			
 		}
 	
-		//read TSF
+		//write TSF
 		//add helper method here
 		terminal = terminal.setTSF(tsfFile);
 	}
