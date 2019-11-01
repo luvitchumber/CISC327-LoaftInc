@@ -3,7 +3,10 @@ package frontend;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import transactions.Deposit;
 import transactions.Transaction;
+import transactions.Transfer;
+import transactions.Withdraw;
 
 public class Terminal {
 	
@@ -37,6 +40,24 @@ public class Terminal {
 	
 	public ArrayList<Transaction> getTSF(){
 		return this.tsf;
+	}
+	
+	public boolean DoesNotExceedTransTotal(String type, String acctNum, int limit) {
+		for(int i =0; i < tsf.size()) {
+			Transaction item;
+			if (tsf.get(i).getType() == "WDR"){
+				item = (Withdraw) tsf.get(i);
+			}else if (tsf.get(i).getType() == "XFR") {
+				item = (Transfer) tsf.get(i);
+			}else if (tsf.get(i).getType() == "DEP") {
+				item = (Deposit) tsf.get(i);
+			}
+			
+			if (item != null && item.getType() == type) {
+				item.getAmount();
+				
+			}
+		}
 	}
 
 }
