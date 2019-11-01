@@ -41,7 +41,7 @@ public class Transaction {
 	}
 	
 	public int getAmount() {
-		
+		return 0;		
 	}
 
 	@Override
