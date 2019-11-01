@@ -39,6 +39,10 @@ public class Transaction {
 	public String getAcctNum() {
 		return acctNum;
 	}
+	
+	public int getAmount() {
+		
+	}
 
 	@Override
 	public String toString() {

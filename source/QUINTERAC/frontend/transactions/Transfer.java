@@ -2,7 +2,7 @@ package transactions;
 
 public class Transfer extends Transaction {
 	String acctTo;
-	double amount;
+	int amount;
 
 	public Transfer() {
 		super("XFR");
@@ -14,7 +14,7 @@ public class Transfer extends Transaction {
 		this.amount = -1;
 	}
 
-	public Transfer(String type, String acctName, String acctNum, String acctTo, double amount) {
+	public Transfer(String type, String acctName, String acctNum, String acctTo, int amount) {
 		super(type, acctName, acctNum);
 		this.acctTo = acctTo;
 		this.amount = amount;
@@ -30,7 +30,7 @@ public class Transfer extends Transaction {
 	/**
 	 * @return the amount
 	 */
-	public double getAmount() {
+	public int getAmount() {
 		return amount;
 	}
 

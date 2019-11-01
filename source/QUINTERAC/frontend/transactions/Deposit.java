@@ -2,7 +2,7 @@ package transactions;
 
 public class Deposit extends Transaction {
 	
-	double amount;
+	int amount;
 
 	public Deposit() {
 		super("DEP");
@@ -14,7 +14,7 @@ public class Deposit extends Transaction {
 		this.amount=-1;
 	}
 
-	public Deposit(String type, String acctName, String acctNum, double amount) {
+	public Deposit(String type, String acctName, String acctNum, int amount) {
 		super(type, acctName, acctNum);
 		this.amount=amount;
 	}
@@ -22,14 +22,14 @@ public class Deposit extends Transaction {
 	/**
 	 * @return the amount
 	 */
-	public double getAmount() {
+	public int getAmount() {
 		return amount;
 	}
 
 	/**
 	 * @param amount the amount to set
 	 */
-	public void setAmount(double amount) {
+	public void setAmount(int amount) {
 		this.amount = amount;
 	}
 

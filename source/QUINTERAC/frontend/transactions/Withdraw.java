@@ -2,7 +2,7 @@ package transactions;
 
 public class Withdraw extends Transaction {
 	
-	double amount;
+	int amount;
 
 	public Withdraw() {
 		super("WDR");
@@ -14,11 +14,11 @@ public class Withdraw extends Transaction {
 		amount = -1;
 	}
 	
-	public Withdraw(String type, String acctName, String acctNum, double amount) {
+	public Withdraw(String type, String acctName, String acctNum, int amount) {
 		super(type, acctName, acctNum);
 		this.amount = amount;
 	}
-	public Withdraw(String acctName, String acctNum, double amount) {
+	public Withdraw(String acctName, String acctNum, int amount) {
 		super("WDR", acctName, acctNum);
 		this.amount = amount;
 	}
@@ -26,14 +26,14 @@ public class Withdraw extends Transaction {
 	/**
 	 * @return the amount
 	 */
-	public double getAmount() {
+	public int getAmount() {
 		return amount;
 	}
 
 	/**
 	 * @param amount the amount to set
 	 */
-	public void setAmount(double amount) {
+	public void setAmount(int amount) {
 		this.amount = amount;
 	}
 
