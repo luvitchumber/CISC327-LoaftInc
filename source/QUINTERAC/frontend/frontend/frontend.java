@@ -1,6 +1,8 @@
 package frontend;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -61,11 +63,25 @@ public class frontend {
 	public static Terminal validateAcctsFile(Terminal t, File accts) {
 		//add validate here
 		try {
-			
+			BufferedReader br = new BufferedReader(new FileReader(accts)); 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
+			System.out.println("Error: File not found");
 			e.printStackTrace();
-		}				
+			return t;
+		}
+		String st;
+		while (br.hasNextLine()) {
+			st = br.nextLine();
+	    	if (st == "0000000" && !br.hasNextLine()) { //constraint, end of file = 0000000
+	    		break;	//done parsing
+	    	}
+	    	if (!validateFile(st)) { 	//perform check on single account
+	    		//throw error 
+	    		System.err.println("Selected mode is invalid, please select Agent or Machine");
+	    	}
+	    	t.accts.add(st);
+		} 
 		
 		return t;
 	}
@@ -90,6 +106,21 @@ public class frontend {
 	public static String validateAcctandReturn(String in) {
 		String acct = "";
 		return acct;
+	}
+	
+	public static boolean validateFile(String acctNum) {
+		try {
+			int check = Integer.parseInt(acctNum);	//ensure they are all digits
+		}catch (NumberFormatException e) {
+			System.err.println("Error with valid_accts.txt");
+			return false;
+		}
+		
+		if (acctNum.length() != 7 || acctNum.charAt(0) == '0') { 	//error if it starts with 0, or its length is longer than 7 characters
+			System.err.println("Error with account number in valid_accts.txt");
+			return false;
+		}
+		return true;
 	}
 	
 }
