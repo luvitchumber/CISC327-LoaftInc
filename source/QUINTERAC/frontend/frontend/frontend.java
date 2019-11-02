@@ -141,6 +141,7 @@ public class frontend {
 		createTSF(t, tsfFile);
 	}
 	
+	//Used to withdraw, deposit, transfer money
 	private static Terminal moveMoney(Terminal t, String type, String[] input, int transLimit, int dailyLimit) {
 		String acctNum;
 		int amount;
@@ -153,15 +154,15 @@ public class frontend {
 		boolean exist = DoesAcctNumExist(t.getAccts(),acctNum);
 		amount=validateAmountandReturn(inAmount);
 		boolean exceeds=t.ExceedTransTotal(type, acctNum, dailyLimit);
-		if (exist) {
-			if (!exceeds) {
-				if (amount != -1) {
-					if (amount < transLimit) {
-						if (type == "WDR") {
+		if (exist) {							//account number exists?
+			if (!exceeds) {						//amount does not exceed transfer total
+				if (amount != -1) {				//amount is valid
+					if (amount < transLimit) {	//amount is less than the max limit
+						if (type == "WDR") {		//Withdraw command
 							cache = new Withdraw(acctNum,amount);
-						}else if (type == "DEP") {
+						}else if (type == "DEP") {	//Deposit command
 							cache = new Deposit(acctNum,amount);
-						}else if (type == "XFR") {
+						}else if (type == "XFR") {	//Transfer command
 							inNum = input[2]; // acct number to
 							String acctTo=validateAcctNumandReturn(inNum);
 							exist = DoesAcctNumExist(t.getAccts(),acctTo);
@@ -188,6 +189,8 @@ public class frontend {
 		return t; // might return null object
 	}
 	
+	//Used to validate the entire file of valid_accts.txt
+	//returns terminal once completed parsing through the file
 	private static Terminal validateAcctsFile(Terminal t, File acctsFile) {
 		//add validate here
 		ArrayList<String> accts = new ArrayList<String>();		//create ArrayList<String> accts;
@@ -218,6 +221,8 @@ public class frontend {
 		return t;
 	}
 	
+	//creating TSF file
+	//returns terminal
 	private static Terminal createTSF(Terminal t, File tsfFile) {
 		ArrayList<Transaction> tsf = t.getTSF();
 		
@@ -226,6 +231,7 @@ public class frontend {
 	}
 
 	//Used to validate amounts for withdrawing/depositing/transferring
+	//if valid, returns amount
 	private static int validateAmountandReturn(String in) {
 		int num = -1;
 		try {
@@ -240,6 +246,7 @@ public class frontend {
 	}
 	
 	//Used to validate individual names when creating an account
+	//if valid, returns name
 	private static String validateNameandReturn(String in) {
 		String name = "";
 		
@@ -253,6 +260,7 @@ public class frontend {
 	}
 	
 	//Used to validate individual accounts in valid_accts.txt
+	//if valid, returns acct
 	private static String validateAcctNumandReturn(String in) {
 		String acct = "";
 		in = in.trim();
@@ -269,6 +277,9 @@ public class frontend {
 		
 		return acct;
 	}
+	
+	//Used to validate if account number exists from valid_accts.txt
+	//returns true if account is valid
 	private static boolean DoesAcctNumExist(ArrayList<String> accts, String in) {
 		in = in.trim();
 		

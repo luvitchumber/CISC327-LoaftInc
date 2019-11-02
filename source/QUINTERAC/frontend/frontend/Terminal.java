@@ -12,35 +12,41 @@ public class Terminal {
 	protected String mode;
 	protected Scanner cli;
 
+	//open new terminal window to read from CLI
 	public Terminal() {
 		this.mode = "none";
 		this.cli = new Scanner(System.in);
 	}
 	
+	//add transaction to the TSF list
 	public Terminal addTransaction(Transaction trans) {
 		// add to tsf list
 		tsf.add(trans);
 		return this;
 	}
 	
+	//Get input from CLI
 	public Scanner getCLIScanner() {
-		// TODO Auto-generated method stub
 		return this.cli;
 	}
 	
+	//Get TSF file information
 	public ArrayList<Transaction> getTSF(){
 		return this.tsf;
 	}
 	
+	//Set valid accounts list
 	protected Terminal setAccts(ArrayList<String> accts) {
 		this.accts = accts;
 		return this;
 	}
 	
+	//Get valid accounts
 	protected ArrayList<String> getAccts(){
 		return this.accts;
 	}
 	
+	//
 	protected boolean ExceedTransTotal(String type, String acctNum, int limit) {
 		int currentAmount = 0;
 		if (limit == -1) {
