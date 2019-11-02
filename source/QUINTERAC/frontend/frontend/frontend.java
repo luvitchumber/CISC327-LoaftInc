@@ -251,7 +251,7 @@ public class frontend {
 		int num = -1;
 		try {
 			num=Integer.parseInt(in);
-			if (num > 99999999 || num < 0) {	//cannot exceed 99999999 or be a negative number
+			if (in.length() < 3 || num > 99999999 || num < 0) {	//cannot exceed 99999999 or be a negative number
 				num = -1;
 			}
 		}catch(NumberFormatException e){
