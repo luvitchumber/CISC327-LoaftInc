@@ -1,19 +1,19 @@
 package frontend;
-import java.io.BufferedReader;
+
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import transactions.Transaction;
+import transactions.Login;
+import transactions.Logout;
 import transactions.CreateAcct;
 import transactions.DeleteAcct;
 import transactions.Deposit;
-import transactions.Login;
-import transactions.Transaction;
 import transactions.Transfer;
 import transactions.Withdraw;
-import transactions.Logout;
+
 
 public class frontend {
 
@@ -26,8 +26,8 @@ public class frontend {
 		Scanner in = t.getCLIScanner();
 		Transaction cache;
 
-		String inputRaw = in.nextLine().toLowerCase();
-		String[] input = inputRaw.split(" ");
+		String inputRaw;
+		String[] input;
 		
 		
 		// Loop until logged in 
@@ -37,7 +37,7 @@ public class frontend {
 			
 			if (input[0] == "login" && (input[1] =="atm" || input[1]=="agent")) {	//only login, if not already logged in
 				t = validateAcctsFile(t, acctsFile);
-				//cache = new Login(input[1]);
+				cache = new Login(input[1]);
 				t = t.setMode(input[1]);
 				//t = t.addTransaction(cache);
 				break;
@@ -139,7 +139,7 @@ public class frontend {
 		createTSF(t, tsfFile);
 	}
 	
-	public static Terminal moveMoney(Terminal t, String type, String[] input, int transLimit, int dailyLimit) {
+	private static Terminal moveMoney(Terminal t, String type, String[] input, int transLimit, int dailyLimit) {
 		String acctNum;
 		int amount;
 		Transaction cache = null;
@@ -186,7 +186,7 @@ public class frontend {
 		return t; // might return null object
 	}
 	
-	public static Terminal validateAcctsFile(Terminal t, File acctsFile) {
+	private static Terminal validateAcctsFile(Terminal t, File acctsFile) {
 		//add validate here
 		ArrayList<String> accts = new ArrayList<String>();		//create ArrayList<String> accts;
 		String acct = "";
@@ -216,14 +216,14 @@ public class frontend {
 		return t;
 	}
 	
-	public static Terminal createTSF(Terminal t, File tsf) {
-		ArrayList<Transaction> trans = t.getTSF();
-		String output = tsf.toString();
+	private static Terminal createTSF(Terminal t, File tsfFile) {
+		ArrayList<Transaction> tsf = t.getTSF();
+		
 		//add to tsf file
 		return t;
 	}
 
-	public static int validateAmountandReturn(String in) {
+	private static int validateAmountandReturn(String in) {
 		int num = -1;
 		try {
 			num=Integer.parseInt(in);
@@ -236,7 +236,7 @@ public class frontend {
 		return num;
 	}
 	
-	public static String validateNameandReturn(String in) {
+	private static String validateNameandReturn(String in) {
 		String name = "";
 		
 		if (in.length()>=3 && in.length()<=30) {
@@ -248,7 +248,7 @@ public class frontend {
 		return name;
 	}
 	
-	public static String validateAcctNumandReturn(String in) {
+	private static String validateAcctNumandReturn(String in) {
 		String acct = "";
 		in = in.trim();
 		if (in.charAt(0)!='0' && in.length()==7) { //error if it starts with 0, or its length is longer than 7 characters
@@ -264,7 +264,7 @@ public class frontend {
 		
 		return acct;
 	}
-	public static boolean DoesAcctNumExist(ArrayList<String> accts, String in) {
+	private static boolean DoesAcctNumExist(ArrayList<String> accts, String in) {
 		in = in.trim();
 		
 		if (accts.contains(in)) {
