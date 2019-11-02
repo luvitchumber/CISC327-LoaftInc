@@ -10,6 +10,7 @@ import transactions.CreateAcct;
 import transactions.DeleteAcct;
 import transactions.Login;
 import transactions.Transaction;
+import transactions.Withdraw;
 import transactions.Logout;
 
 public class frontend {
@@ -90,8 +91,35 @@ public class frontend {
 				}
 			}else if (input[0] == "withdraw") {
 				//withdraw function
-				int amount;
 				String acctNum;
+				int amount;
+				int wdrLimit;
+				int dailyLimit;
+				if (t.getMode() == "atm") {
+					wdrLimit = 100000;
+					dailyLimit = 500000;
+				}else {
+					wdrLimit = 99999999;
+					dailyLimit = -1;
+				}
+				acctNum=validateAcctNumandReturn(t.getAccts(),input[1]);
+				amount=validateAmountandReturn(input[2]);
+				boolean exceeds=t.ExceedTransTotal("WDR", acctNum, dailyLimit);
+				if (!exceeds) {
+					if (amount != -1 && acctNum != "NotValid") {
+						if (amount < wdrLimit) {
+							cache = new Withdraw(acctNum,amount);
+							t = t.addTransaction(cache);
+						}else {
+							System.err.println("Selected transaction exceeds terminal limit");
+						}
+					}else {
+						System.err.println("Please enter correct amount and account number");
+					}
+						
+				}else {
+					System.err.println("Selected transaction exceeds daily transaction limit");
+				}
 			}else if (input[0] == "deposit") {
 				//deposit function
 				
@@ -135,7 +163,13 @@ public class frontend {
 	}
 
 	public static int validateAmountandReturn(String in) {
-		int num = 0;
+		int num = -1;
+		try {
+			num=Integer.parseInt(in);
+			
+		}catch(NumberFormatException e){
+			e.printStackTrace();
+		}
 		return num;
 	}
 	
