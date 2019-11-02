@@ -46,8 +46,8 @@ public class frontend {
 				//t = t.addTransaction(cache);
 				break;
 			}else{
-				System.err.println("Selected transaction is unavailable, please login before continuing.");
-				System.err.println("Sample login: login atm or login agent");
+				System.err.println("Error: Selected transaction is unavailable, please login before continuing.");
+				System.err.println("Sample login: 'login atm' or 'login agent'");
 			}
 		}
 		
@@ -78,6 +78,7 @@ public class frontend {
 					if(!exist && !acctNum.equals("NotValid") && !acctName.equals("NotValid")) {
 						cache = new CreateAcct(acctName,acctNum);
 						t=t.addTransaction(cache);
+						System.out.println("Account created.");
 					}
 				}else {
 					System.err.println("Need privileged mode to Create Account");
