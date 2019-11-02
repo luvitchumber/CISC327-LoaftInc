@@ -37,9 +37,9 @@ public class frontend {
 			
 			if (input[0] == "login" && (input[1] =="atm" || input[1]=="agent")) {	//only login, if not already logged in
 				t = validateAcctsFile(t, acctsFile);
-				cache = new Login(input[1]);
+				//cache = new Login(input[1]);
 				t = t.setMode(input[1]);
-				t = t.addTransaction(cache);
+				//t = t.addTransaction(cache);
 				break;
 			}else{
 				System.err.println("Selected transaction is unavailable, please login before continuing.");
