@@ -9,17 +9,17 @@ public class Withdraw extends Transaction {
 		amount = -1;
 	}
 
-	public Withdraw(String type, String acctName, String acctNum) {
-		super(type, acctName, acctNum);
+	public Withdraw(String acctName, String acctNum) {
+		super("WDR", acctName, acctNum);
 		amount = -1;
 	}
 	
-	public Withdraw(String type, String acctName, String acctNum, int amount) {
-		super(type, acctName, acctNum);
-		this.amount = amount;
-	}
 	public Withdraw(String acctName, String acctNum, int amount) {
 		super("WDR", acctName, acctNum);
+		this.amount = amount;
+	}
+	public Withdraw(String acctNum, int amount) {
+		super("WDR", "", acctNum);
 		this.amount = amount;
 	}
 
