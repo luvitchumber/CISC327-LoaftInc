@@ -1,6 +1,8 @@
 package frontend;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -113,12 +115,15 @@ public class frontend {
 		try {
 			//create ArrayList<String> accts;
 			//validate file and add to accts;
-			//t = t.setAccts(accts);
+			//t = t.setAccts(accts); 
+
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
+			System.err.println("Error: File not found");
 			e.printStackTrace();
-		}				
-		
+
+		}
+	
 		return t;
 	}
 	
@@ -170,6 +175,21 @@ public class frontend {
 			return true;
 		}
 		return false;
+	}
+	
+	public static boolean validateFile(String acctNum) {
+		try {
+			int check = Integer.parseInt(acctNum);	//ensure they are all digits
+		}catch (NumberFormatException e) {
+			System.err.println("Error with valid_accts.txt");
+			return false;
+		}
+		
+		if (acctNum.length() != 7 || acctNum.charAt(0) == '0') { 	//error if it starts with 0, or its length is longer than 7 characters
+			System.err.println("Error with account number in valid_accts.txt");
+			return false;
+		}
+		return true;
 	}
 	
 }
