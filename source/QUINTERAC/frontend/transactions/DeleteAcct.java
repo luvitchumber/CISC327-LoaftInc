@@ -6,8 +6,8 @@ public class DeleteAcct extends Transaction {
 		super("DEL");
 	}
 
-	public DeleteAcct(String type, String acctName, String acctNum) {
-		super(type, acctName, acctNum);
+	public DeleteAcct(String acctName, String acctNum) {
+		super("DEL", acctName, acctNum);
 	}
 
 	/* (non-Javadoc)

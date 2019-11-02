@@ -6,8 +6,8 @@ public class CreateAcct extends Transaction {
 		super("NEW");
 	}
 	
-	public CreateAcct(String type, String acctName, String acctNum) {
-		super(type, acctName, acctNum);
+	public CreateAcct(String acctName, String acctNum) {
+		super("NEW", acctName, acctNum);
 	}
 
 	/* (non-Javadoc)
