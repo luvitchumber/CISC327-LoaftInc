@@ -225,11 +225,12 @@ public class frontend {
 		return t;
 	}
 
+	//Used to validate amounts for withdrawing/depositing/transferring
 	private static int validateAmountandReturn(String in) {
 		int num = -1;
 		try {
 			num=Integer.parseInt(in);
-			if (num > 99999999 || num < 0) {
+			if (num > 99999999 || num < 0) {	//cannot exceed 99999999 or be a negative number
 				num = -1;
 			}
 		}catch(NumberFormatException e){
@@ -238,6 +239,7 @@ public class frontend {
 		return num;
 	}
 	
+	//Used to validate individual names when creating an account
 	private static String validateNameandReturn(String in) {
 		String name = "";
 		
@@ -250,6 +252,7 @@ public class frontend {
 		return name;
 	}
 	
+	//Used to validate individual accounts in valid_accts.txt
 	private static String validateAcctNumandReturn(String in) {
 		String acct = "";
 		in = in.trim();
