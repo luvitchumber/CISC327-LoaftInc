@@ -7,17 +7,11 @@ public class Transfer extends Transaction {
 	public Transfer() {
 		super("XFR");
 	}
-	
-	public Transfer(String type, String acctName, String acctNum) {
-		super(type, acctName, acctNum);
-		this.acctTo = null;
-		this.amount = -1;
-	}
 
-	public Transfer(String type, String acctName, String acctNum, String acctTo, int amount) {
-		super(type, acctName, acctNum);
-		this.acctTo = acctTo;
+	public Transfer(String acctNum, int amount, String acctTo) {
+		super("XFR", "", acctNum);
 		this.amount = amount;
+		this.acctTo = acctTo;
 	}
 
 	/**
@@ -25,6 +19,13 @@ public class Transfer extends Transaction {
 	 */
 	public String getAcctTo() {
 		return acctTo;
+	}
+
+	/**
+	 * @param acctTo the acctTo to set
+	 */
+	public void setAcctTo(String acctTo) {
+		this.acctTo = acctTo;
 	}
 
 	/**

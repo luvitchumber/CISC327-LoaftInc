@@ -8,11 +8,6 @@ public class Deposit extends Transaction {
 		super("DEP");
 		amount = -1;
 	}
-	
-	public Deposit(String acctName, String acctNum) {
-		super("DEP", acctName, acctNum);
-		this.amount=-1;
-	}
 
 	public Deposit(String acctNum, int amount) {
 		super("DEP", "", acctNum);
