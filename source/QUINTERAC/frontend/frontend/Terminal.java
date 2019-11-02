@@ -52,15 +52,17 @@ public class Terminal {
 		if (limit == -1) {
 			return false;
 		}
-		for(int i =0; i < tsf.size(); i++) {
-			Transaction item = tsf.get(i);
-
-			if (item.getType() == type && item.getAcctNum() == acctNum) {
-				currentAmount += item.getAmount();
-				
-			}
-			if (currentAmount >= limit) {
-				return true;
+		if (tsf != null) {
+			for(int i =0; i < tsf.size(); i++) {
+				Transaction item = tsf.get(i);
+	
+				if (item.getType() == type && item.getAcctNum() == acctNum) {
+					currentAmount += item.getAmount();
+					
+				}
+				if (currentAmount >= limit) {
+					return true;
+				}
 			}
 		}
 		return false;
