@@ -112,18 +112,30 @@ public class frontend {
 	
 	public static Terminal validateAcctsFile(Terminal t, File acctsFile) {
 		//add validate here
+		ArrayList<String> accts = new ArrayList<String>();		//create ArrayList<String> accts;
+		String acct = "";
 		try {
-			//create ArrayList<String> accts;
 			//validate file and add to accts;
-			//t = t.setAccts(accts); 
-
+			Scanner sc = new Scanner(acctsFile);
+			while (sc.hasNextLine()) {		//while there is another line to parse through
+		    	acct = sc.nextLine();
+		    	if (acct == "0000000" && !sc.hasNextLine()) { //constraint, end of file = 0000000
+		    		break;	//done parsing
+		    	}
+		    	if (!validateFile(acct)) { 	//perform check on single account
+		    		//throw error 
+		    		System.err.println("Error validating accounts file.");
+		    	}else {
+		    		accts.add(acct);
+		    	}
+	    	}
+			t = t.setAccts(accts);
+		    sc.close();	//close scanner
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.err.println("Error: File not found");
 			e.printStackTrace();
-
 		}
-	
 		return t;
 	}
 	
@@ -189,6 +201,7 @@ public class frontend {
 			System.err.println("Error with account number in valid_accts.txt");
 			return false;
 		}
+		
 		return true;
 	}
 	
