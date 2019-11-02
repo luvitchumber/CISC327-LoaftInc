@@ -48,7 +48,7 @@ public class Terminal {
 		return this.accts;
 	}
 	
-	public boolean DoesNotExceedTransTotal(String type, String acctNum, int limit) {
+	public boolean ExceedTransTotal(String type, String acctNum, int limit) {
 		int currentAmount = 0;
 		for(int i =0; i < tsf.size(); i++) {
 			Transaction item = tsf.get(i);
@@ -58,10 +58,10 @@ public class Terminal {
 				
 			}
 			if (currentAmount >= limit) {
-				return false;
+				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 
 	public Terminal setMode(String mode) {
