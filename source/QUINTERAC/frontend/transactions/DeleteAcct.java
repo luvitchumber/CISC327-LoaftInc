@@ -15,7 +15,9 @@ public class DeleteAcct extends Transaction {
 	 */
 	@Override
 	public String toString() {
-		return "DeleteAcct [type=" + type + ", acctName=" + acctName + ", acctNum=" + acctNum + "]";
+		String out;
+		out = this.type + " " + this.acctNum + " " +  this.acctName;
+		return out;
 	}
 
 }

@@ -33,7 +33,9 @@ public class Deposit extends Transaction {
 	 */
 	@Override
 	public String toString() {
-		return "Deposit [amount=" + amount + "]";
+		String out;
+		out = this.type + " " + this.acctNum + " " +  this.amount;
+		return out;
 	}
 
 }

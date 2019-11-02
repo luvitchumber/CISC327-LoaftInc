@@ -40,7 +40,9 @@ public class Transfer extends Transaction {
 	 */
 	@Override
 	public String toString() {
-		return "Transfer [acctTo=" + acctTo + ", amount=" + amount + "]";
+		String out;
+		out = this.type + " " + this.acctTo + " " +  this.amount + " " + this.acctNum;
+		return out;
 	}
 
 }

@@ -42,7 +42,9 @@ public class Withdraw extends Transaction {
 	 */
 	@Override
 	public String toString() {
-		return "Withdraw [amount=" + amount + "]";
+		String out;
+		out = this.type + " " + this.amount + " " +  this.acctNum;
+		return out;
 	}
 
 }

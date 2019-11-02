@@ -12,7 +12,9 @@ public class Logout extends Transaction {
 	 */
 	@Override
 	public String toString() {
-		return "Logout [type=" + type + "]";
+		String out;
+		out = this.type;
+		return out;
 	}
 
 }

@@ -182,9 +182,7 @@ public class frontend {
 		}else {
 			System.err.println("Selected account does not exist");
 		}
-		
-		
-		
+				
 		return t; // might return null object
 	}
 	
