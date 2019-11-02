@@ -50,6 +50,9 @@ public class Terminal {
 	
 	public boolean ExceedTransTotal(String type, String acctNum, int limit) {
 		int currentAmount = 0;
+		if (limit == -1) {
+			return false;
+		}
 		for(int i =0; i < tsf.size(); i++) {
 			Transaction item = tsf.get(i);
 
