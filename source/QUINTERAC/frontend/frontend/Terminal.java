@@ -39,6 +39,15 @@ public class Terminal {
 		return this.tsf;
 	}
 	
+	public Terminal setAccts(ArrayList<String> accts) {
+		this.accts = accts;
+		return this;
+	}
+	
+	public ArrayList<String> getAccts(){
+		return this.accts;
+	}
+	
 	public boolean DoesNotExceedTransTotal(String type, String acctNum, int limit) {
 		int currentAmount = 0;
 		for(int i =0; i < tsf.size(); i++) {
@@ -53,6 +62,18 @@ public class Terminal {
 			}
 		}
 		return true;
+	}
+
+	public Terminal setMode(String mode) {
+		// TODO Auto-generated method stub
+		//add validation
+		this.mode = mode;
+		return this;
+	}
+
+	public String getMode() {
+		// TODO Auto-generated method stub
+		return this.mode;
 	}
 
 }
