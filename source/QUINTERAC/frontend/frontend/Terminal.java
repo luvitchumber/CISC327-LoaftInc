@@ -46,7 +46,7 @@ public class Terminal {
 		return this.accts;
 	}
 	
-	//
+	//Check if amount exceeds the max limit
 	protected boolean ExceedTransTotal(String type, String acctNum, int limit) {
 		int currentAmount = 0;
 		if (limit == -1) {
@@ -66,15 +66,15 @@ public class Terminal {
 		return false;
 	}
 
+	//Set mode to ATM or Agent
 	protected Terminal setMode(String mode) {
-		// TODO Auto-generated method stub
 		//add validation
 		this.mode = mode;
 		return this;
 	}
 
+	//Check if mode is ATM or Agent
 	protected String getMode() {
-		// TODO Auto-generated method stub
 		return this.mode;
 	}
 

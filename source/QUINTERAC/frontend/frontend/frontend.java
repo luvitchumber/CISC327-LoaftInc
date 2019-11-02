@@ -36,7 +36,7 @@ public class frontend {
 			inputRaw = in.nextLine().toLowerCase();
 			input = inputRaw.split(" ");
 			
-			if (input[0] == "login" && (input[1] =="atm" || input[1]=="agent")) {	//only login, if not already logged in
+			if (input[0].equals("login") && (input[1].equals("atm") || input[1].equals("agent"))) {	//only login, if not already logged in
 				t = validateAcctsFile(t, acctsFile);
 				cache = new Login(input[1]);
 				t = t.setMode(input[1]);
@@ -60,44 +60,44 @@ public class frontend {
 				// example: cache = withdraw(name,acctnum,amount
 				// add to file
 				// t = t.addTransaction(cache);
-			if (input[0] == "logout") {
+			if (input[0].equals("logout")) {
 				//logout function
 				cache = new Logout();
 				t = t.addTransaction(cache);
 				break;
-			}else if (input[0] == "createacct") {
+			}else if (input[0].equals("createacct")) {
 				//createacct function
-				if (t.getMode() == "agent") {
+				if (t.getMode().equals("agent")) {
 					String acctNum=validateAcctNumandReturn(input[1]);
 					boolean exist = DoesAcctNumExist(t.getAccts(),acctNum);
 					String acctName=validateNameandReturn(input[2]);
 					
-					if(!exist && acctNum !="NotValid" && acctName != "NotValid") {
+					if(!exist && !acctNum.equals("NotValid") && !acctName.equals("NotValid")) {
 						cache = new CreateAcct(acctName,acctNum);
 						t=t.addTransaction(cache);
 					}
 				}else {
 					System.err.println("Need privileged mode to Create Account");
 				}
-			}else if (input[0] == "deleteacct") {
+			}else if (input[0].equals("deleteacct")) {
 				//deleteacct function
-				if (t.getMode() == "agent") {
+				if (t.getMode().equals("agent")) {
 					String acctNum=validateAcctNumandReturn(input[1]);
 					boolean exist = DoesAcctNumExist(t.getAccts(),acctNum);
 					String acctName=validateNameandReturn(input[2]);
 					
-					if(exist && acctNum !="NotValid" && acctName != "NotValid") {
+					if(exist && !acctNum.equals("NotValid") && !acctName.equals("NotValid")) {
 						cache = new DeleteAcct(acctName,acctNum);
 						t=t.addTransaction(cache);
 					}
 				}else {
 					System.err.println("Need privileged mode to Delete Account");
 				}
-			}else if (input[0] == "withdraw") {
+			}else if (input[0].equals("withdraw")) {
 				//withdraw function
 				int transLimit;
 				int dailyLimit;
-				if (t.getMode() == "atm") {
+				if (t.getMode().equals("atm")) {
 					transLimit = 100000;
 					dailyLimit = 500000;
 				}else {
@@ -105,11 +105,11 @@ public class frontend {
 					dailyLimit = -1;
 				}
 				t = moveMoney(t,"WDR", input,transLimit,dailyLimit);
-			}else if (input[0] == "deposit") {
+			}else if (input[0].equals("deposit")) {
 				//deposit function
 				int transLimit;
 				int dailyLimit;
-				if (t.getMode() == "atm") {
+				if (t.getMode().equals("atm")) {
 					transLimit = 200000;
 					dailyLimit = 500000;
 				}else {
@@ -117,11 +117,11 @@ public class frontend {
 					dailyLimit = -1;
 				}
 				t = moveMoney(t,"DEP", input,transLimit,dailyLimit);
-			}else if (input[0] == "transfer") {
+			}else if (input[0].equals("transfer")) {
 				//transfer function
 				int transLimit;
 				int dailyLimit;
-				if (t.getMode() == "atm") {
+				if (t.getMode().equals("atm")) {
 					transLimit = 1000000;
 					dailyLimit = 1000000;
 				}else {
@@ -158,11 +158,11 @@ public class frontend {
 			if (!exceeds) {						//amount does not exceed transfer total
 				if (amount != -1) {				//amount is valid
 					if (amount < transLimit) {	//amount is less than the max limit
-						if (type == "WDR") {		//Withdraw command
+						if (type.equals("WDR")) {		//Withdraw command
 							cache = new Withdraw(acctNum,amount);
-						}else if (type == "DEP") {	//Deposit command
+						}else if (type.equals("DEP")) {	//Deposit command
 							cache = new Deposit(acctNum,amount);
-						}else if (type == "XFR") {	//Transfer command
+						}else if (type.equals("XFR")) {	//Transfer command
 							inNum = input[2]; // acct number to
 							String acctTo=validateAcctNumandReturn(inNum);
 							exist = DoesAcctNumExist(t.getAccts(),acctTo);
@@ -200,10 +200,10 @@ public class frontend {
 			Scanner sc = new Scanner(acctsFile);
 			while (sc.hasNextLine()) {		//while there is another line to parse through
 		    	acct = sc.nextLine();
-		    	if (acct == "0000000" && !sc.hasNextLine()) { //constraint, end of file = 0000000
+		    	if (acct.equals("0000000") && !sc.hasNextLine()) { //constraint, end of file = 0000000
 		    		break;	//done parsing
 		    	}
-		    	if (validateAcctNumandReturn(acct) == "NotValid") { 	//perform check on single account
+		    	if (validateAcctNumandReturn(acct).equals("NotValid")) { 	//perform check on single account
 		    		//throw error 
 		    		System.err.println("Error with account number in valid_accts.txt");
 		    		System.err.println("Cannot validate accounts file.");
