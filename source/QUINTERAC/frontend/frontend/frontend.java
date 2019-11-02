@@ -32,6 +32,7 @@ public class frontend {
 		
 		// Loop until logged in 
 		while(true) {
+			System.out.println("Please Login to begin session");
 			inputRaw = in.nextLine().toLowerCase();
 			input = inputRaw.split(" ");
 			
@@ -49,6 +50,7 @@ public class frontend {
 		
 		// Loop until logout
 		while(true) {
+			System.out.println("Enter next transaction: ");
 			inputRaw = in.nextLine().toLowerCase();
 			input = inputRaw.split(" ");
 			
