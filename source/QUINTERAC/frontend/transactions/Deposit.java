@@ -22,7 +22,9 @@ public class Deposit extends Transaction {
 	@Override
 	public String toString() {
 		String out;
-		out = this.type + " " + this.acctNum + " " +  this.amount;
+		//"CCC AAAA MMMM BBBB NNNN"
+		//"tranCode toAcct amount fromAcct name"
+		out = this.type + " " + this.acctNum + " " +  this.amount + " 0000000 ***";
 		return out;
 	}
 

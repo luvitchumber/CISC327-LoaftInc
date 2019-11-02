@@ -31,7 +31,9 @@ public class Transfer extends Transaction {
 	@Override
 	public String toString() {
 		String out;
-		out = this.type + " " + this.acctTo + " " +  this.amount + " " + this.acctNum;
+		//"CCC AAAA MMMM BBBB NNNN"
+		//"tranCode toAcct amount fromAcct name"
+		out = this.type + " " + this.acctTo + " " +  this.amount + " " + this.acctNum + " ***";
 		return out;
 	}
 

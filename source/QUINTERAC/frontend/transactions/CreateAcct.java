@@ -12,7 +12,9 @@ public class CreateAcct extends Transaction {
 	@Override
 	public String toString() {
 		String out;
-		out = this.type + " " + this.acctNum + " " +  this.acctName;
+		//"CCC AAAA MMMM BBBB NNNN"
+		//"tranCode toAcct amount fromAcct name"
+		out = this.type + " " + this.acctNum + " 000 0000000 " +  this.acctName;
 		return out;
 	}
 	
