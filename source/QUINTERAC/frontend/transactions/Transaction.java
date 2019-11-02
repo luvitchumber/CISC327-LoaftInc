@@ -46,6 +46,7 @@ public class Transaction {
 
 	@Override
 	public String toString() {
-		return "Transaction [type=" + type + ", acctName=" + acctName + ", acctNum=" + acctNum + "]";
+		System.err.println("Error called parent toString method, call correct subclass method");
+		return "Call implemented toString method for subclass instead";
 	}
 }

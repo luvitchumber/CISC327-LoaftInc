@@ -4,11 +4,6 @@ public class Deposit extends Transaction {
 	
 	int amount;
 
-	public Deposit() {
-		super("DEP");
-		amount = -1;
-	}
-
 	public Deposit(String acctNum, int amount) {
 		super("DEP", "", acctNum);
 		this.amount=amount;
@@ -19,13 +14,6 @@ public class Deposit extends Transaction {
 	 */
 	public int getAmount() {
 		return amount;
-	}
-
-	/**
-	 * @param amount the amount to set
-	 */
-	public void setAmount(int amount) {
-		this.amount = amount;
 	}
 
 	/* (non-Javadoc)

@@ -8,13 +8,6 @@ public class Login extends Transaction {
 		this.mode = mode;
 	}
 
-	/**
-	 * @return the mode
-	 */
-	public String getMode() {
-		return mode;
-	}
-
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

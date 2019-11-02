@@ -4,10 +4,6 @@ public class Transfer extends Transaction {
 	String acctTo;
 	int amount;
 
-	public Transfer() {
-		super("XFR");
-	}
-
 	public Transfer(String acctNum, int amount, String acctTo) {
 		super("XFR", "", acctNum);
 		this.amount = amount;
@@ -19,13 +15,6 @@ public class Transfer extends Transaction {
 	 */
 	public String getAcctTo() {
 		return acctTo;
-	}
-
-	/**
-	 * @param acctTo the acctTo to set
-	 */
-	public void setAcctTo(String acctTo) {
-		this.acctTo = acctTo;
 	}
 
 	/**

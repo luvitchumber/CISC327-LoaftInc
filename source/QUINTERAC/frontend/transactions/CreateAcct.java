@@ -2,10 +2,6 @@ package transactions;
 
 public class CreateAcct extends Transaction {
 
-	public CreateAcct() {
-		super("NEW");
-	}
-	
 	public CreateAcct(String acctName, String acctNum) {
 		super("NEW", acctName, acctNum);
 	}
