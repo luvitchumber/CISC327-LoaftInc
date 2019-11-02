@@ -8,8 +8,10 @@ import java.util.Scanner;
 
 import transactions.CreateAcct;
 import transactions.DeleteAcct;
+import transactions.Deposit;
 import transactions.Login;
 import transactions.Transaction;
+import transactions.Transfer;
 import transactions.Withdraw;
 import transactions.Logout;
 
@@ -91,45 +93,40 @@ public class frontend {
 				}
 			}else if (input[0] == "withdraw") {
 				//withdraw function
-				String acctNum;
-				int amount;
-				int wdrLimit;
+				int transLimit;
 				int dailyLimit;
 				if (t.getMode() == "atm") {
-					wdrLimit = 100000;
+					transLimit = 100000;
 					dailyLimit = 500000;
 				}else {
-					wdrLimit = 99999999;
+					transLimit = 99999999;
 					dailyLimit = -1;
 				}
-				acctNum=validateAcctNumandReturn(input[1]);
-				boolean exist = DoesAcctNumExist(t.getAccts(),acctNum);
-				amount=validateAmountandReturn(input[2]);
-				boolean exceeds=t.ExceedTransTotal("WDR", acctNum, dailyLimit);
-				if (exist) {
-					if (!exceeds) {
-						if (amount != -1 && acctNum != "NotValid") {
-							if (amount < wdrLimit) {
-								cache = new Withdraw(acctNum,amount);
-								t = t.addTransaction(cache);
-							}else {
-								System.err.println("Selected transaction exceeds terminal limit");
-							}
-						}else {
-							System.err.println("Please enter correct amount and account number");
-						}	
-					}else {
-						System.err.println("Selected transaction exceeds daily transaction limit");
-					}
-				}else {
-					System.err.println("Selected account does not exist");
-				}
+				t = moveMoney(t,"WDR", input,transLimit,dailyLimit);
 			}else if (input[0] == "deposit") {
 				//deposit function
-				
+				int transLimit;
+				int dailyLimit;
+				if (t.getMode() == "atm") {
+					transLimit = 200000;
+					dailyLimit = 500000;
+				}else {
+					transLimit = 99999999;
+					dailyLimit = -1;
+				}
+				t = moveMoney(t,"DEP", input,transLimit,dailyLimit);
 			}else if (input[0] == "transfer") {
 				//transfer function
-				
+				int transLimit;
+				int dailyLimit;
+				if (t.getMode() == "atm") {
+					transLimit = 1000000;
+					dailyLimit = 1000000;
+				}else {
+					transLimit = 99999999;
+					dailyLimit = -1;
+				}
+				t = moveMoney(t,"XFR", input,transLimit,dailyLimit);
 			}else {
 				//error with input
 				System.err.println("Selected transaction is unavailable, please enter a valid transaction code");
@@ -140,6 +137,55 @@ public class frontend {
 		
 		//create Transaction Summary File
 		createTSF(t, tsfFile);
+	}
+	
+	public static Terminal moveMoney(Terminal t, String type, String[] input, int transLimit, int dailyLimit) {
+		String acctNum;
+		int amount;
+		Transaction cache = null;
+		
+		String inNum = input[1];
+		String inAmount = input[input.length-1]; // needed in case type is transfer then input[2] is acctto
+		
+		acctNum=validateAcctNumandReturn(inNum);
+		boolean exist = DoesAcctNumExist(t.getAccts(),acctNum);
+		amount=validateAmountandReturn(inAmount);
+		boolean exceeds=t.ExceedTransTotal(type, acctNum, dailyLimit);
+		if (exist) {
+			if (!exceeds) {
+				if (amount != -1) {
+					if (amount < transLimit) {
+						if (type == "WDR") {
+							cache = new Withdraw(acctNum,amount);
+						}else if (type == "DEP") {
+							cache = new Deposit(acctNum,amount);
+						}else if (type == "XFR") {
+							inNum = input[2]; // acct number to
+							String acctTo=validateAcctNumandReturn(inNum);
+							exist = DoesAcctNumExist(t.getAccts(),acctTo);
+							if (exist) {
+								cache = new Transfer(acctNum,amount,acctTo);
+							}else {
+								System.err.println("Please enter correct account number to send to");
+							}
+						}
+						t = t.addTransaction(cache);
+					}else {
+						System.err.println("Selected transaction exceeds terminal limit");
+					}
+				}else {
+					System.err.println("Please enter correct amount and account number");
+				}	
+			}else {
+				System.err.println("Selected transaction exceeds daily transaction limit");
+			}
+		}else {
+			System.err.println("Selected account does not exist");
+		}
+		
+		
+		
+		return t; // might return null object
 	}
 	
 	public static Terminal validateAcctsFile(Terminal t, File acctsFile) {
@@ -183,7 +229,9 @@ public class frontend {
 		int num = -1;
 		try {
 			num=Integer.parseInt(in);
-			
+			if (num > 99999999 || num < 0) {
+				num = -1;
+			}
 		}catch(NumberFormatException e){
 			e.printStackTrace();
 		}
