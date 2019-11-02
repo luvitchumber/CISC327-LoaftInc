@@ -2,6 +2,8 @@ package frontend;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -36,6 +38,7 @@ public class frontend {
 			inputRaw = in.nextLine().toLowerCase();
 			input = inputRaw.split(" ");
 			
+			//add a check for input len
 			if (input[0].equals("login") && (input[1].equals("atm") || input[1].equals("agent"))) {	//only login, if not already logged in
 				t = validateAcctsFile(t, acctsFile);
 				cache = new Login(input[1]);
@@ -138,7 +141,7 @@ public class frontend {
 		
 		
 		//create Transaction Summary File
-		createTSF(t, tsfFile);
+		t = createTSF(t, tsfFile);
 	}
 	
 	//Used to withdraw, deposit, transfer money
@@ -225,6 +228,17 @@ public class frontend {
 	//returns terminal
 	private static Terminal createTSF(Terminal t, File tsfFile) {
 		ArrayList<Transaction> tsf = t.getTSF();
+		String output = "";
+		for (int i = 0; i < tsf.size(); i++) {
+			output += tsf.get(i).toString() + "\n";
+		}
+		try {
+			Files.write(tsfFile.toPath(),output.getBytes());
+			
+		}catch (IOException e) {
+			System.err.println("Error unable to write TSF");
+			e.printStackTrace();
+		}
 		
 		//add to tsf file
 		return t;
