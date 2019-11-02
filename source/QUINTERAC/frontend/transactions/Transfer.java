@@ -1,8 +1,9 @@
 package transactions;
 
 public class Transfer extends Transaction {
-	String acctTo;
-	int amount;
+	
+	private String acctTo;
+	private int amount;
 
 	public Transfer(String acctNum, int amount, String acctTo) {
 		super("XFR", "", acctNum);

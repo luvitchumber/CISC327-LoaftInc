@@ -7,14 +7,12 @@ import transactions.Transaction;
 
 public class Terminal {
 	
-	ArrayList<String> accts;
-	ArrayList<Transaction> tsf;
-	String state;
-	String mode;
-	Scanner cli;
+	protected ArrayList<String> accts;
+	protected ArrayList<Transaction> tsf;
+	protected String mode;
+	protected Scanner cli;
 
 	public Terminal() {
-		this.state = "out";
 		this.mode = "none";
 		this.cli = new Scanner(System.in);
 	}
@@ -30,25 +28,20 @@ public class Terminal {
 		return this.cli;
 	}
 	
-	public String getState() {
-		// TODO Auto-generated method stub
-		return this.state;
-	}
-	
 	public ArrayList<Transaction> getTSF(){
 		return this.tsf;
 	}
 	
-	public Terminal setAccts(ArrayList<String> accts) {
+	protected Terminal setAccts(ArrayList<String> accts) {
 		this.accts = accts;
 		return this;
 	}
 	
-	public ArrayList<String> getAccts(){
+	protected ArrayList<String> getAccts(){
 		return this.accts;
 	}
 	
-	public boolean ExceedTransTotal(String type, String acctNum, int limit) {
+	protected boolean ExceedTransTotal(String type, String acctNum, int limit) {
 		int currentAmount = 0;
 		if (limit == -1) {
 			return false;
@@ -67,14 +60,14 @@ public class Terminal {
 		return false;
 	}
 
-	public Terminal setMode(String mode) {
+	protected Terminal setMode(String mode) {
 		// TODO Auto-generated method stub
 		//add validation
 		this.mode = mode;
 		return this;
 	}
 
-	public String getMode() {
+	protected String getMode() {
 		// TODO Auto-generated method stub
 		return this.mode;
 	}

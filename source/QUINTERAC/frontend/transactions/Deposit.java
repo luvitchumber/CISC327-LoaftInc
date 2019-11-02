@@ -2,7 +2,7 @@ package transactions;
 
 public class Deposit extends Transaction {
 	
-	int amount;
+	private int amount;
 
 	public Deposit(String acctNum, int amount) {
 		super("DEP", "", acctNum);

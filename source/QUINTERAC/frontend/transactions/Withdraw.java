@@ -2,7 +2,7 @@ package transactions;
 
 public class Withdraw extends Transaction {
 	
-	int amount;
+	private int amount;
 
 	public Withdraw(String acctNum, int amount) {
 		super("WDR", "", acctNum);

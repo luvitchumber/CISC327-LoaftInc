@@ -1,9 +1,10 @@
 package transactions;
 
 public class Transaction {
-	String type;
-	String acctName;
-	String acctNum;
+	
+	protected String type;
+	protected String acctName;
+	protected String acctNum;
 	
 	public Transaction() {
 		this(null,null,null);

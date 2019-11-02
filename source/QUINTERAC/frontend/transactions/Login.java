@@ -1,7 +1,8 @@
 package transactions;
 
 public class Login extends Transaction {
-	String mode;
+	
+	private String mode;
 
 	public Login(String mode) {
 		super("login");
