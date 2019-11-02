@@ -16,6 +16,7 @@ public class Terminal {
 	public Terminal() {
 		this.mode = "none";
 		this.cli = new Scanner(System.in);
+		this.tsf = new ArrayList<Transaction>();
 	}
 	
 	//add transaction to the TSF list
