@@ -64,8 +64,8 @@ public class frontend {
 			}else if (input[0] == "createacct") {
 				//createacct function
 				if (t.getMode() == "agent") {
-					boolean exist = DoesAcctNumExist(t.getAccts(),input[1]);
-					String acctNum=validateAcctNumandReturn(t.getAccts(),input[1]);
+					String acctNum=validateAcctNumandReturn(input[1]);
+					boolean exist = DoesAcctNumExist(t.getAccts(),acctNum);
 					String acctName=validateNameandReturn(input[2]);
 					
 					if(!exist && acctNum !="NotValid" && acctName != "NotValid") {
@@ -78,8 +78,8 @@ public class frontend {
 			}else if (input[0] == "deleteacct") {
 				//deleteacct function
 				if (t.getMode() == "agent") {
-					boolean exist = DoesAcctNumExist(t.getAccts(),input[1]);
-					String acctNum=validateAcctNumandReturn(t.getAccts(),input[1]);
+					String acctNum=validateAcctNumandReturn(input[1]);
+					boolean exist = DoesAcctNumExist(t.getAccts(),acctNum);
 					String acctName=validateNameandReturn(input[2]);
 					
 					if(exist && acctNum !="NotValid" && acctName != "NotValid") {
@@ -102,23 +102,27 @@ public class frontend {
 					wdrLimit = 99999999;
 					dailyLimit = -1;
 				}
-				acctNum=validateAcctNumandReturn(t.getAccts(),input[1]);
+				acctNum=validateAcctNumandReturn(input[1]);
+				boolean exist = DoesAcctNumExist(t.getAccts(),acctNum);
 				amount=validateAmountandReturn(input[2]);
 				boolean exceeds=t.ExceedTransTotal("WDR", acctNum, dailyLimit);
-				if (!exceeds) {
-					if (amount != -1 && acctNum != "NotValid") {
-						if (amount < wdrLimit) {
-							cache = new Withdraw(acctNum,amount);
-							t = t.addTransaction(cache);
+				if (exist) {
+					if (!exceeds) {
+						if (amount != -1 && acctNum != "NotValid") {
+							if (amount < wdrLimit) {
+								cache = new Withdraw(acctNum,amount);
+								t = t.addTransaction(cache);
+							}else {
+								System.err.println("Selected transaction exceeds terminal limit");
+							}
 						}else {
-							System.err.println("Selected transaction exceeds terminal limit");
-						}
+							System.err.println("Please enter correct amount and account number");
+						}	
 					}else {
-						System.err.println("Please enter correct amount and account number");
+						System.err.println("Selected transaction exceeds daily transaction limit");
 					}
-						
 				}else {
-					System.err.println("Selected transaction exceeds daily transaction limit");
+					System.err.println("Selected account does not exist");
 				}
 			}else if (input[0] == "deposit") {
 				//deposit function
@@ -150,9 +154,10 @@ public class frontend {
 		    	if (acct == "0000000" && !sc.hasNextLine()) { //constraint, end of file = 0000000
 		    		break;	//done parsing
 		    	}
-		    	if (!validateFile(acct)) { 	//perform check on single account
+		    	if (validateAcctNumandReturn(acct) == "NotValid") { 	//perform check on single account
 		    		//throw error 
-		    		System.err.println("Error validating accounts file.");
+		    		System.err.println("Error with account number in valid_accts.txt");
+		    		System.err.println("Cannot validate accounts file.");
 		    	}else {
 		    		accts.add(acct);
 		    	}
@@ -197,16 +202,15 @@ public class frontend {
 		return name;
 	}
 	
-	public static String validateAcctNumandReturn(ArrayList<String> accts, String in) {
+	public static String validateAcctNumandReturn(String in) {
 		String acct = "";
 		in = in.trim();
-		if (in.charAt(0)!='0' && in.length()==7) {
+		if (in.charAt(0)!='0' && in.length()==7) { //error if it starts with 0, or its length is longer than 7 characters
 			try {
 				Integer.parseInt(in);
+				acct=in;
 			}catch(NumberFormatException e){
 				e.printStackTrace();
-			}finally {
-				acct=in;
 			}
 		}else {
 			acct="NotValid";
@@ -221,22 +225,6 @@ public class frontend {
 			return true;
 		}
 		return false;
-	}
-	
-	public static boolean validateFile(String acctNum) {
-		try {
-			int check = Integer.parseInt(acctNum);	//ensure they are all digits
-		}catch (NumberFormatException e) {
-			System.err.println("Error with valid_accts.txt");
-			return false;
-		}
-		
-		if (acctNum.length() != 7 || acctNum.charAt(0) == '0') { 	//error if it starts with 0, or its length is longer than 7 characters
-			System.err.println("Error with account number in valid_accts.txt");
-			return false;
-		}
-		
-		return true;
 	}
 	
 }
