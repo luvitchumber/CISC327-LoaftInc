@@ -161,7 +161,7 @@ public class frontend {
 		if (exist) {							//account number exists?
 			if (!exceeds) {						//amount does not exceed transfer total
 				if (amount != -1) {				//amount is valid
-					if (amount < transLimit) {	//amount is less than the max limit
+					if (amount <= transLimit) {	//amount is less than the max limit
 						if (type.equals("WDR")) {		//Withdraw command
 							cache = new Withdraw(acctNum,amount);
 						}else if (type.equals("DEP")) {	//Deposit command

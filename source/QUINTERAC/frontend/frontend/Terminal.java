@@ -61,7 +61,7 @@ public class Terminal {
 					currentAmount += item.getAmount();
 					
 				}
-				if (currentAmount >= limit) {
+				if (currentAmount > limit) {
 					return true;
 				}
 			}

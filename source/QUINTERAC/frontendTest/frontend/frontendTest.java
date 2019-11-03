@@ -94,6 +94,45 @@ class frontendTest {
     }
 
 	@Test
+    public void testR19T2() throws Exception {
+    	// ATM Mode transaction limit test
+		//amount < 3 digits
+		String a[] = new String[]{"login atm", "deposit 1234567 200100", "logout"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[] {"Selected transaction exceeds terminal limit"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("EOS"), true);
+    }
+
+	@Test
+    public void testR19T3() throws Exception {
+    	// ATM Mode transaction limit test
+		//amount < 3 digits
+		String a[] = new String[]{"login atm", "deposit 1234567 500100", "logout"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[] {"Selected transaction exceeds terminal limit"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("EOS"), true);
+    }
+	
+	@Test
+    public void testR19T4() throws Exception {
+    	// Agent Mode no transaction limit test
+		//amount < 3 digits
+		String a[] = new String[]{"login agent", "deposit 1234567 99999999", "logout"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[] {"Enter next transaction: "};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("DEP 1234567 99999999 0000000 ***","EOS"), false);
+    }
+	
+	@Test
     public void testAppR1() throws Exception {
 		//successful logout 
 		String a[] = new String[]{"login atm", "logout"};
