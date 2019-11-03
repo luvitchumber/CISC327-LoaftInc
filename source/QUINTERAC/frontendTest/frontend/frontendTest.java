@@ -11,6 +11,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,21 +27,45 @@ class frontendTest {
 	 * Test method for {@link frontend.frontend#main(java.lang.String[])}.
 	 */
 	@Test
+    public void testAppLogout() throws Exception {
+		//logout before logging in
+		String a[] = new String[]{"logout"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[]{"Error: Selected transaction is unavailable, please login before continuing."};
+		String d[] = new String[] {""};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList(d), true);
+    }
+	
+	@Test
+    public void testR18T1() throws Exception {
+    	//successful deposit test
+		String input = new String(Files.readAllBytes(Paths.get("frontendTest/TestFiles/Deposit/input/R18T1.txt")));
+		String output = new String(Files.readAllBytes(Paths.get("frontendTest/TestFiles/Deposit/expectedOutput/R18T1.txt")));
+		String a[] = new String[]{"login atm", input, "logout"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[] {"Enter next transaction: ","Enter next transaction: "};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList(output,"EOS"), false);
+    }
+	
+	@Test
     public void testAppR1() throws Exception {
+		//successful logout 
 		String a[] = new String[]{"login atm", "logout"};
 		String b[] = new String[]{"1234567"};
 		String c[] = new String[] {"Please Login to begin session","Enter next transaction: "};
         runAndTest(Arrays.asList(a), //
                 Arrays.asList(b), //
                 Arrays.asList(c), //
-                Arrays.asList("EOS"));
+                Arrays.asList("EOS"), false);
     }
 	
-	@Test
-	void testMain() {
-		fail("Not yet implemented");
-	}
-	
+
 	/**
      * Helper function to run the main function and verify the output
      * 
@@ -61,7 +86,7 @@ class frontendTest {
     public void runAndTest(List<String> terminal_input, //
             List<String> valid_accounts, //
             List<String> expected_terminal_tails, //
-            List<String> expected_transaction_summaries) throws Exception {
+            List<String> expected_transaction_summaries, boolean err) throws Exception {
 
         // setup parameters for the program to run
         // create temporary files
@@ -85,10 +110,13 @@ class frontendTest {
 
         // run the program
         frontend.main(args);
-
+        String[] printed_lines;
         // capture terminal outputs:
-        String[] printed_lines = outContent.toString().split("[\r\n]+");
-
+        if (err ==false) {
+        printed_lines = outContent.toString().split("[\r\n]+");
+        } else {
+        printed_lines = errContent.toString().split("[\r\n]+");
+        }
         // compare the tail of the terminal outputs:
         int diff = printed_lines.length - expected_terminal_tails.size();
         for (int i = 0; i < expected_terminal_tails.size(); ++i) {
