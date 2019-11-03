@@ -41,18 +41,58 @@ class frontendTest {
 	
 	@Test
     public void testR18T1() throws Exception {
-    	//successful deposit test
-		String input = new String(Files.readAllBytes(Paths.get("frontendTest/TestFiles/Deposit/input/R18T1.txt")));
-		String output = new String(Files.readAllBytes(Paths.get("frontendTest/TestFiles/Deposit/expectedOutput/R18T1.txt")));
-		String a[] = new String[]{"login atm", input, "logout"};
+    	//inputted account number correct format test
+		//String input = new String(Files.readAllBytes(Paths.get("frontendTest/TestFiles/Deposit/input/R18T1.txt")));
+		//String output = new String(Files.readAllBytes(Paths.get("frontendTest/TestFiles/Deposit/expectedOutput/R18T1.txt")));
+		String a[] = new String[]{"login atm", "deposit 1234 10000", "logout"};
 		String b[] = new String[]{"1234567"};
-		String c[] = new String[] {"Enter next transaction: ","Enter next transaction: "};
+		String c[] = new String[] {"Selected account does not exist"};
         runAndTest(Arrays.asList(a), //
                 Arrays.asList(b), //
                 Arrays.asList(c), //
-                Arrays.asList(output,"EOS"), false);
+                Arrays.asList("EOS"), true);
     }
 	
+	@Test
+    public void testR18T2() throws Exception {
+    	//inputted account is not valid test
+		//String input = new String(Files.readAllBytes(Paths.get("frontendTest/TestFiles/Deposit/input/R18T1.txt")));
+		//String output = new String(Files.readAllBytes(Paths.get("frontendTest/TestFiles/Deposit/expectedOutput/R18T1.txt")));
+		String a[] = new String[]{"login atm", "deposit 1234568 10000", "logout"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[] {"Selected account does not exist"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("EOS"), true);
+    }
+	
+	@Test
+    public void testR19T1() throws Exception {
+    	// deposit amount validation test
+		//amount < 3 digits
+		String a[] = new String[]{"login atm", "deposit 1234567 10", "logout"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[] {"Please enter correct amount and account number"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("EOS"), true);
+        //amount > 8 digits 
+         a = new String[]{"login atm", "deposit 1234567 100000000", "logout"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("EOS"), true);
+        //amount between 3-8 digits
+        a = new String[]{"login atm", "deposit 1234567 10000", "logout"};
+        c = new String[] {"Please Login to begin session","Enter next transaction: "};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(), //
+                Arrays.asList("DEP 1234567 10000 0000000 ***","EOS"), false);
+    }
+
 	@Test
     public void testAppR1() throws Exception {
 		//successful logout 
@@ -80,6 +120,9 @@ class frontendTest {
      * 
      * @param expected_transaction_summaries A list of string expected to be in the
      *                                       output transaction summary file
+     *                                       
+     * @param err 							 Indicates if the test is expected to 
+     * 										 throw an error. 
      * 
      * @throws Exception
      */
