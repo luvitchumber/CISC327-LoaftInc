@@ -283,8 +283,14 @@ public class frontend {
 	//if valid, returns name
 	private static String validateNameandReturn(String in) {
 		String name = "";
+		boolean isAlphanumeric = true;
 		
-		if (in.length()>=3 && in.length()<=30) {
+		for (int i = 0; i < in.length(); i++) {
+			if (! Character.isDigit(in.charAt(i)) && ! Character.isLetter(in.charAt(i))) 
+				isAlphanumeric = false;
+		}
+		
+		if (in.length()>=3 && in.length()<=30 && isAlphanumeric) {
 			name=in;
 		}else {
 			name="NotValid";

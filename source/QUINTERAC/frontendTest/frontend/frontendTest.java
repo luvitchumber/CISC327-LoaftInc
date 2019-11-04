@@ -472,6 +472,20 @@ class frontendTest {
     }
 	
 	@Test
+    public void testR22T1() throws Exception {
+    	//cannot withdraw above 100000 in atm mode
+		String a[] = new String[]{"login atm", "withdraw 1234567 100000", "withdraw 1234567 100000", "withdraw 1234567 100000",
+											   "withdraw 1234567 100000", "withdraw 1234567 100000", "withdraw 1234567 100000", "logout"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[] {"Selected transaction exceeds daily transaction limit"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("WDR 0000000 100000 1234567 ***", "WDR 0000000 100000 1234567 ***", "WDR 0000000 100000 1234567 ***",
+                		      "WDR 0000000 100000 1234567 ***", "WDR 0000000 100000 1234567 ***", "EOS"), true);
+    }
+	
+	@Test
     public void testR22T6() throws Exception {
     	//cannot withdraw above 100000 in atm mode
 		String a[] = new String[]{"login atm", "withdraw 1234567 510000", "logout"};
