@@ -103,6 +103,7 @@ public class frontend {
 					if(exist && !acctNum.equals("NotValid") && !acctName.equals("NotValid")) {
 						cache = new DeleteAcct(acctName,acctNum);
 						t=t.addTransaction(cache);
+						System.out.println("Account deleted");
 					}
 					
 					if (!exist)

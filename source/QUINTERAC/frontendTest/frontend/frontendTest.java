@@ -30,6 +30,7 @@ class frontendTest {
 	@Test
     public void testR1T1() throws Exception {
 		//logout before logging in
+
 		String a[] = new String[]{"logout","login atm", "logout"};
 		String b[] = new String[]{"1234567"};
 		String c[] = new String[]{"Error: Selected transaction is unavailable, please login before continuing.", "Sample login: 'login atm' or 'login agent'"};
@@ -43,10 +44,10 @@ class frontendTest {
 	@Test
     public void testR1T2() throws Exception {
 		//createacct before logging in
-		String a[] = new String[]{"createacct 1234567 JohnDoe"};
+		String a[] = new String[]{"createacct 1234567 JohnDoe", "login atm","logout"};
 		String b[] = new String[]{"1234567"};
-		String c[] = new String[]{"Error: Selected transaction is unavailable, please login before continuing."};
-		String d[] = new String[] {""};
+		String c[] = new String[]{"Error: Selected transaction is unavailable, please login before continuing.","Sample login: 'login atm' or 'login agent'"};
+		String d[] = new String[] {"EOS"};
         runAndTest(Arrays.asList(a), //
                 Arrays.asList(b), //
                 Arrays.asList(c), //
@@ -56,10 +57,10 @@ class frontendTest {
 	@Test
     public void testR1T3() throws Exception {
 		//deletacct before logging in
-		String a[] = new String[]{"deletacct 7654321 JohnDoe"};
+		String a[] = new String[]{"deletacct 7654321 JohnDoe", "login atm", "logout"};
 		String b[] = new String[]{"1234567"};
-		String c[] = new String[]{"Error: Selected transaction is unavailable, please login before continuing."};
-		String d[] = new String[] {""};
+		String c[] = new String[]{"Error: Selected transaction is unavailable, please login before continuing.","Sample login: 'login atm' or 'login agent'"};
+		String d[] = new String[] {"EOS"};
         runAndTest(Arrays.asList(a), //
                 Arrays.asList(b), //
                 Arrays.asList(c), //
@@ -69,10 +70,10 @@ class frontendTest {
 	@Test
     public void testR1T4() throws Exception {
 		//deposit before logging in
-		String a[] = new String[]{"deposit 7654321 10000"};
+		String a[] = new String[]{"deposit 7654321 10000", "login atm", "logout"};
 		String b[] = new String[]{"1234567"};
-		String c[] = new String[]{"Error: Selected transaction is unavailable, please login before continuing."};
-		String d[] = new String[] {""};
+		String c[] = new String[]{"Error: Selected transaction is unavailable, please login before continuing.","Sample login: 'login atm' or 'login agent'"};
+		String d[] = new String[] {"EOS"};
         runAndTest(Arrays.asList(a), //
                 Arrays.asList(b), //
                 Arrays.asList(c), //
@@ -82,10 +83,10 @@ class frontendTest {
 	@Test
     public void testR1T5() throws Exception {
 		//withdraw before logging in
-		String a[] = new String[]{"withdraw 7654321 10000"};
+		String a[] = new String[]{"withdraw 7654321 10000", "login atm", "logout"};
 		String b[] = new String[]{"1234567"};
-		String c[] = new String[]{"Error: Selected transaction is unavailable, please login before continuing."};
-		String d[] = new String[] {""};
+		String c[] = new String[]{"Error: Selected transaction is unavailable, please login before continuing.","Sample login: 'login atm' or 'login agent'"};
+		String d[] = new String[] {"EOS"};
         runAndTest(Arrays.asList(a), //
                 Arrays.asList(b), //
                 Arrays.asList(c), //
@@ -95,10 +96,10 @@ class frontendTest {
 	@Test
     public void testR1T6() throws Exception {
 		//transfer before logging in
-		String a[] = new String[]{"withdraw 1234567 10000 7654321"};
+		String a[] = new String[]{"transfer 1234567 10000 7654321","login atm","logout"};
 		String b[] = new String[]{"1234567"};
-		String c[] = new String[]{"Error: Selected transaction is unavailable, please login before continuing."};
-		String d[] = new String[] {""};
+		String c[] = new String[]{"Error: Selected transaction is unavailable, please login before continuing.","Sample login: 'login atm' or 'login agent'"};
+		String d[] = new String[] {"EOS"};
         runAndTest(Arrays.asList(a), //
                 Arrays.asList(b), //
                 Arrays.asList(c), //
@@ -119,8 +120,8 @@ class frontendTest {
     }
 	
 	@Test
-    public void testR2T2() throws Exception {
-		//transfer before logging in
+    public void testR3T1() throws Exception {
+		//login atm
 		String a[] = new String[]{"login atm","logout"};
 		String b[] = new String[]{"1234567"};
 		String c[] = new String[]{"Please Login to begin session","Enter next transaction: "};
@@ -132,17 +133,58 @@ class frontendTest {
     }
 	
 	@Test
-    public void testR3T1() throws Exception {
-		//transfer before logging in
-		String a[] = new String[]{"login atm","login atm"};
+    public void testR4T1() throws Exception {
+		//double login
+		String a[] = new String[]{"login atm","login atm","logout"};
 		String b[] = new String[]{"1234567"};
 		String c[] = new String[]{"Selected transaction is unavailable, please enter a valid transaction code"};
-		String d[] = new String[] {""};
+		String d[] = new String[] {"EOS"};
         runAndTest(Arrays.asList(a), //
                 Arrays.asList(b), //
                 Arrays.asList(c), //
                 Arrays.asList(d), true);
     }
+	
+	//logout
+	@Test
+    public void testR5T1() throws Exception {
+		//logout after logging out
+		String a[] = new String[]{"login atm","logout", "logout"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[]{"Error: Selected transaction is unavailable, please login before continuing.","Sample login: 'login atm' or 'login agent'"};
+		String d[] = new String[] {"EOS"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList(d), true);
+    }
+	
+	@Test
+    public void testR6T1() throws Exception {
+		//valid TSF upon logout
+		String a[] = new String[]{"login atm", "logout"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[]{"Please Login to begin session","Enter next transaction: "};
+		String d[] = new String[] {"EOS"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList(d), false);
+    }
+	
+	@Test
+    public void testR7T1() throws Exception {
+		//valid TSF upon logout
+		String a[] = new String[]{"login atm", "logout"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[]{"Please Login to begin session","Enter next transaction: "};
+		String d[] = new String[] {"EOS"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList(d), false);
+    }
+	
 	
 	@Test
     public void testR8T1() throws Exception {
