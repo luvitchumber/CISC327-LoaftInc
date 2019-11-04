@@ -151,7 +151,7 @@ class frontendTest {
 		//logout after logging out
 		String a[] = new String[]{"login atm","logout", "logout"};
 		String b[] = new String[]{"1234567"};
-		String c[] = new String[]{"Error: Selected transaction is unavailable, please login before continuing.","Sample login: 'login atm' or 'login agent'"};
+		String c[] = new String[]{""};
 		String d[] = new String[] {"EOS"};
         runAndTest(Arrays.asList(a), //
                 Arrays.asList(b), //
@@ -250,11 +250,12 @@ class frontendTest {
 		// ensure the user gets confirmation after creating an account
 		String a[] = new String[]{"login agent", "createacct 1234567 JohnDoe", "logout"};
 		String b[] = new String[]{""};
-		String c[] = new String[] {"Enter next transaction: "};
+		String c[] = new String[] {"Account created", "Enter next transaction: "};
         runAndTest(Arrays.asList(a), //
                 Arrays.asList(b), //
                 Arrays.asList(c), //
-                Arrays.asList("NEW 1234567 000 0000000 johndoe","EOS"), false);
+                Arrays.asList("NEW 1234567 000 0000000 johndoe", "EOS"), false);
+
     }
 	
 	@Test
@@ -334,11 +335,11 @@ class frontendTest {
 		// ensure the user gets confirmation that the account was deleted
 		String a[] = new String[]{"login agent", "deleteacct 7654321 JaneDoe", "logout"};
 		String b[] = new String[]{"7654321"};
-		String c[] = new String[] {"Enter next transaction: "};
+		String c[] = new String[] {"Account deleted", "Enter next transaction: "};
         runAndTest(Arrays.asList(a), //
                 Arrays.asList(b), //
                 Arrays.asList(c), //
-                Arrays.asList("DEL 0000000 000 7654321 janedoe","EOS"), false);
+                Arrays.asList("DEL 0000000 000 7654321 janedoe", "EOS"), false);
     }
 	
 	@Test
@@ -506,7 +507,7 @@ class frontendTest {
                 Arrays.asList(b), //
                 Arrays.asList(c), //
                 Arrays.asList("WDR 0000000 100000 1234567 ***", "WDR 0000000 100000 1234567 ***", "WDR 0000000 100000 1234567 ***",
-                		      "WDR 0000000 100000 1234567 ***", "WDR 0000000 100000 1234567 ***", "EOS"), true);
+                		      "WDR 0000000 100000 1234567 ***", "WDR 0000000 100000 1234567 ***", "WDR 0000000 100000 1234567 ***", "EOS"), true);
     }
 	
 	@Test

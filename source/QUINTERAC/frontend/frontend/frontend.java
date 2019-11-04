@@ -79,7 +79,7 @@ public class frontend {
 						cache = new CreateAcct(acctName,acctNum);
 						t=t.addTransaction(cache);
 						t = t.addAccount(acctNum);
-						System.out.println("Account created.");
+						System.out.println("Account created");
 					}
 					
 					if (exist) 
