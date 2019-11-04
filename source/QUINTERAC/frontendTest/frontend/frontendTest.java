@@ -26,8 +26,9 @@ class frontendTest {
 	/**
 	 * Test method for {@link frontend.frontend#main(java.lang.String[])}.
 	 */
+	//Login
 	@Test
-    public void testAppLogout() throws Exception {
+    public void testR1T1() throws Exception {
 		//logout before logging in
 		String a[] = new String[]{"logout"};
 		String b[] = new String[]{"1234567"};
@@ -38,6 +39,279 @@ class frontendTest {
                 Arrays.asList(c), //
                 Arrays.asList(d), true);
     }
+	
+	@Test
+    public void testR1T2() throws Exception {
+		//createacct before logging in
+		String a[] = new String[]{"createacct 1234567 JohnDoe"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[]{"Error: Selected transaction is unavailable, please login before continuing."};
+		String d[] = new String[] {""};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList(d), true);
+    }
+		
+	@Test
+    public void testR1T3() throws Exception {
+		//deletacct before logging in
+		String a[] = new String[]{"deletacct 7654321 JohnDoe"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[]{"Error: Selected transaction is unavailable, please login before continuing."};
+		String d[] = new String[] {""};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList(d), true);
+    }
+	
+	@Test
+    public void testR1T4() throws Exception {
+		//deposit before logging in
+		String a[] = new String[]{"deposit 7654321 10000"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[]{"Error: Selected transaction is unavailable, please login before continuing."};
+		String d[] = new String[] {""};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList(d), true);
+    }
+	
+	@Test
+    public void testR1T5() throws Exception {
+		//withdraw before logging in
+		String a[] = new String[]{"withdraw 7654321 10000"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[]{"Error: Selected transaction is unavailable, please login before continuing."};
+		String d[] = new String[] {""};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList(d), true);
+    }
+	
+	@Test
+    public void testR1T6() throws Exception {
+		//transfer before logging in
+		String a[] = new String[]{"withdraw 1234567 10000 7654321"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[]{"Error: Selected transaction is unavailable, please login before continuing."};
+		String d[] = new String[] {""};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList(d), true);
+    }
+	
+	@Test
+    public void testR2T1() throws Exception {
+		//login agent
+		String a[] = new String[]{"login agent", "logout"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[]{"Please Login to begin session","Enter next transaction: "};
+		String d[] = new String[] {"EOS"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList(d), false);
+    }
+	
+	@Test
+    public void testR2T2() throws Exception {
+		//transfer before logging in
+		String a[] = new String[]{"login atm","logout"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[]{"Please Login to begin session","Enter next transaction: "};
+		String d[] = new String[] {"EOS"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList(d), false);
+    }
+	
+	@Test
+    public void testR3T1() throws Exception {
+		//transfer before logging in
+		String a[] = new String[]{"login atm","login atm"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[]{"Selected transaction is unavailable, please enter a valid transaction code"};
+		String d[] = new String[] {""};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList(d), true);
+    }
+	
+	@Test
+    public void testR8T1() throws Exception {
+		// check that new account num is 7 digits long and doesnt start with a 0
+		String a[] = new String[]{"login agent", "createacct 0123456 JohnDoe", "logout"};
+		String b[] = new String[]{""};
+		String c[] = new String[] {"New account number must be 7 digits long and cannot start with a 0"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("EOS"), true);
+    }
+	
+	@Test
+    public void testR8T1_2() throws Exception {
+		// check that new account num is 7 digits long and doesnt start with a 0
+		String a[] = new String[]{"login agent", "createacct 123456789123456 JohnDoe", "logout"};
+		String b[] = new String[]{""};
+		String c[] = new String[] {"New account number must be 7 digits long and cannot start with a 0"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("EOS"), true);
+    }
+	
+	@Test
+    public void testR8T2() throws Exception {
+		String a[] = new String[]{"login agent", "createacct 1234567 JohnDoe", "logout"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[] {"This account number exists already"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("EOS"), true);
+    }
+	
+	@Test
+    public void testR8T3() throws Exception {
+		// new account name format check
+		String a[] = new String[]{"login agent", "createacct 1234567 John***Doe", "logout"};
+		String b[] = new String[]{""};
+		String c[] = new String[] {"New account name must be 3-30 alphanumeric characters and cannot start or end with a space"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("EOS"), true);
+    }
+	
+	@Test
+    public void testR8T3_2() throws Exception {
+		// new account name format check
+		String a[] = new String[]{"login agent", "createacct 1234567 JohnDoeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", "logout"};
+		String b[] = new String[]{""};
+		String c[] = new String[] {"New account name must be 3-30 alphanumeric characters and cannot start or end with a space"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("EOS"), true);
+    }
+	
+	@Test
+    public void testR10T1() throws Exception {
+		// ensure the user gets confirmation after creating an account
+		String a[] = new String[]{"login agent", "createacct 1234567 JohnDoe", "logout"};
+		String b[] = new String[]{""};
+		String c[] = new String[] {"Account created"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("EOS"), true);
+    }
+	
+	@Test
+    public void testR11T1() throws Exception {
+		//ensure the user gets rejected from creating an account if they are not in agent mode
+		String a[] = new String[]{"login atm", "createacct 1234567 JohnDoe", "logout"};
+		String b[] = new String[]{""};
+		String c[] = new String[] {"Need privileged mode to Create Account"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("EOS"), true);
+    }
+	
+	@Test
+    public void testR12T1() throws Exception {
+		// check that new account num is 7 digits long and doesnt start with a 0
+		String a[] = new String[]{"login agent", "deleteacct 7654321 JaneDoe", "logout"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[] {"The account number to be deleted does not exist"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("EOS"), true);
+    }
+	
+	@Test
+    public void testR13T1() throws Exception {
+		// check that we cannot make a transaction on a deleted account
+		String a[] = new String[]{"login agent", "deleteacct 7654321 JaneDoe", "deposit 7654321 10000", "logout"};
+		String b[] = new String[]{"7654321"};
+		String c[] = new String[] {"Selected account does not exist"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("EOS"), true);
+    }
+	
+	@Test
+    public void testR13T2() throws Exception {
+		// check that we cannot make a transaction on a deleted account
+		String a[] = new String[]{"login agent", "deleteacct 7654321 JaneDoe", "withdraw 7654321 10000", "logout"};
+		String b[] = new String[]{"7654321"};
+		String c[] = new String[] {"Selected account does not exist"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("EOS"), true);
+    }
+	
+	@Test
+    public void testR13T3() throws Exception {
+		// check that we cannot make a transaction on a deleted account
+		String a[] = new String[]{"login agent", "deleteacct 7654321 JaneDoe", "transfer 7654321 10000 1234567", "logout"};
+		String b[] = new String[]{"7654321", "1234567"};
+		String c[] = new String[] {"Selected account does not exist"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("EOS"), true);
+    }
+	
+	@Test
+    public void testR13T3_2() throws Exception {
+		// check that we cannot make a transaction on a deleted account
+		String a[] = new String[]{"login agent", "deleteacct 7654321 JaneDoe", "transfer 1234567 10000 7654321", "logout"};
+		String b[] = new String[]{"7654321", "1234567"};
+		String c[] = new String[] {"Selected account does not exist"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("EOS"), true);
+    }
+	
+	@Test
+    public void testR15T1() throws Exception {
+		// ensure the user gets confirmation that the account was deleted
+		String a[] = new String[]{"login atm", "deleteacct 7654321 JaneDoe", "logout"};
+		String b[] = new String[]{"7654321"};
+		String c[] = new String[] {"Account deleted"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("EOS"), true);
+    }
+	
+	@Test
+    public void testR16T1() throws Exception {
+		//ensure the user gets rejected from deleting an account if they are not in agent mode
+		String a[] = new String[]{"login atm", "deleteacct 7654321 JaneDoe", "logout"};
+		String b[] = new String[]{"7654321"};
+		String c[] = new String[] {"Need privileged mode to Delete Account"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("EOS"), true);
+    }
+	
+	
 	
 	@Test
     public void testR18T1() throws Exception {
