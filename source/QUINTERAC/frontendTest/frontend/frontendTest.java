@@ -30,7 +30,6 @@ class frontendTest {
 	@Test
     public void testR1T1() throws Exception {
 		//logout before logging in
-
 		String a[] = new String[]{"logout","login atm", "logout"};
 		String b[] = new String[]{"1234567"};
 		String c[] = new String[]{"Error: Selected transaction is unavailable, please login before continuing.", "Sample login: 'login atm' or 'login agent'"};
@@ -56,7 +55,7 @@ class frontendTest {
 		
 	@Test
     public void testR1T3() throws Exception {
-		//deletacct before logging in
+		//deleteacct before logging in
 		String a[] = new String[]{"deletacct 7654321 JohnDoe", "login atm", "logout"};
 		String b[] = new String[]{"1234567"};
 		String c[] = new String[]{"Error: Selected transaction is unavailable, please login before continuing.","Sample login: 'login atm' or 'login agent'"};
@@ -159,23 +158,10 @@ class frontendTest {
                 Arrays.asList(d), false);
     }
 	
-	@Test
-    public void testR7T1() throws Exception {
-		//valid TSF upon logout
-		String a[] = new String[]{"login atm", "logout"};
-		String b[] = new String[]{"1234567"};
-		String c[] = new String[]{"Please Login to begin session","Enter next transaction: "};
-		String d[] = new String[] {"EOS"};
-        runAndTest(Arrays.asList(a), //
-                Arrays.asList(b), //
-                Arrays.asList(c), //
-                Arrays.asList(d), false);
-    }
-	
 	
 	@Test
     public void testR8T1() throws Exception {
-		// check that new account num is 7 digits long and doesnt start with a 0
+		//check that new account num is 7 digits long and doesnt start with a 0
 		String a[] = new String[]{"login agent", "createacct 0123456 JohnDoe", "logout"};
 		String b[] = new String[]{""};
 		String c[] = new String[] {"New account number must be 7 digits long and cannot start with a 0"};
@@ -199,6 +185,7 @@ class frontendTest {
 	
 	@Test
     public void testR8T2() throws Exception {
+		//check that new account num is different from all other account nums
 		String a[] = new String[]{"login agent", "createacct 1234567 JohnDoe", "logout"};
 		String b[] = new String[]{"1234567"};
 		String c[] = new String[] {"This account number exists already"};
@@ -222,7 +209,7 @@ class frontendTest {
 	
 	@Test
     public void testR8T3_2() throws Exception {
-		// new account name format check
+		//new account name format check
 		String a[] = new String[]{"login agent", "createacct 1234567 JohnDoeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", "logout"};
 		String b[] = new String[]{""};
 		String c[] = new String[] {"New account name must be 3-30 alphanumeric characters and cannot start or end with a space"};
@@ -234,7 +221,7 @@ class frontendTest {
 	
 	@Test
     public void testR10T1() throws Exception {
-		// ensure the user gets confirmation after creating an account
+		//ensure the user gets confirmation after creating an account and that TSF output is correct
 		String a[] = new String[]{"login agent", "createacct 1234567 JohnDoe", "logout"};
 		String b[] = new String[]{""};
 		String c[] = new String[] {"Account created", "Enter next transaction: "};
@@ -242,7 +229,6 @@ class frontendTest {
                 Arrays.asList(b), //
                 Arrays.asList(c), //
                 Arrays.asList("NEW 1234567 000 0000000 johndoe", "EOS"), false);
-
     }
 	
 	@Test
@@ -259,7 +245,7 @@ class frontendTest {
 	
 	@Test
     public void testR12T1() throws Exception {
-		// check that new account num is 7 digits long and doesnt start with a 0
+		//check that delete account num is 7 digits long and doesnt start with a 0
 		String a[] = new String[]{"login agent", "deleteacct 7654321 JaneDoe", "logout"};
 		String b[] = new String[]{"1234567"};
 		String c[] = new String[] {"The account number to be deleted does not exist"};
@@ -271,7 +257,7 @@ class frontendTest {
 	
 	@Test
     public void testR13T1() throws Exception {
-		// check that we cannot make a transaction on a deleted account
+		//check that we cannot make a transaction on a deleted account
 		String a[] = new String[]{"login agent", "deleteacct 7654321 JaneDoe", "deposit 7654321 10000", "logout"};
 		String b[] = new String[]{"7654321"};
 		String c[] = new String[] {"Selected account does not exist"};
@@ -341,13 +327,9 @@ class frontendTest {
                 Arrays.asList("EOS"), true);
     }
 	
-	
-	
 	@Test
-    public void testR18T1() throws Exception {
+    public void testR17T1() throws Exception {
     	//inputted account number correct format test
-		//String input = new String(Files.readAllBytes(Paths.get("frontendTest/TestFiles/Deposit/input/R18T1.txt")));
-		//String output = new String(Files.readAllBytes(Paths.get("frontendTest/TestFiles/Deposit/expectedOutput/R18T1.txt")));
 		String a[] = new String[]{"login atm", "deposit 1234 10000", "logout"};
 		String b[] = new String[]{"1234567"};
 		String c[] = new String[] {"Selected account does not exist"};
@@ -358,10 +340,8 @@ class frontendTest {
     }
 	
 	@Test
-    public void testR18T2() throws Exception {
+    public void testR18T1() throws Exception {
     	//inputted account is not valid test
-		//String input = new String(Files.readAllBytes(Paths.get("frontendTest/TestFiles/Deposit/input/R18T1.txt")));
-		//String output = new String(Files.readAllBytes(Paths.get("frontendTest/TestFiles/Deposit/expectedOutput/R18T1.txt")));
 		String a[] = new String[]{"login atm", "deposit 1234568 10000", "logout"};
 		String b[] = new String[]{"1234567"};
 		String c[] = new String[] {"Selected account does not exist"};
@@ -373,7 +353,7 @@ class frontendTest {
 	
 	@Test
     public void testR19T1() throws Exception {
-    	// deposit amount validation test
+    	//deposit amount validation test
 		//amount < 3 digits
 		String a[] = new String[]{"login atm", "deposit 1234567 10", "logout"};
 		String b[] = new String[]{"1234567"};
@@ -401,18 +381,7 @@ class frontendTest {
                 Arrays.asList(c), //
                 Arrays.asList("EOS"), true);
     }
-	
-	@Test
-    public void testR231T1() throws Exception {
-    	//ensure transfer works correctly
-		String a[] = new String[]{"login agent", "deposit 1234567 10000", "logout"};
-		String b[] = new String[]{"1234567"};
-		String c[] = new String[] {"Please Login to begin session","Enter next transaction: "};
-	    runAndTest(Arrays.asList(a), //
-	               Arrays.asList(b), //
-	               Arrays.asList(), //
-	               Arrays.asList("DEP 1234567 10000 0000000 ***","EOS"), false);
-    }
+
 
 	@Test
     public void testR19T3() throws Exception {
@@ -457,6 +426,18 @@ class frontendTest {
                 Arrays.asList("DEP 1234567 99999999 0000000 ***","EOS"), false);
     }
 	
+	@Test
+    public void testR20T1() throws Exception {
+    	//ensure transfer works correctly
+		String a[] = new String[]{"login agent", "deposit 1234567 10000", "logout"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[] {"Please Login to begin session","Enter next transaction: "};
+	    runAndTest(Arrays.asList(a), //
+	               Arrays.asList(b), //
+	               Arrays.asList(), //
+	               Arrays.asList("DEP 1234567 10000 0000000 ***","EOS"), false);
+    }
+	
 	///////////////////////////////////////////////////////////////////Withdraw
 	
 	@Test
@@ -484,7 +465,7 @@ class frontendTest {
     }
 	
 	@Test
-    public void testR22T1() throws Exception {
+    public void testR22T1_2_3_4_5() throws Exception {
     	//cannot withdraw above 100000 in atm mode
 		String a[] = new String[]{"login atm", "withdraw 1234567 100000", 
 				"withdraw 1234567 100000", 
@@ -515,7 +496,7 @@ class frontendTest {
     }
 	
 	@Test
-    public void testR23T11() throws Exception {
+    public void testR23T1() throws Exception {
     	//successful atm withdraw test
 		String a[] = new String[]{"login atm", "withdraw 1234567 10000", "logout"};
 		String b[] = new String[]{"1234567"};
@@ -527,7 +508,7 @@ class frontendTest {
     }
 	
 	@Test
-    public void testR23T1() throws Exception {
+    public void testR24T1() throws Exception {
     	//no limit in agent mode
 		String a[] = new String[]{"login agent", "withdraw 1234567 99999999", "logout"};
 		String b[] = new String[]{"1234567"};
@@ -539,7 +520,7 @@ class frontendTest {
     }
 	
 	@Test
-    public void testR24T1() throws Exception {
+    public void testR24T2() throws Exception {
     	//agent cannot withdraw more than 99999999
 		String a[] = new String[]{"login agent", "withdraw 1234567 100000000", "logout"};
 		String b[] = new String[]{"1234567"};
@@ -583,18 +564,6 @@ class frontendTest {
                 Arrays.asList("EOS"), true);
     }
 	
-	@Test
-    public void testR211T1() throws Exception {
-    	//ensure transfer works correctly
-		String a[] = new String[]{"login agent", "transfer 1234567 1234568 1000", "logout"};
-		String b[] = new String[]{"1234567","1234568"};
-		String c[] = new String[] {"Enter next transaction: "};
-        runAndTest(Arrays.asList(a), //
-                Arrays.asList(b), //
-                Arrays.asList(c), //
-                Arrays.asList("XFR 1234568 1000 1234567 ***","EOS"), false);
-    }
-	
 	
 	@Test
     public void testmaxTransDaily() throws Exception {
@@ -625,7 +594,17 @@ class frontendTest {
                 Arrays.asList("EOS"), true);
     }
 	
-	
+	@Test
+    public void testR27T1() throws Exception {
+    	//ensure transfer works correctly
+		String a[] = new String[]{"login agent", "transfer 1234567 1234568 1000", "logout"};
+		String b[] = new String[]{"1234567","1234568"};
+		String c[] = new String[] {"Enter next transaction: "};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("XFR 1234568 1000 1234567 ***","EOS"), false);
+    }
 	
 
 	/**
