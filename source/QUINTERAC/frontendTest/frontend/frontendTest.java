@@ -40,6 +40,28 @@ class frontendTest {
     }
 	
 	@Test
+    public void testR8T1() throws Exception {
+		String a[] = new String[]{"login atm", "createacct 0123456 JohnDoe", "logout"};
+		String b[] = new String[]{""};
+		String c[] = new String[] {"Need privileged mode to Create Account"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("EOS"), true);
+    }
+	
+	@Test
+    public void testR8T2() throws Exception {
+		String a[] = new String[]{"login atm", "createacct 0123456 JohnDoe", "logout"};
+		String b[] = new String[]{""};
+		String c[] = new String[] {"Need privileged mode to Create Account"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("EOS"), true);
+    }
+	
+	@Test
     public void testR18T1() throws Exception {
     	//inputted account number correct format test
 		//String input = new String(Files.readAllBytes(Paths.get("frontendTest/TestFiles/Deposit/input/R18T1.txt")));

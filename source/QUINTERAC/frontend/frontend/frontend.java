@@ -80,6 +80,16 @@ public class frontend {
 						t=t.addTransaction(cache);
 						System.out.println("Account created.");
 					}
+					
+					if (exist) 
+						System.out.println("This account number exists already");
+					
+					if (acctNum.equals("NotValid"))
+						System.out.println("New account number must be 7 digits long and cannot start with a 0");
+					
+					if (acctName.equals("NotValid"))
+						System.out.println("New account name must be 3-30 alphanumeric characters and cannot start or end with a space");
+					
 				}else {
 					System.err.println("Need privileged mode to Create Account");
 				}
