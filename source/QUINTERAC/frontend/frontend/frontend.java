@@ -104,6 +104,9 @@ public class frontend {
 						cache = new DeleteAcct(acctName,acctNum);
 						t=t.addTransaction(cache);
 					}
+					
+					if (!exist)
+						System.out.println("The account number to be deleted does not exist");
 				}else {
 					System.err.println("Need privileged mode to Delete Account");
 				}
