@@ -177,14 +177,17 @@ public class frontend {
 					if (amount <= transLimit) {	//amount is less than the max limit
 						if (type.equals("WDR")) {		//Withdraw command
 							cache = new Withdraw(acctNum,amount);
+							t = t.addTransaction(cache);
 						}else if (type.equals("DEP")) {	//Deposit command
 							cache = new Deposit(acctNum,amount);
+							t = t.addTransaction(cache);
 						}else if (type.equals("XFR")) {	//Transfer command
 							inNum = input[2]; // acct number to
 							String acctTo=validateAcctNumandReturn(inNum);
 							exist = DoesAcctNumExist(t.getAccts(),acctTo);
 							if (exist) {
 								cache = new Transfer(acctNum,amount,acctTo);
+								t = t.addTransaction(cache);
 							}else {
 								System.err.println("Please enter correct account number to send to");
 							}

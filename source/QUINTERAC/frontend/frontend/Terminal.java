@@ -57,7 +57,7 @@ public class Terminal {
 			for(int i =0; i < tsf.size(); i++) {
 				Transaction item = tsf.get(i);
 	
-				if (item.getType() == type && item.getAcctNum() == acctNum) {
+				if (item.getType().equals(type) && item.getAcctNum().equals(acctNum)) {
 					currentAmount += item.getAmount();
 					
 				}

@@ -30,10 +30,10 @@ class frontendTest {
 	@Test
     public void testR1T1() throws Exception {
 		//logout before logging in
-		String a[] = new String[]{"logout"};
+		String a[] = new String[]{"logout","login atm", "logout"};
 		String b[] = new String[]{"1234567"};
-		String c[] = new String[]{"Error: Selected transaction is unavailable, please login before continuing."};
-		String d[] = new String[] {""};
+		String c[] = new String[]{"Error: Selected transaction is unavailable, please login before continuing.", "Sample login: 'login atm' or 'login agent'"};
+		String d[] = new String[] {"EOS"};
         runAndTest(Arrays.asList(a), //
                 Arrays.asList(b), //
                 Arrays.asList(c), //
@@ -470,6 +470,45 @@ class frontendTest {
     	//agent cannot withdraw more than 99999999
 		String a[] = new String[]{"login agent", "withdraw 1234567 100000000", "logout"};
 		String b[] = new String[]{"1234567"};
+		String c[] = new String[] {"Please enter correct amount and account number"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("EOS"), true);
+    }
+	
+	////////////////////////////transfer
+	
+	@Test
+    public void testR25T2() throws Exception {
+    	//ensure transfers only to/from existing accounts
+		//incorrect to account 
+		String a[] = new String[]{"login atm", "transfer 1234569 1234567 1000", "logout"};
+		String b[] = new String[]{"1234567","1234568"};
+		String c[] = new String[] {"Selected account does not exist"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("EOS"), true);
+    }
+	
+	@Test
+    public void testR25T3() throws Exception {
+    	//ensure maximum transfer for atm mode is 10000
+		String a[] = new String[]{"login atm", "transfer 1234567 1234568 1000001", "logout"};
+		String b[] = new String[]{"1234567","1234568"};
+		String c[] = new String[] {"Selected transaction exceeds terminal limit"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("EOS"), true);
+    }
+	
+	@Test
+    public void testR26T1() throws Exception {
+    	//ensure maximum transfer for agent mode is 99999999
+		String a[] = new String[]{"login agent", "transfer 1234567 1234568 100000000", "logout"};
+		String b[] = new String[]{"1234567","1234568"};
 		String c[] = new String[] {"Please enter correct amount and account number"};
         runAndTest(Arrays.asList(a), //
                 Arrays.asList(b), //
