@@ -250,11 +250,11 @@ class frontendTest {
 		// ensure the user gets confirmation after creating an account
 		String a[] = new String[]{"login agent", "createacct 1234567 JohnDoe", "logout"};
 		String b[] = new String[]{""};
-		String c[] = new String[] {"Account created"};
+		String c[] = new String[] {"Enter next transaction: "};
         runAndTest(Arrays.asList(a), //
                 Arrays.asList(b), //
                 Arrays.asList(c), //
-                Arrays.asList("EOS"), true);
+                Arrays.asList("NEW 1234567 000 0000000 johndoe","EOS"), false);
     }
 	
 	@Test
@@ -322,7 +322,7 @@ class frontendTest {
 		// check that we cannot make a transaction on a deleted account
 		String a[] = new String[]{"login agent", "deleteacct 7654321 JaneDoe", "transfer 1234567 10000 7654321", "logout"};
 		String b[] = new String[]{"7654321", "1234567"};
-		String c[] = new String[] {"Selected account does not exist"};
+		String c[] = new String[] {"Please enter correct account number to send to"};
         runAndTest(Arrays.asList(a), //
                 Arrays.asList(b), //
                 Arrays.asList(c), //
@@ -334,11 +334,11 @@ class frontendTest {
 		// ensure the user gets confirmation that the account was deleted
 		String a[] = new String[]{"login agent", "deleteacct 7654321 JaneDoe", "logout"};
 		String b[] = new String[]{"7654321"};
-		String c[] = new String[] {"Account deleted"};
+		String c[] = new String[] {"Enter next transaction: "};
         runAndTest(Arrays.asList(a), //
                 Arrays.asList(b), //
                 Arrays.asList(c), //
-                Arrays.asList("EOS"), true);
+                Arrays.asList("DEL 0000000 000 7654321 janedoe","EOS"), false);
     }
 	
 	@Test
@@ -434,6 +434,25 @@ class frontendTest {
     }
 	
 	@Test
+    public void testmaxDepositDaily() throws Exception {
+    	//cannot deposit above 500000 daily in atm mode
+		String a[] = new String[]{"login atm", "deposit 1234567 100000", 
+				"deposit 1234567 100000", 
+				"deposit 1234567 100000",
+				"deposit 1234567 100000", 
+				"deposit 1234567 100000", 
+				"deposit 1234567 100000", 
+				"logout"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[] {"Selected transaction exceeds daily transaction limit"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("DEP 1234567 100000 0000000 ***", "DEP 1234567 100000 0000000 ***", "DEP 1234567 100000 0000000 ***",
+                		      "DEP 1234567 100000 0000000 ***", "DEP 1234567 100000 0000000 ***", "EOS"), true);
+    }
+	
+	@Test
     public void testR19T4() throws Exception {
     	// Agent Mode no transaction limit test
 		String a[] = new String[]{"login agent", "deposit 1234567 99999999", "logout"};
@@ -474,8 +493,13 @@ class frontendTest {
 	@Test
     public void testR22T1() throws Exception {
     	//cannot withdraw above 100000 in atm mode
-		String a[] = new String[]{"login atm", "withdraw 1234567 100000", "withdraw 1234567 100000", "withdraw 1234567 100000",
-											   "withdraw 1234567 100000", "withdraw 1234567 100000", "withdraw 1234567 100000", "logout"};
+		String a[] = new String[]{"login atm", "withdraw 1234567 100000", 
+				"withdraw 1234567 100000", 
+				"withdraw 1234567 100000",
+				"withdraw 1234567 100000", 
+				"withdraw 1234567 100000", 
+				"withdraw 1234567 100000", 
+				"logout"};
 		String b[] = new String[]{"1234567"};
 		String c[] = new String[] {"Selected transaction exceeds daily transaction limit"};
         runAndTest(Arrays.asList(a), //
@@ -564,6 +588,23 @@ class frontendTest {
                 Arrays.asList(b), //
                 Arrays.asList(c), //
                 Arrays.asList("EOS"), true);
+    }
+	
+	@Test
+    public void testmaxTransDaily() throws Exception {
+    	//cannot deposit above 500000 daily in atm mode
+		String a[] = new String[]{"login atm", "transfer 1234567 1234568 500000", 
+				"transfer 1234567 1234568 500000", 
+				"transfer 1234567 1234568 100000", 
+				"logout"};
+		String b[] = new String[]{"1234567", "1234568"};
+		String c[] = new String[] {"Selected transaction exceeds daily transaction limit"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("XFR 1234568 500000 1234567 ***",
+                		"XFR 1234568 500000 1234567 ***",
+                		"EOS"), true);
     }
 	
 	@Test
