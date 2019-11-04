@@ -322,7 +322,7 @@ class frontendTest {
 		// check that we cannot make a transaction on a deleted account
 		String a[] = new String[]{"login agent", "deleteacct 7654321 JaneDoe", "transfer 1234567 10000 7654321", "logout"};
 		String b[] = new String[]{"7654321", "1234567"};
-		String c[] = new String[] {"Selected account does not exist"};
+		String c[] = new String[] {"Please enter correct account number to send to"};
         runAndTest(Arrays.asList(a), //
                 Arrays.asList(b), //
                 Arrays.asList(c), //
