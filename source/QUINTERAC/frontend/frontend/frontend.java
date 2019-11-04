@@ -195,7 +195,7 @@ public class frontend {
 								System.err.println("Please enter correct account number to send to");
 							}
 						}
-						t = t.addTransaction(cache);
+						
 					}else {
 						System.err.println("Selected transaction exceeds terminal limit");
 					}
@@ -250,7 +250,10 @@ public class frontend {
 		ArrayList<Transaction> tsf = t.getTSF();
 		String output = "";
 		for (int i = 0; i < tsf.size(); i++) {
+			Transaction cache =tsf.get(i);
+			if(cache!=null) {
 			output += tsf.get(i).toString() + "\n";
+			}
 		}
 		try {
 			Files.write(tsfFile.toPath(),output.getBytes());
