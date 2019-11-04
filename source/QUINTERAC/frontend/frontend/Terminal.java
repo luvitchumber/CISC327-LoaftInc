@@ -26,6 +26,17 @@ public class Terminal {
 		return this;
 	}
 	
+	//removes an account number from the accts list 
+	public Terminal removeAccount(String acctNum) {
+		accts.remove(acctNum);
+		return this;
+	}
+	
+	public Terminal addAccount(String acctNum) {
+		accts.add(acctNum);
+		return this;
+	}
+	
 	//Get input from CLI
 	public Scanner getCLIScanner() {
 		return this.cli;

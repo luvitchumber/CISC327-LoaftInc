@@ -78,6 +78,7 @@ public class frontend {
 					if(!exist && !acctNum.equals("NotValid") && !acctName.equals("NotValid")) {
 						cache = new CreateAcct(acctName,acctNum);
 						t=t.addTransaction(cache);
+						t = t.addAccount(acctNum);
 						System.out.println("Account created.");
 					}
 					
@@ -103,6 +104,7 @@ public class frontend {
 					if(exist && !acctNum.equals("NotValid") && !acctName.equals("NotValid")) {
 						cache = new DeleteAcct(acctName,acctNum);
 						t=t.addTransaction(cache);
+						t = t.removeAccount(acctNum);
 						System.out.println("Account deleted");
 					}
 					
