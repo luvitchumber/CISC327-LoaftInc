@@ -401,13 +401,6 @@ class frontendTest {
                 Arrays.asList(b), //
                 Arrays.asList(c), //
                 Arrays.asList("EOS"), true);
-        //amount between 3-8 digits
-        a = new String[]{"login atm", "deposit 1234567 10000", "logout"};
-        c = new String[] {"Please Login to begin session","Enter next transaction: "};
-        runAndTest(Arrays.asList(a), //
-                Arrays.asList(b), //
-                Arrays.asList(), //
-                Arrays.asList("DEP 1234567 10000 0000000 ***","EOS"), false);
     }
 
 	@Test
@@ -420,6 +413,18 @@ class frontendTest {
                 Arrays.asList(b), //
                 Arrays.asList(c), //
                 Arrays.asList("EOS"), true);
+    }
+	
+	@Test
+    public void testR231T1() throws Exception {
+    	//ensure transfer works correctly
+		String a[] = new String[]{"login agent", "deposit 1234567 10000", "logout"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[] {"Please Login to begin session","Enter next transaction: "};
+	    runAndTest(Arrays.asList(a), //
+	               Arrays.asList(b), //
+	               Arrays.asList(), //
+	               Arrays.asList("DEP 1234567 10000 0000000 ***","EOS"), false);
     }
 
 	@Test
@@ -507,7 +512,7 @@ class frontendTest {
                 Arrays.asList(b), //
                 Arrays.asList(c), //
                 Arrays.asList("WDR 0000000 100000 1234567 ***", "WDR 0000000 100000 1234567 ***", "WDR 0000000 100000 1234567 ***",
-                		      "WDR 0000000 100000 1234567 ***", "WDR 0000000 100000 1234567 ***", "WDR 0000000 100000 1234567 ***", "EOS"), true);
+                		      "WDR 0000000 100000 1234567 ***", "WDR 0000000 100000 1234567 ***", "EOS"), true);
     }
 	
 	@Test
@@ -592,6 +597,19 @@ class frontendTest {
     }
 	
 	@Test
+    public void testR211T1() throws Exception {
+    	//ensure transfer works correctly
+		String a[] = new String[]{"login agent", "transfer 1234567 1234568 1000", "logout"};
+		String b[] = new String[]{"1234567","1234568"};
+		String c[] = new String[] {"Enter next transaction: "};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("XFR 1234568 1000 1234567 ***","EOS"), false);
+    }
+	
+	
+	@Test
     public void testmaxTransDaily() throws Exception {
     	//cannot deposit above 500000 daily in atm mode
 		String a[] = new String[]{"login atm", "transfer 1234567 1234568 500000", 
@@ -620,17 +638,7 @@ class frontendTest {
                 Arrays.asList("EOS"), true);
     }
 	
-	@Test
-    public void testAppR1() throws Exception {
-		//successful logout 
-		String a[] = new String[]{"login atm", "logout"};
-		String b[] = new String[]{"1234567"};
-		String c[] = new String[] {"Please Login to begin session","Enter next transaction: "};
-        runAndTest(Arrays.asList(a), //
-                Arrays.asList(b), //
-                Arrays.asList(c), //
-                Arrays.asList("EOS"), false);
-    }
+	
 	
 
 	/**
