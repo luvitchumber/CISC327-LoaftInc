@@ -129,6 +129,8 @@ class frontendTest {
                 Arrays.asList("DEP 1234567 99999999 0000000 ***","EOS"), false);
     }
 	
+	///////////////////////////////////////////////////////////////////Withdraw
+	
 	@Test
     public void testR21T2() throws Exception {
     	//make sure withdrawal account exists
@@ -143,10 +145,58 @@ class frontendTest {
 	
 	@Test
     public void testR21T3() throws Exception {
-    	//make sure withdrawal account exists
+    	//cannot withdraw above 100000 in atm mode
 		String a[] = new String[]{"login atm", "withdraw 1234567 110000", "logout"};
 		String b[] = new String[]{"1234567"};
 		String c[] = new String[] {"Selected transaction exceeds terminal limit"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("EOS"), true);
+    }
+	
+	@Test
+    public void testR22T6() throws Exception {
+    	//cannot withdraw above 100000 in atm mode
+		String a[] = new String[]{"login atm", "withdraw 1234567 510000", "logout"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[] {"Selected transaction exceeds terminal limit"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("EOS"), true);
+    }
+	
+	@Test
+    public void testR23T11() throws Exception {
+    	//successful atm withdraw test
+		String a[] = new String[]{"login atm", "withdraw 1234567 10000", "logout"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[] {"Enter next transaction: "};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("WDR 0000000 10000 1234567 ***", "EOS"), false);
+    }
+	
+	@Test
+    public void testR23T1() throws Exception {
+    	//no limit in agent mode
+		String a[] = new String[]{"login agent", "withdraw 1234567 99999999", "logout"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[] {"Enter next transaction: "};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("WDR 0000000 99999999 1234567 ***", "EOS"), false);
+    }
+	
+	@Test
+    public void testR24T1() throws Exception {
+    	//agent cannot withdraw more than 99999999
+		String a[] = new String[]{"login agent", "withdraw 1234567 100000000", "logout"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[] {"Please enter correct amount and account number"};
         runAndTest(Arrays.asList(a), //
                 Arrays.asList(b), //
                 Arrays.asList(c), //
