@@ -265,7 +265,6 @@ class frontendTest {
 	@Test
     public void testR19T2() throws Exception {
     	// ATM Mode transaction limit test
-		//amount < 3 digits
 		String a[] = new String[]{"login atm", "deposit 1234567 200100", "logout"};
 		String b[] = new String[]{"1234567"};
 		String c[] = new String[] {"Selected transaction exceeds terminal limit"};
@@ -278,7 +277,6 @@ class frontendTest {
 	@Test
     public void testR19T3() throws Exception {
     	// ATM Mode transaction limit test
-		//amount < 3 digits
 		String a[] = new String[]{"login atm", "deposit 1234567 500100", "logout"};
 		String b[] = new String[]{"1234567"};
 		String c[] = new String[] {"Selected transaction exceeds terminal limit"};
@@ -291,7 +289,6 @@ class frontendTest {
 	@Test
     public void testR19T4() throws Exception {
     	// Agent Mode no transaction limit test
-		//amount < 3 digits
 		String a[] = new String[]{"login agent", "deposit 1234567 99999999", "logout"};
 		String b[] = new String[]{"1234567"};
 		String c[] = new String[] {"Enter next transaction: "};
@@ -299,6 +296,30 @@ class frontendTest {
                 Arrays.asList(b), //
                 Arrays.asList(c), //
                 Arrays.asList("DEP 1234567 99999999 0000000 ***","EOS"), false);
+    }
+	
+	@Test
+    public void testR21T2() throws Exception {
+    	//make sure withdrawal account exists
+		String a[] = new String[]{"login atm", "withdraw 1234568 10000", "logout"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[] {"Selected account does not exist"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("EOS"), true);
+    }
+	
+	@Test
+    public void testR21T3() throws Exception {
+    	//make sure withdrawal account exists
+		String a[] = new String[]{"login atm", "withdraw 1234567 110000", "logout"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[] {"Selected transaction exceeds terminal limit"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("EOS"), true);
     }
 	
 	@Test
