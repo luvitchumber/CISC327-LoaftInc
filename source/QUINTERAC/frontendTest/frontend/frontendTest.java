@@ -147,19 +147,6 @@ class frontendTest {
 	
 	//logout
 	@Test
-    public void testR5T1() throws Exception {
-		//logout after logging out
-		String a[] = new String[]{"login atm","logout", "logout"};
-		String b[] = new String[]{"1234567"};
-		String c[] = new String[]{""};
-		String d[] = new String[] {"EOS"};
-        runAndTest(Arrays.asList(a), //
-                Arrays.asList(b), //
-                Arrays.asList(c), //
-                Arrays.asList(d), true);
-    }
-	
-	@Test
     public void testR6T1() throws Exception {
 		//valid TSF upon logout
 		String a[] = new String[]{"login atm", "logout"};
