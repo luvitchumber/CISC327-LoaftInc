@@ -272,7 +272,11 @@ public class frontend {
 	private static int validateAmountandReturn(String in) {
 		int num = -1;
 		try {
-			num=Integer.parseInt(in);
+			double test = Double.parseDouble(in);
+			if (test % 1 > 0) {
+				test *= 100; //left shift amount 2 if amount entered as XX.x
+			}
+			num=(int)test;
 			if (in.length() < 3 || num > 99999999 || num < 0) {	//cannot exceed 99999999 or be a negative number
 				num = -1;
 			}
