@@ -78,17 +78,18 @@ public class frontend {
 					if(!exist && !acctNum.equals("NotValid") && !acctName.equals("NotValid")) {
 						cache = new CreateAcct(acctName,acctNum);
 						t=t.addTransaction(cache);
+						t = t.addAccount(acctNum);
 						System.out.println("Account created.");
 					}
 					
 					if (exist) 
-						System.out.println("This account number exists already");
+						System.err.println("This account number exists already");
 					
 					if (acctNum.equals("NotValid"))
-						System.out.println("New account number must be 7 digits long and cannot start with a 0");
+						System.err.println("New account number must be 7 digits long and cannot start with a 0");
 					
 					if (acctName.equals("NotValid"))
-						System.out.println("New account name must be 3-30 alphanumeric characters and cannot start or end with a space");
+						System.err.println("New account name must be 3-30 alphanumeric characters and cannot start or end with a space");
 					
 				}else {
 					System.err.println("Need privileged mode to Create Account");
@@ -103,11 +104,12 @@ public class frontend {
 					if(exist && !acctNum.equals("NotValid") && !acctName.equals("NotValid")) {
 						cache = new DeleteAcct(acctName,acctNum);
 						t=t.addTransaction(cache);
+						t = t.removeAccount(acctNum);
 						System.out.println("Account deleted");
 					}
 					
 					if (!exist)
-						System.out.println("The account number to be deleted does not exist");
+						System.err.println("The account number to be deleted does not exist");
 				}else {
 					System.err.println("Need privileged mode to Delete Account");
 				}

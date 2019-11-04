@@ -290,7 +290,7 @@ class frontendTest {
         runAndTest(Arrays.asList(a), //
                 Arrays.asList(b), //
                 Arrays.asList(c), //
-                Arrays.asList("EOS"), true);
+                Arrays.asList("DEL 0000000 000 7654321 janedoe", "EOS"), true);
     }
 	
 	@Test
@@ -302,7 +302,7 @@ class frontendTest {
         runAndTest(Arrays.asList(a), //
                 Arrays.asList(b), //
                 Arrays.asList(c), //
-                Arrays.asList("EOS"), true);
+                Arrays.asList("DEL 0000000 000 7654321 janedoe", "EOS"), true);
     }
 	
 	@Test
@@ -314,7 +314,7 @@ class frontendTest {
         runAndTest(Arrays.asList(a), //
                 Arrays.asList(b), //
                 Arrays.asList(c), //
-                Arrays.asList("EOS"), true);
+                Arrays.asList("DEL 0000000 000 7654321 janedoe", "EOS"), true);
     }
 	
 	@Test
@@ -326,13 +326,13 @@ class frontendTest {
         runAndTest(Arrays.asList(a), //
                 Arrays.asList(b), //
                 Arrays.asList(c), //
-                Arrays.asList("EOS"), true);
+                Arrays.asList("DEL 0000000 000 7654321 janedoe", "EOS"), true);
     }
 	
 	@Test
     public void testR15T1() throws Exception {
 		// ensure the user gets confirmation that the account was deleted
-		String a[] = new String[]{"login atm", "deleteacct 7654321 JaneDoe", "logout"};
+		String a[] = new String[]{"login agent", "deleteacct 7654321 JaneDoe", "logout"};
 		String b[] = new String[]{"7654321"};
 		String c[] = new String[] {"Account deleted"};
         runAndTest(Arrays.asList(a), //
