@@ -172,6 +172,20 @@ class frontendTest {
     }
 	
 	@Test
+    public void testR7T1() throws Exception {
+		//valid TSF upon logout
+		String a[] = new String[]{"login atm", "logout"};
+		String b[] = new String[]{"1234567"};
+		String c[] = new String[]{"Please Login to begin session","Enter next transaction: "};
+		String d[] = new String[] {"EOS"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList(d), false);
+    }
+	
+	
+	@Test
     public void testR8T1() throws Exception {
 		// check that new account num is 7 digits long and doesnt start with a 0
 		String a[] = new String[]{"login agent", "createacct 0123456 JohnDoe", "logout"};
