@@ -532,6 +532,12 @@ class frontendTest {
                 Arrays.asList(b), //
                 Arrays.asList(c), //
                 Arrays.asList("EOS"), true);
+        a = new String[]{"login atm", "transfer 1234567 1234569 1000", "logout"};
+        c = new String[] {"Please enter correct account number to send to"};
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList("EOS"), true);
     }
 	
 	@Test
