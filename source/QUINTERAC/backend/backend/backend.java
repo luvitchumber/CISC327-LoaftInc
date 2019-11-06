@@ -167,13 +167,10 @@ public class backend {
 		    			break;
 	    			default:
 	    				//throw fatal error here?? only way to reach is if inccorect type code.
-		    	}
-		    	
-			}
+		    	} //end switch   	
+			} //end while loop
 			sc.close();
-			
-		}
-		
+		} //end for loop
 		return masterAccts;
 	}
 	
@@ -240,14 +237,16 @@ public class backend {
 		int num = -1;
 		try {
 			double test = Double.parseDouble(in);
-			if (test % 1 > 0) {
+			
+			if (test % 1 > 0) 
 				test *= 100; //left shift amount 2 if amount entered as XX.x
-			}
+			
 			num=(int)test;
-			if (in.length() < 3 || num > 99999999 || num < 0) {	//cannot exceed 99999999 or be a negative number
+			
+			if (in.length() < 3 || num > 99999999 || num < 0) 	//cannot exceed 99999999 or be a negative number
 				num = -1;
-			}
-		}catch(NumberFormatException e){
+			
+		} catch(NumberFormatException e){
 			e.printStackTrace();
 		}
 		return num;
@@ -259,15 +258,13 @@ public class backend {
 		String name = "";
 		boolean isAlphanumeric = true;
 		
-		if (in == null || !in.matches("^[\\sa-zA-Z0-9]*$")) {
+		if (in == null || !in.matches("^[\\sa-zA-Z0-9]*$")) 
 			isAlphanumeric = false;
-		}
 		
-		if (in.length()>=3 && in.length()<=30 && isAlphanumeric) {
+		if (in.length()>=3 && in.length()<=30 && isAlphanumeric) 
 			name=in;
-		}else {
+		else 
 			name="NotValid";
-		}
 		
 		return name;
 	}
@@ -297,9 +294,9 @@ public class backend {
 		in = in.trim();
 		Account cache = new Account(in,-1,null);
 		
-		if (accts.contains(cache)) {
+		if (accts.contains(cache)) 
 			return true;
-		}
+		
 		return false;
 	}
 
