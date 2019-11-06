@@ -10,8 +10,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Scanner;
 
-import transactions.Transaction;
-
 public class backend {
 
 	public static void main(String[] args) throws IOException {
@@ -25,7 +23,8 @@ public class backend {
 		// produce updated valid accts file
 		
 		File masterAcctsFile = new File(args[0]);
-		String[] mergedTsfFileNames = Arrays.copyOfRange(args, 1, args.length); // in case of multiple TSFs
+		File validAcctsFile = new File(args[1]);
+		String[] mergedTsfFileNames = Arrays.copyOfRange(args, 2, args.length); // in case of multiple TSFs
 		
 		ArrayList<Account> masterAccts = validateMasterAcctsFile(masterAcctsFile);
 		
@@ -36,7 +35,24 @@ public class backend {
 		
 		createNewMasterAcctsFile(masterAcctsFile,masterAccts);
 		
-		System.out.println(masterAccts.toString());
+		//System.out.println(masterAccts.toString());
+		
+		createNewValidAcctsFile(validAcctsFile,masterAccts);
+	}
+
+	private static void createNewValidAcctsFile(File validAcctsFile, ArrayList<Account> masterAccts) throws IOException {
+		// TODO Auto-generated method stub
+		
+		String output = "";
+		for (int i = 0; i < masterAccts.size(); i++) {
+			Account cache = masterAccts.get(i);
+			if(cache!=null) {
+				output += cache.getAcct() + "\n";
+			}
+		}
+		output += "0000000";
+		
+		Files.write(validAcctsFile.toPath(),output.getBytes());
 	}
 
 	private static void createNewMasterAcctsFile(File masterAcctsFile, ArrayList<Account> masterAccts) throws IOException {
@@ -162,7 +178,9 @@ public class backend {
 	}
 	
 	private static ArrayList<Account> transaction(ArrayList<Account> masterAccts,String type,String acct,String name,int amount) throws IllegalArgumentException {
-//		check if account exists else throw fatal error
+// redo all logic here!!
+		
+		//		check if account exists else throw fatal error
 		if (!type.equals("NEW") && !DoesAcctNumExist(masterAccts,acct)) {
 			//throw error
 		}
@@ -176,8 +194,8 @@ public class backend {
 					masterAccts.add(temp);
 					break;
 				case "DEL":
-					if (masterAccts.contains(acct)){// needed? checks at the top...// implemented equals override to check based on account number
-						int idx = masterAccts.indexOf(acct);
+					if (masterAccts.contains(temp)){// needed? checks at the top...// implemented equals override to check based on account number
+						int idx = masterAccts.indexOf(temp);
 						temp = masterAccts.get(idx);
 						if(temp.getAmount() == 0 && temp.getName().equals(name)) {
 							masterAccts.remove(idx);
