@@ -52,7 +52,7 @@ public class backend {
 		}
 		output += "0000000";
 		
-		Files.write(validAcctsFile.toPath(),output.getBytes());
+		Files.write(validAcctsFile.toPath(),output.getBytes()); //throws fatal error if cannot write to file
 	}
 
 	private static void createNewMasterAcctsFile(File masterAcctsFile, ArrayList<Account> masterAccts) throws IOException {
@@ -66,7 +66,7 @@ public class backend {
 			}
 		}
 		
-		Files.write(masterAcctsFile.toPath(),output.getBytes());
+		Files.write(masterAcctsFile.toPath(),output.getBytes()); //throws fatal error if cannot write to file
 		
 	}
 
