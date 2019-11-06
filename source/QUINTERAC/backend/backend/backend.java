@@ -40,6 +40,7 @@ public class backend {
 		createNewValidAcctsFile(validAcctsFile,masterAccts);
 	}
 
+	//Writes all valid accounts to file (valid_accts.txt)
 	private static void createNewValidAcctsFile(File validAcctsFile, ArrayList<Account> masterAccts) throws IOException {
 		// TODO Auto-generated method stub
 		
@@ -47,7 +48,7 @@ public class backend {
 		for (int i = 0; i < masterAccts.size(); i++) {
 			Account cache = masterAccts.get(i);
 			if(cache!=null) {
-				output += cache.getAcct() + "\n";
+				output += cache.getAcct() + "\n";	// Outputs: acct
 			}
 		}
 		output += "0000000";
@@ -55,6 +56,7 @@ public class backend {
 		Files.write(validAcctsFile.toPath(),output.getBytes()); //throws fatal error if cannot write to file
 	}
 
+	//Writes all updated account information to file (masteraccts.txt)
 	private static void createNewMasterAcctsFile(File masterAcctsFile, ArrayList<Account> masterAccts) throws IOException {
 		// TODO Auto-generated method stub
 		
@@ -62,7 +64,7 @@ public class backend {
 		for (int i = 0; i < masterAccts.size(); i++) {
 			Account cache = masterAccts.get(i);
 			if(cache!=null) {
-				output += cache.toString() + "\n";
+				output += cache.toString() + "\n"; 	// Outputs: acct amount name
 			}
 		}
 		
@@ -70,6 +72,9 @@ public class backend {
 		
 	}
 
+	//Performs check on the master accounts file
+	//Parses through original file
+	//Checks for: line length, remove unnecessary spaces, validate account number
 	private static ArrayList<Account> validateMasterAcctsFile(File masterAcctsFile) throws FileNotFoundException {
 		//add validate here
 		ArrayList<Account> masterAccts = new ArrayList<Account>();		//create ArrayList<String> accts;
@@ -112,6 +117,10 @@ public class backend {
 		return masterAccts;
 	}
 	
+	//Update the master accounts file (masteraccts.txt)
+	//Parse through the original file
+	//Validate name, account number to, account number from, amount
+	//Ensure type is correct: NEW, DEL, DEP, WDR, XFR, EOS
 	private static ArrayList<Account> updateMasterAccts(ArrayList<Account> masterAccts, String[] mergedTsfFileNames) throws FileNotFoundException {
 		// TODO Auto-generated method stub
 		for(int i = 0; i < mergedTsfFileNames.length; i++) {
