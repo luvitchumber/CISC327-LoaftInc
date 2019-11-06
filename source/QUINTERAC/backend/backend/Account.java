@@ -1,6 +1,6 @@
 package backend;
 
-public class Account implements Comparable{
+public class Account implements Comparable<Object>{
 	private String acct;
 	private int amount;
 	private String name;
@@ -59,6 +59,7 @@ public class Account implements Comparable{
 		// TODO Auto-generated method stub
 		String compareAcct=((Account)o).getAcct();
 		return this.acct.compareTo(compareAcct);
+		//need to flip to sort in descending order
 	}
 
 	/* (non-Javadoc)
@@ -80,8 +81,8 @@ public class Account implements Comparable{
 
 		boolean sameSame = false;
 		
-		if (obj != null && obj instanceof String) {
-			sameSame = this.acct.equals((String)obj);
+		if (obj instanceof Account) {
+			sameSame = acct.equals(((Account) obj).getAcct());
 		}
 		
 		return sameSame;
@@ -92,7 +93,7 @@ public class Account implements Comparable{
 	 */
 	@Override
 	public String toString() {
-		return "Account [acct=" + acct + ", amount=" + amount + ", name=" + name + "]";
+		return acct + " " + amount + " " + name;
 	}
 
 }
