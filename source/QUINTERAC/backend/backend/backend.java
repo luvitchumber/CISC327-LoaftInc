@@ -9,7 +9,7 @@ import frontend.Terminal;
 
 public class backend {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		// TODO Auto-generated method stub
 		// read previous master accounts file
 		// read in merged tsf 
@@ -21,9 +21,10 @@ public class backend {
 		
 		File masterAcctsFile = new File(args[0]);
 		ArrayList<Account> masterAccts= validateMasterAcctsFile(masterAcctsFile);
+		System.out.println(masterAccts.toString());
 	}
 	
-	private static ArrayList<Account> validateMasterAcctsFile(File masterAcctsFile) {
+	private static ArrayList<Account> validateMasterAcctsFile(File masterAcctsFile) throws FileNotFoundException {
 		//add validate here
 		ArrayList<Account> masterAccts = new ArrayList<Account>();		//create ArrayList<String> accts;
 		String inRaw = "";
@@ -33,20 +34,29 @@ public class backend {
 		while (sc.hasNextLine()) {		//while there is another line to parse through
 	    	inRaw = sc.nextLine();
 	    	
-	    	String[] in = inRaw.split(" ");
+	    	String[] in = inRaw.split(" "); // cannot use this method for names, can have spaces
 	    	String acct = in[0];
 	    	String amountStr = in[1];
-	    	String name = in[2];
+	    	int startIDX = inRaw.lastIndexOf(amountStr);
+	    	String name = inRaw.substring(startIDX+amountStr.length());
+	    	name = name.trim(); // removes space from front of string;	    	
 	    	
-	    	if (acct.equals("0000000") && !sc.hasNextLine()) { //constraint, end of file = 0000000
-	    		break;	//done parsing
-	    	}
 	    	if (validateAcctNumandReturn(acct).equals("NotValid")) { 	//perform check on single account
 	    		//throw error 
-	    		System.err.println("Error with account number in valid_accts.txt");
-	    		System.err.println("Cannot validate accounts file.");
+	    		System.err.println("Error with account number in master accounts files");
+	    		System.err.println("Cannot validate master accounts file.");
+	    	}else if (validateAmountandReturn(amountStr) == -1){
+	    		//throw error 
+	    		System.err.println("Error with amount in master accounts files");
+	    		System.err.println("Cannot validate master accounts file.");
+	    	}else if (validateNameandReturn(name).equals("NotValid")){
+	    		//throw error 
+	    		System.err.println("Error with name in master accounts files");
+	    		System.err.println("Cannot validate master accounts file.");
 	    	}else {
-	    		masterAccts.add(acct);
+	    		
+	    		Account cache = new Account(acct,validateAmountandReturn(amountStr),name);
+	    		masterAccts.add(cache);
 	    	}
     	}
 	    sc.close();	//close scanner
@@ -79,11 +89,8 @@ public class backend {
 		String name = "";
 		boolean isAlphanumeric = true;
 		
-		for (int i = 0; i < in.length(); i++) {
-			if (! Character.isDigit(in.charAt(i)) && ! Character.isLetter(in.charAt(i))) {
-				isAlphanumeric = false;
-				break;
-			}
+		if (in == null || !in.matches("^[\\sa-zA-Z0-9]*$")) {
+			isAlphanumeric = false;
 		}
 		
 		if (in.length()>=3 && in.length()<=30 && isAlphanumeric) {
