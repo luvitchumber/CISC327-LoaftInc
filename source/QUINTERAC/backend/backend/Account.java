@@ -5,6 +5,7 @@ public class Account implements Comparable<Object>{
 	private int amount;
 	private String name;
 
+	//Sets account number, amount in account and name
 	public Account(String acct, int amount, String name) {
 		// TODO Auto-generated constructor stub
 		this.acct = acct;
@@ -15,6 +16,8 @@ public class Account implements Comparable<Object>{
 	/**
 	 * @return the acct
 	 */
+	
+	//Returns account number
 	protected String getAcct() {
 		return acct;
 	}
@@ -22,6 +25,7 @@ public class Account implements Comparable<Object>{
 	/**
 	 * @param acct the acct to set
 	 */
+	//Sets the account number
 	protected void setAcct(String acct) {
 		this.acct = acct;
 	}
@@ -29,6 +33,7 @@ public class Account implements Comparable<Object>{
 	/**
 	 * @return the amount
 	 */
+	//Returns amount in bank account
 	protected int getAmount() {
 		return amount;
 	}
@@ -36,6 +41,7 @@ public class Account implements Comparable<Object>{
 	/**
 	 * @param amount the amount to set
 	 */
+	//Sets the amount in bank account
 	protected void setAmount(int amount) {
 		this.amount = amount;
 	}
@@ -43,6 +49,7 @@ public class Account implements Comparable<Object>{
 	/**
 	 * @return the name
 	 */
+	//Returns name of account
 	protected String getName() {
 		return name;
 	}
@@ -50,10 +57,12 @@ public class Account implements Comparable<Object>{
 	/**
 	 * @param name the name to set
 	 */
+	//Sets name for the account
 	protected void setName(String name) {
 		this.name = name;
 	}
 
+	//
 	@Override
 	public int compareTo(Object o) {
 		// TODO Auto-generated method stub
@@ -65,6 +74,7 @@ public class Account implements Comparable<Object>{
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
+	//
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -76,6 +86,7 @@ public class Account implements Comparable<Object>{
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
+	//
 	@Override
 	public boolean equals(Object obj) {
 
@@ -91,6 +102,8 @@ public class Account implements Comparable<Object>{
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
+	//Returns a string that combines account number, amount and name
+	//Used for Master accounts file
 	@Override
 	public String toString() {
 		return acct + " " + amount + " " + name;
