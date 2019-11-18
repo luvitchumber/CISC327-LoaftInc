@@ -13,7 +13,6 @@ import java.util.Scanner;
 public class backend {
 
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
 		// read previous master accounts file
 		// read in merged tsf 
 		// update master accounts file
@@ -42,8 +41,7 @@ public class backend {
 
 	//Writes all valid accounts to file (valid_accts.txt)
 	private static void createNewValidAcctsFile(File validAcctsFile, ArrayList<Account> masterAccts) throws IOException {
-		// TODO Auto-generated method stub
-		
+
 		String output = "";
 		for (int i = 0; i < masterAccts.size(); i++) {
 			Account cache = masterAccts.get(i);
@@ -58,8 +56,7 @@ public class backend {
 
 	//Writes all updated account information to file (masteraccts.txt)
 	private static void createNewMasterAcctsFile(File masterAcctsFile, ArrayList<Account> masterAccts) throws IOException {
-		// TODO Auto-generated method stub
-		
+
 		String output = "";
 		for (int i = 0; i < masterAccts.size(); i++) {
 			Account cache = masterAccts.get(i);
@@ -122,7 +119,7 @@ public class backend {
 	//Validate name, account number to, account number from, amount
 	//Ensure type is correct: NEW, DEL, DEP, WDR, XFR, EOS
 	private static ArrayList<Account> updateMasterAccts(ArrayList<Account> masterAccts, String[] mergedTsfFileNames) throws FileNotFoundException {
-		// TODO Auto-generated method stub
+
 		for(int i = 0; i < mergedTsfFileNames.length; i++) {
 			File tsf = new File(mergedTsfFileNames[i]);
 			Scanner sc = new Scanner(tsf);
@@ -148,35 +145,37 @@ public class backend {
 		    	acctFrom = validateAcctNumandReturn(acctFrom);
 		    	int amount = validateAmountandReturn(amountStr);
 		    	
-		    	switch(type) {
-		    		case "NEW":
-		    			masterAccts = transaction(masterAccts,type,acctTo,name,amount);
-		    			break;
-		    		case "DEL":
-		    			masterAccts = transaction(masterAccts,type,acctFrom,name,amount);
-		    			break;
-		    		case "DEP":
-		    			masterAccts = transaction(masterAccts,type,acctTo,name,amount);
-		    			break;
-		    		case "WDR":
-		    			masterAccts = transaction(masterAccts,type,acctFrom,name,amount);
-		    			break;
-		    		case "XFR":
-		    			if (DoesAcctNumExist(masterAccts,acctFrom) && DoesAcctNumExist(masterAccts,acctTo)) { // not needed? checks and throws in transaction...
-		    				try {
-		    					masterAccts = transaction(masterAccts,"WDR",acctFrom,name,amount); //withdraw first to make sure there are sufficent resources
-		    					masterAccts = transaction(masterAccts,"DEP",acctTo,name,amount);
-	    					} catch (IllegalArgumentException e) {
-	    						//e.printStackTrace();
-	    						System.err.println(e.getMessage());
-	    					}
-		    			}else {
-//		    				error
-		    			}
-		    			break;
-	    			default:
-	    				//throw fatal error here?? only way to reach is if inccorect type code.
-		    	} //end switch   	
+		    	try {
+			    	switch(type) {
+			    		case "NEW":
+			    			masterAccts = transaction(masterAccts,type,acctTo,name,amount);
+			    			break;
+			    		case "DEL":
+			    			masterAccts = transaction(masterAccts,type,acctFrom,name,amount);
+			    			break;
+			    		case "DEP":
+			    			masterAccts = transaction(masterAccts,type,acctTo,name,amount);
+			    			break;
+			    		case "WDR":
+			    			masterAccts = transaction(masterAccts,type,acctFrom,name,amount);
+			    			break;
+			    		case "XFR":
+			    			try {
+			    				masterAccts = transaction(masterAccts,"WDR",acctFrom,name,amount); //withdraw first to make sure there are sufficent resources
+			    				masterAccts = transaction(masterAccts,"DEP",acctTo,name,amount);
+			    			}catch (IllegalArgumentException e) {
+			    				throw new IllegalArgumentException("Cannot Transfer Funds, Invalid Amound");
+			    			}
+			    			break;
+		    			default:
+		    				throw new IllegalArgumentException("Illegal Transaction Code");
+			    	} //end switch   
+		    	} catch (IllegalArgumentException e) {
+					//e.printStackTrace();
+					System.err.println(e.getMessage());
+					sc.close();
+					throw e;
+				}
 			} //end while loop
 			sc.close();
 		} //end for loop
@@ -184,45 +183,53 @@ public class backend {
 	}
 	
 	private static ArrayList<Account> transaction(ArrayList<Account> masterAccts,String type,String acct,String name,int amount) throws IllegalArgumentException {
-// redo all logic here!!
-		
 		//		check if account exists else throw fatal error
 		if (!type.equals("NEW") && !DoesAcctNumExist(masterAccts,acct)) {
 			//throw error
+			throw new IllegalArgumentException("Account does not exist");
 		}
+		// now no need to check for acct exists again!!
 		
 		Account temp = new Account(acct,amount,name);
+		int idx,currentAmount;
 		
-		if(!name.equals("NotValid")){
-			switch(type) {
-				case "NEW":
+		switch(type) {
+			case "NEW":
+				if(!name.equals("NotValid")){
 					temp = new Account(acct, 0, name);
 					masterAccts.add(temp);
-					break;
-				case "DEL":
-					if (masterAccts.contains(temp)){// needed? checks at the top...// implemented equals override to check based on account number
-						int idx = masterAccts.indexOf(temp);
-						temp = masterAccts.get(idx);
-						if(temp.getAmount() == 0 && temp.getName().equals(name)) {
-							masterAccts.remove(idx);
-						}else {
-//							error
-						}
-					}
-					break;
-			}
-		}
-		
-		if(amount != -1){
-			switch(type) {
-				case "DEP":
-					int idx = masterAccts.indexOf(temp);
+				}else {
+					throw new IllegalArgumentException("Cannont Create New Account, Invalid Account Name");
+				}
+				
+				break;
+			case "DEL":
+				if (!name.equals("NotValid")){
+					idx = masterAccts.indexOf(temp);
 					temp = masterAccts.get(idx);
-					int currentAmount = temp.getAmount();
+					if(temp.getAmount() == 0 && temp.getName().equals(name)) {
+						masterAccts.remove(idx);
+					}else {
+	//					error
+						throw new IllegalArgumentException("Cannont Delete Account, Account Balance Greater than 0");
+					}
+				}else {
+					throw new IllegalArgumentException("Cannont Delete Account, Invalid Account Name");
+				}
+				break;
+			case "DEP":
+				if(amount != -1) {
+					idx = masterAccts.indexOf(temp);
+					temp = masterAccts.get(idx);
+					currentAmount = temp.getAmount();
 					temp.setAmount(currentAmount+amount);
 					masterAccts.set(idx, temp);
-					break;
-				case "WDR":
+				}else {
+					throw new IllegalArgumentException("Cannot Deposit to Account, Invalid Amount Value");
+				}
+				break;
+			case "WDR":
+				if(amount != -1) {
 					idx = masterAccts.indexOf(temp);
 					temp = masterAccts.get(idx);
 					currentAmount = temp.getAmount();
@@ -230,11 +237,13 @@ public class backend {
 						temp.setAmount(currentAmount-amount);
 						masterAccts.set(idx, temp);
 					}else {
-//						error
+		//				error
 						throw new IllegalArgumentException("Insufficent funds to transfer");
 					}
-					break;
-			}
+				}else {
+					throw new IllegalArgumentException("Cannont Withdraw from Account, Invalid Amount Value");
+				}
+				break;
 		}
 		
 		return masterAccts;
