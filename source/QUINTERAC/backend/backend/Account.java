@@ -62,7 +62,8 @@ public class Account implements Comparable<Object>{
 		this.name = name;
 	}
 
-	//
+	//override the method used to sort collections
+	// now sorts using acct number
 	@Override
 	public int compareTo(Object o) {
 		// TODO Auto-generated method stub
@@ -74,7 +75,7 @@ public class Account implements Comparable<Object>{
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
-	//
+	//needs to be overridden when implemented compareTo
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -86,7 +87,7 @@ public class Account implements Comparable<Object>{
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
-	//
+	//override to implement proper method when checking if ArrayList<Account>.contains(acct)
 	@Override
 	public boolean equals(Object obj) {
 
