@@ -22,8 +22,8 @@ public class backend {
 		// produce updated valid accts file
 		
 		File masterAcctsFile = new File(args[0]);
-		File validAcctsFile = new File(args[1]);
-		String[] mergedTsfFileNames = Arrays.copyOfRange(args, 2, args.length); // in case of multiple TSFs
+		String[] mergedTsfFileNames = Arrays.copyOfRange(args, 1, args.length); // in case of multiple TSFs
+		File validAcctsFile = new File("validaccts.txt");
 		
 		ArrayList<Account> masterAccts = validateMasterAcctsFile(masterAcctsFile);
 		
