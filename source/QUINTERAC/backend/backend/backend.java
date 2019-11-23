@@ -127,6 +127,7 @@ public class backend {
 			while (sc.hasNextLine()) {
 				String inRaw = sc.nextLine();
 				if (inRaw.equals("EOS") || !sc.hasNextLine()) {
+					System.out.println("WDRStatementReached.TestingLine01");
 					continue; // if eos or no more lines, leave current iteration.
 				}
 				
@@ -157,6 +158,7 @@ public class backend {
 			    			masterAccts = transaction(masterAccts,type,acctTo,name,amount);
 			    			break;
 			    		case "WDR":
+			    			System.out.println("WDRStatementReached.TestingLine06");
 			    			masterAccts = transaction(masterAccts,type,acctFrom,name,amount);
 			    			break;
 			    		case "XFR":
@@ -168,6 +170,7 @@ public class backend {
 			    			}
 			    			break;
 		    			default:
+		    				System.out.println("WDRStatementReached.TestingLine07");
 		    				throw new IllegalArgumentException("Illegal Transaction Code");
 			    	} //end switch   
 		    	} catch (IllegalArgumentException e) {
@@ -186,6 +189,7 @@ public class backend {
 		//		check if account exists else throw fatal error
 		if (!type.equals("NEW") && !DoesAcctNumExist(masterAccts,acct)) {
 			//throw error
+			System.out.println("WDRStatementReached.TestingLine08");
 			throw new IllegalArgumentException("Account does not exist");
 		}
 		// now no need to check for acct exists again!!
@@ -229,18 +233,23 @@ public class backend {
 				}
 				break;
 			case "WDR":
+				System.out.println("WDRStatementReached.TestingLine11");
 				if(amount != -1) {
+					System.out.println("WDRStatementReached.TestingLine12");
 					idx = masterAccts.indexOf(temp);
 					temp = masterAccts.get(idx);
 					currentAmount = temp.getAmount();
 					if (amount<currentAmount) {
+						System.out.println("WDRStatementReached.TestingLine14");
 						temp.setAmount(currentAmount-amount);
 						masterAccts.set(idx, temp);
 					}else {
+						System.out.println("WDRStatementReached.TestingLine15");
 		//				error
 						throw new IllegalArgumentException("Insufficent funds to transfer");
 					}
 				}else {
+					System.out.println("WDRStatementReached.TestingLine13");
 					throw new IllegalArgumentException("Cannont Withdraw from Account, Invalid Amount Value");
 				}
 				break;
@@ -257,11 +266,13 @@ public class backend {
 			double test = Double.parseDouble(in);
 			
 			if (test % 1 > 0) 
+				System.out.println("WDRStatementReached.TestingLine04");
 				test *= 100; //left shift amount 2 if amount entered as XX.x
 			
 			num=(int)test;
 			
 			if (in.length() < 3 || num > 99999999 || num < 0) 	//cannot exceed 99999999 or be a negative number
+				System.out.println("WDRStatementReached.TestingLine05");
 				num = -1;
 			
 		} catch(NumberFormatException e){
@@ -293,6 +304,7 @@ public class backend {
 		String acct = "";
 		in = in.trim();
 		if (in.charAt(0)!='0' && in.length()==7) { //error if it starts with 0, or its length is longer than 7 characters
+			System.out.println("WDRStatementReached.TestingLine02");
 			try {
 				Integer.parseInt(in);
 				acct=in;
@@ -300,6 +312,7 @@ public class backend {
 				e.printStackTrace();
 			}
 		}else {
+			System.out.println("WDRStatementReached.TestingLine03");
 			acct="NotValid";
 		}
 		
@@ -312,10 +325,13 @@ public class backend {
 		in = in.trim();
 		Account cache = new Account(in,-1,null);
 		
-		if (accts.contains(cache)) 
+		if (accts.contains(cache)) {
+			System.out.println("WDRStatementReached.TestingLine09");
 			return true;
-		
-		return false;
+		}else {
+			System.out.println("WDRStatementReached.TestingLine10");
+			return false;
+		}
 	}
 
 }
