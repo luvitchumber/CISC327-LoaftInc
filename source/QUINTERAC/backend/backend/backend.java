@@ -13,13 +13,13 @@ import java.util.Scanner;
 public class backend {
 
 	public static void main(String[] args) throws IOException {
-		// read previous master accounts file
-		// read in merged tsf 
-		// update master accounts file
-		// if invalid field produce a fatal error
-		// produce failed constraint log on terminal as processing
-		// produce updated master file
-		// produce updated valid accts file
+		// 1. read previous master accounts file
+		// 2. read in merged tsf 
+		// 3. update master accounts file
+		// 4. if invalid field produce a fatal error
+		// 5. produce failed constraint log on terminal as processing
+		// 6. produce updated master file
+		// 7. produce updated valid accts file
 		
 		File masterAcctsFile = new File(args[0]);
 		String[] mergedTsfFileNames = Arrays.copyOfRange(args, 1, args.length); // in case of multiple TSFs
