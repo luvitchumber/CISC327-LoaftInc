@@ -46,25 +46,25 @@ class backendTest {
 		String b[] = new String[]{"WDR 0000000 100 1234567 ***",
 				"EOS",
 				"EOS"/*mergedTSF contents*/};
-
-		String c[] = new String[]{"WDRStatementReached.TestingLine02",
-				"WDRStatementReached.TestingLine02",
-				"WDRStatementReached.TestingLine02",
-				"WDRStatementReached.TestingLine02",
+		
+		String c[] = new String[]{/*expectedOutput*/
+				/*always output from reading master accts*/
 				"WDRStatementReached.TestingLine02",
 				"WDRStatementReached.TestingLine02",
 				"WDRStatementReached.TestingLine02",
 				"WDRStatementReached.TestingLine02",
 				"WDRStatementReached.TestingLine03",
+				/*test specific output*/
 				"WDRStatementReached.TestingLine02",
 				"WDRStatementReached.TestingLine06",
 				"WDRStatementReached.TestingLine09",
 				"WDRStatementReached.TestingLine11",
 				"WDRStatementReached.TestingLine12",
 				"WDRStatementReached.TestingLine14",
+				/*clean up output*/
 				"WDRStatementReached.TestingLine01",
 				"WDRStatementReached.TestingLine01"
-				/*expectedOutput*/};
+				};
 		
 		String d[] = new String[] {""};
 		
@@ -97,9 +97,7 @@ class backendTest {
 				"WDRStatementReached.TestingLine02",
 				"WDRStatementReached.TestingLine02",
 				"WDRStatementReached.TestingLine02",
-				"WDRStatementReached.TestingLine02",
-				"WDRStatementReached.TestingLine02",
-				"WDRStatementReached.TestingLine02",
+				"WDRStatementReached.TestingLine03",
 				/*test specific output*/
 				"WDRStatementReached.TestingLine01",
 				"WDRStatementReached.TestingLine02",
