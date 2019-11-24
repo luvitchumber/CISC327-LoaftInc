@@ -203,7 +203,7 @@ public class backend {
 					temp = new Account(acct, 0, name);
 					masterAccts.add(temp);
 				}else {
-					throw new IllegalArgumentException("Cannont Create New Account, Invalid Account Name");
+					throw new IllegalArgumentException("Cannot Create New Account, Invalid Account Name");
 				}
 				
 				break;

@@ -62,18 +62,39 @@ class backendTest {
 	 */
 	@Test
     public void testNEWPath1() throws Exception {
-		//logout before logging in
-		
-		
-		
+		//Create new account path 1: invalid account name
 		
 		String a[] = new String[]{"7654321 123 Jane Doe",
 				"1234567 11607 John Doe",
 				"1000002 74076 Jane Hancock",
+				/*master accts contents*/};
+		
+		String b[] = new String[]{"NEW 1000001 000 0000000 Nol??dsfiur",
+				"EOS",
+				"EOS" /*mergedTSF contents*/};
+
+		String c[] = new String[]{"Cannot Create New Account, Invalid Account Name"/*expectedOutput*/};
+		
+		String d[] = new String[] {""};
+		
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList(d), true);
+    }
+	
+	@Test
+    public void testNEWPath2() throws Exception {
+		//Create new account path 2: correct inputs, successful account creation
+		
+		String a[] = new String[]{"7654321 123 Jane Doe",
+				"1000003 74076 Jane Hancock",
 				"1000001 74070 John Hancock"
 				/*master accts contents*/};
 		
-		String b[] = new String[]{""/*mergedTSF contents*/};
+		String b[] = new String[]{"NEW 1000002 000 0000000 JohnDoe",
+				"EOS",
+				"EOS" /*mergedTSF contents*/};
 
 		String c[] = new String[]{""/*expectedOutput*/};
 		
@@ -85,16 +106,36 @@ class backendTest {
                 Arrays.asList(d), true);
     }
 	
-	
+	@Test
+    public void testNEWPath3() throws Exception {
+		//Create new account path 2: correct inputs, successful account creation
+		
+		String a[] = new String[]{"7654321 123 Jane Doe",
+				"1000003 74076 Jane Hancock",
+				"1000001 74070 John Hancock"
+				/*master accts contents*/};
+		
+		String b[] = new String[]{"NEW 1000001 000 0000000 JohnDoe",
+				"EOS",
+				"EOS" /*mergedTSF contents*/};
+
+		String c[] = new String[]{""/*expectedOutput*/};
+		
+		String d[] = new String[] {""};
+		
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList(d), true);
+    }
+
 
 	/**
      * Helper function to run the main function and verify the output
      * 
-     * @param terminal_input                 A list of string as the terminal input
-     *                                       to run the program
+     * @param masterAccts                 The contents of the masterAccts file
      * 
-     * @param valid_accounts                 A list of valid accounts to be used for
-     *                                       the test case
+     * @param transactions                 The contents of the merged TSF
      * 
      * @param expected_terminal_tails        A list of string expected at the tail
      *                                       of terminal output
