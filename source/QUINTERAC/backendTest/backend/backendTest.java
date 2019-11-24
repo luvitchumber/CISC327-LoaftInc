@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
  * @author luvit
  *
  */
-class frontendTest {
+class backendTest {
 
 	/**
 	 * Test method for {@link backend.backend#main(java.lang.String[])}.

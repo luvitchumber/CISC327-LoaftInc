@@ -265,15 +265,17 @@ public class backend {
 		try {
 			double test = Double.parseDouble(in);
 			
-			if (test % 1 > 0) 
+			if (test % 1 > 0) {
 				System.out.println("WDRStatementReached.TestingLine04");
 				test *= 100; //left shift amount 2 if amount entered as XX.x
+			}
 			
 			num=(int)test;
 			
-			if (in.length() < 3 || num > 99999999 || num < 0) 	//cannot exceed 99999999 or be a negative number
+			if (in.length() < 3 || num > 99999999 || num < 0) {	//cannot exceed 99999999 or be a negative number
 				System.out.println("WDRStatementReached.TestingLine05");
 				num = -1;
+			}
 			
 		} catch(NumberFormatException e){
 			e.printStackTrace();
