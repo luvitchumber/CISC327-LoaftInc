@@ -191,6 +191,8 @@ public class backend {
 			//throw error
 			System.out.println("WDRStatementReached.TestingLine08");
 			throw new IllegalArgumentException("Account does not exist");
+		}else if(type.equals("NEW") && DoesAcctNumExist(masterAccts,acct)){
+			throw new IllegalArgumentException("Cannot Create New Account, Account Number already exists");
 		}
 		// now no need to check for acct exists again!!
 		
