@@ -150,7 +150,10 @@ public class backend {
 			    	switch(type) {
 			    		case "NEW":
 			    			if (amount != 0) {
-			    				throw new IllegalArgumentException("Invalid Amount for Entered for New Account");
+			    				throw new IllegalArgumentException("Invalid Amount Entered for New Account");
+			    			}
+			    			if (acctTo == "NotValid") {
+			    				throw new IllegalArgumentException("Invalid Account Number");
 			    			}
 			    			masterAccts = transaction(masterAccts,type,acctTo,name,amount);
 			    			break;

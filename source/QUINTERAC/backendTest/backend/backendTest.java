@@ -161,30 +161,7 @@ class backendTest {
 		
 		String a[] = new String[]{"7654321 123 Jane Doe",
 				"1000003 74076 Jane Hancock",
-				"1000001 74070 John Hancock"
-				/*master accts contents*/};
-		
-		String b[] = new String[]{"NEW 1000002 000 0000000 JohnDoe",
-				"EOS",
-				"EOS" /*mergedTSF contents*/};
-
-		String c[] = new String[]{""/*expectedOutput*/};
-		
-		String d[] = new String[] {""};
-		
-        runAndTest(Arrays.asList(a), //
-                Arrays.asList(b), //
-                Arrays.asList(c), //
-                Arrays.asList(d), true);
-    }
-	
-	@Test
-    public void testNEWPath3() throws Exception {
-		//Create new account path 2: correct inputs, successful account creation
-		
-		String a[] = new String[]{"7654321 123 Jane Doe",
-				"1000003 74076 Jane Hancock",
-				"1000001 74070 John Hancock"
+				"1000002 74070 John Hancock"
 				/*master accts contents*/};
 		
 		String b[] = new String[]{"NEW 1000001 000 0000000 JohnDoe",
@@ -200,7 +177,52 @@ class backendTest {
                 Arrays.asList(c), //
                 Arrays.asList(d), true);
     }
+	
+	@Test
+    public void testNEWPath3() throws Exception {
+		//Create new account path 3: invalid amount 
+		
+		String a[] = new String[]{"7654321 123 Jane Doe",
+				"1000003 74076 Jane Hancock",
+				"1000001 74070 John Hancock"
+				/*master accts contents*/};
+		
+		String b[] = new String[]{"NEW 1000002 00 0000000 John Doe",
+				"EOS",
+				"EOS" /*mergedTSF contents*/};
 
+		String c[] = new String[]{"Invalid Amount Entered for New Account"/*expectedOutput*/};
+		
+		String d[] = new String[] {""};
+		
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList(d), true);
+    }
+
+	@Test
+    public void testNEWPath5() throws Exception {
+		//Create new account path 3: correct inputs, successful account creation
+		
+		String a[] = new String[]{"7654321 123 Jane Doe",
+				"1000003 74076 Jane Hancock",
+				"1000001 74070 John Hancock"
+				/*master accts contents*/};
+		
+		String b[] = new String[]{"NEW 100022001 000 0000000 JohnDoe",
+				"EOS",
+				"EOS" /*mergedTSF contents*/};
+
+		String c[] = new String[]{""/*expectedOutput*/};
+		
+		String d[] = new String[] {""};
+		
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList(d), true);
+    }
 
 	/**
      * Helper function to run the main function and verify the output
