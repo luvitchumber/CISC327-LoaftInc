@@ -201,18 +201,18 @@ class backendTest {
 
 	@Test
     public void testNEWPath5() throws Exception {
-		//Create new account path 3: correct inputs, successful account creation
+		//Create new account path 5: invalid account number
 		
 		String a[] = new String[]{"7654321 123 Jane Doe",
 				"1000003 74076 Jane Hancock",
 				"1000001 74070 John Hancock"
 				/*master accts contents*/};
 		
-		String b[] = new String[]{"NEW 100022001 000 0000000 JohnDoe",
+		String b[] = new String[]{"NEW 10000001 000 0000000 JohnDoe",
 				"EOS",
 				"EOS" /*mergedTSF contents*/};
 
-		String c[] = new String[]{""/*expectedOutput*/};
+		String c[] = new String[]{"Invalid Account Number"/*expectedOutput*/};
 		
 		String d[] = new String[] {""};
 		
