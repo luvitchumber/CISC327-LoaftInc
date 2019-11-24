@@ -32,10 +32,7 @@ class backendTest {
 	 */
 	@Test
     public void testWDRT1() throws Exception {
-		//logout before logging in
-		
-		
-		
+		//Successful run for withdraw
 		
 		String a[] = new String[]{"7654321 123 Jane Doe",
 				"1234567 11607 John Doe",
@@ -61,6 +58,311 @@ class backendTest {
 				"WDRStatementReached.TestingLine11",
 				"WDRStatementReached.TestingLine12",
 				"WDRStatementReached.TestingLine14",
+				/*clean up output*/
+				"WDRStatementReached.TestingLine01",
+				"WDRStatementReached.TestingLine01"
+				};
+		
+		String d[] = new String[] {""};
+		
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList(d), false);
+    }
+	
+	@Test
+    public void testWDRT2() throws Exception {
+		//EOS
+		//"WDRStatementReached.TestingLine01"
+		String a[] = new String[]{
+				"7654321 123 Jane Doe",
+				"1234567 11607 John Doe",
+				"1000002 74076 Jane Hancock",
+				"1000001 74070 John Hancock"
+				/*master accts contents*/};
+		
+		String b[] = new String[]{
+				"EOS",
+				"EOS"/*mergedTSF contents*/};
+		
+		String c[] = new String[]{/*expectedOutput*/
+				/*always output from reading master accts*/
+				"WDRStatementReached.TestingLine02",
+				"WDRStatementReached.TestingLine02",
+				"WDRStatementReached.TestingLine02",
+				"WDRStatementReached.TestingLine02",
+				/*test specific output*/
+				/*clean up output*/
+				"WDRStatementReached.TestingLine01",
+				"WDRStatementReached.TestingLine01"
+				};
+		
+		String d[] = new String[] {""};
+		
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList(d), false);
+    }
+
+	@Test
+    public void testWDRT3() throws Exception {
+		//error if it starts with 0, or its length is longer than 7 characters
+		//WDRStatementReached.TestingLine03
+		
+		String a[] = new String[]{
+				"7654321 123 Jane Doe",
+				"1234567 11607 John Doe",
+				"1000002 74076 Jane Hancock",
+				"1000001 74070 John Hancock"
+				/*master accts contents*/};
+		
+		String b[] = new String[]{
+				"WDR 0000000 100 111111 ***",
+				"EOS",
+				"EOS"/*mergedTSF contents*/};
+		
+		String c[] = new String[]{/*expectedOutput*/
+				/*always output from reading master accts*/
+				"WDRStatementReached.TestingLine02",
+				"WDRStatementReached.TestingLine02",
+				"WDRStatementReached.TestingLine02",
+				"WDRStatementReached.TestingLine02",
+				/*test specific output*/
+				"WDRStatementReached.TestingLine03",
+				"WDRStatementReached.TestingLine03",
+				"WDRStatementReached.TestingLine06", 
+				"WDRStatementReached.TestingLine08", //unless it stops after error
+				"WDRStatementReached.TestingLine11",
+				"WDRStatementReached.TestingLine12",
+				"WDRStatementReached.TestingLine14",
+				/*clean up output*/
+				"WDRStatementReached.TestingLine01",
+				"WDRStatementReached.TestingLine01"
+				};
+		
+		
+		String d[] = new String[] {""};
+		
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList(d), false);
+    }
+	
+	@Test
+    public void testWDRT4() throws Exception {
+		//If there are cents in amount
+		
+		
+		
+		
+		String a[] = new String[]{
+				"7654321 123 Jane Doe",
+				"1234567 11607 John Doe",
+				"1000002 74076 Jane Hancock",
+				"1000001 74070 John Hancock"
+				/*master accts contents*/};
+		
+		String b[] = new String[]{
+				"WDR 0000000 100 1234567 ***",
+				"EOS",
+				"EOS"/*mergedTSF contents*/};
+		
+		String c[] = new String[]{/*expectedOutput*/
+				/*always output from reading master accts*/
+				"WDRStatementReached.TestingLine02",
+				"WDRStatementReached.TestingLine02",
+				"WDRStatementReached.TestingLine02",
+				"WDRStatementReached.TestingLine02",
+				/*test specific output*/
+				"WDRStatementReached.TestingLine03",
+				"WDRStatementReached.TestingLine02",
+				"WDRStatementReached.TestingLine04",
+				"WDRStatementReached.TestingLine06",
+				"WDRStatementReached.TestingLine09",
+				"WDRStatementReached.TestingLine11",
+				"WDRStatementReached.TestingLine12",
+				"WDRStatementReached.TestingLine14",
+				/*clean up output*/
+				"WDRStatementReached.TestingLine01",
+				"WDRStatementReached.TestingLine01"
+				};
+		
+		String d[] = new String[] {""};
+		
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList(d), false);
+    }
+	
+	@Test
+    public void testWDRT5() throws Exception {
+		//
+		
+		
+		
+		
+		String a[] = new String[]{
+				"7654321 123 Jane Doe",
+				"1234567 11607 John Doe",
+				"1000002 74076 Jane Hancock",
+				"1000001 74070 John Hancock"
+				/*master accts contents*/};
+		
+		String b[] = new String[]{
+				"WDR 0000000 -100 1234567 ***",
+				"EOS",
+				"EOS"/*mergedTSF contents*/};
+		
+		String c[] = new String[]{/*expectedOutput*/
+				/*always output from reading master accts*/
+				"WDRStatementReached.TestingLine02",
+				"WDRStatementReached.TestingLine02",
+				"WDRStatementReached.TestingLine02",
+				"WDRStatementReached.TestingLine02",
+				/*test specific output*/
+				"WDRStatementReached.TestingLine03",
+				"WDRStatementReached.TestingLine02",
+				"WDRStatementReached.TestingLine05",
+				"WDRStatementReached.TestingLine06",
+				"WDRStatementReached.TestingLine09",
+				"WDRStatementReached.TestingLine11",
+				"WDRStatementReached.TestingLine12",
+				"WDRStatementReached.TestingLine14",
+				/*clean up output*/
+				"WDRStatementReached.TestingLine01",
+				"WDRStatementReached.TestingLine01"
+				};
+		
+		String d[] = new String[] {""};
+		
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList(d), false);
+    }
+	
+	@Test
+    public void testWDRT6() throws Exception {
+		//If not WDR (ABC), dont enter first switch case
+		
+		
+		
+		
+		String a[] = new String[]{
+				"7654321 123 Jane Doe",
+				"1234567 11607 John Doe",
+				"1000002 74076 Jane Hancock",
+				"1000001 74070 John Hancock"
+				/*master accts contents*/};
+		
+		String b[] = new String[]{
+				"ABC 0000000 100 1234567 ***",
+				"EOS",
+				"EOS"/*mergedTSF contents*/};
+		
+		String c[] = new String[]{/*expectedOutput*/
+				/*always output from reading master accts*/
+				"WDRStatementReached.TestingLine02",
+				"WDRStatementReached.TestingLine02",
+				"WDRStatementReached.TestingLine02",
+				"WDRStatementReached.TestingLine02",
+				/*test specific output*/
+				"WDRStatementReached.TestingLine03",
+				"WDRStatementReached.TestingLine02",
+				"WDRStatementReached.TestingLine05",
+				"WDRStatementReached.TestingLine07",
+				/*clean up output*/
+				"WDRStatementReached.TestingLine01",
+				"WDRStatementReached.TestingLine01"
+				};
+		
+		String d[] = new String[] {""};
+		
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList(d), false);
+    }
+	@Test
+    public void testWDRT7() throws Exception {
+		//Account number does not exist
+		
+		
+		
+		
+		String a[] = new String[]{
+				"7654321 123 Jane Doe",
+				"1234567 11607 John Doe",
+				"1000002 74076 Jane Hancock",
+				"1000001 74070 John Hancock"
+				/*master accts contents*/};
+		
+		String b[] = new String[]{
+				"ABC 0000000 100 1234567 ***",
+				"EOS",
+				"EOS"/*mergedTSF contents*/};
+		
+		String c[] = new String[]{/*expectedOutput*/
+				/*always output from reading master accts*/
+				"WDRStatementReached.TestingLine02",
+				"WDRStatementReached.TestingLine02",
+				"WDRStatementReached.TestingLine02",
+				"WDRStatementReached.TestingLine02",
+				/*test specific output*/
+				///////// CHECK HERE, NOT SURE IF CORRECT
+				"WDRStatementReached.TestingLine03",
+				"WDRStatementReached.TestingLine02",
+				"WDRStatementReached.TestingLine04",
+				"WDRStatementReached.TestingLine06",
+				"WDRStatementReached.TestingLine010",
+				/*clean up output*/
+				"WDRStatementReached.TestingLine01",
+				"WDRStatementReached.TestingLine01"
+				};
+		
+		String d[] = new String[] {""};
+		
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList(d), false);
+    }
+	@Test
+    public void testWDRT8() throws Exception {
+		//Account number does not exist
+		
+		
+		
+		
+		String a[] = new String[]{
+				"7654321 123 Jane Doe",
+				"1234567 11607 John Doe",
+				"1000002 74076 Jane Hancock",
+				"1000001 74070 John Hancock"
+				/*master accts contents*/};
+		
+		String b[] = new String[]{
+				"ABC 0000000 100 2345678 ***",
+				"EOS",
+				"EOS"/*mergedTSF contents*/};
+		
+		String c[] = new String[]{/*expectedOutput*/
+				/*always output from reading master accts*/
+				"WDRStatementReached.TestingLine02",
+				"WDRStatementReached.TestingLine02",
+				"WDRStatementReached.TestingLine02",
+				"WDRStatementReached.TestingLine02",
+				/*test specific output*/
+				///////// CHECK HERE, NOT SURE IF CORRECT
+				"WDRStatementReached.TestingLine03",
+				"WDRStatementReached.TestingLine03",
+				"WDRStatementReached.TestingLine06",
+				"WDRStatementReached.TestingLine010",
+				"WDRStatementReached.TestingLine08",
 				/*clean up output*/
 				"WDRStatementReached.TestingLine01",
 				"WDRStatementReached.TestingLine01"
