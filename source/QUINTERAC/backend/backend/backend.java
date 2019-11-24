@@ -149,6 +149,9 @@ public class backend {
 		    	try {
 			    	switch(type) {
 			    		case "NEW":
+			    			if (amount != 0) {
+			    				throw new IllegalArgumentException("Invalid Amount for Entered for New Account");
+			    			}
 			    			masterAccts = transaction(masterAccts,type,acctTo,name,amount);
 			    			break;
 			    		case "DEL":
