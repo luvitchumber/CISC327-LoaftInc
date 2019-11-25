@@ -133,13 +133,9 @@ class backendTest {
 				"WDRStatementReached.TestingLine03",
 				"WDRStatementReached.TestingLine03",
 				"WDRStatementReached.TestingLine06", 
-				"WDRStatementReached.TestingLine08", //unless it stops after error
-				"WDRStatementReached.TestingLine11",
-				"WDRStatementReached.TestingLine12",
-				"WDRStatementReached.TestingLine14",
-				/*clean up output*/
-				"WDRStatementReached.TestingLine01",
-				"WDRStatementReached.TestingLine01"
+				"WDRStatementReached.TestingLine10",
+				"WDRStatementReached.TestingLine08"
+				//Stops after error
 				};
 		
 		
@@ -166,7 +162,7 @@ class backendTest {
 				/*master accts contents*/};
 		
 		String b[] = new String[]{
-				"WDR 0000000 100 1234567 ***",
+				"WDR 0000000 1.00 1234567 ***",
 				"EOS",
 				"EOS"/*mergedTSF contents*/};
 		
@@ -230,11 +226,8 @@ class backendTest {
 				"WDRStatementReached.TestingLine06",
 				"WDRStatementReached.TestingLine09",
 				"WDRStatementReached.TestingLine11",
-				"WDRStatementReached.TestingLine12",
-				"WDRStatementReached.TestingLine14",
-				/*clean up output*/
-				"WDRStatementReached.TestingLine01",
-				"WDRStatementReached.TestingLine01"
+				"WDRStatementReached.TestingLine13"
+				
 				};
 		
 		String d[] = new String[] {""};
@@ -273,11 +266,8 @@ class backendTest {
 				/*test specific output*/
 				"WDRStatementReached.TestingLine03",
 				"WDRStatementReached.TestingLine02",
-				"WDRStatementReached.TestingLine05",
 				"WDRStatementReached.TestingLine07",
-				/*clean up output*/
-				"WDRStatementReached.TestingLine01",
-				"WDRStatementReached.TestingLine01"
+				//error after
 				};
 		
 		String d[] = new String[] {""};
@@ -302,7 +292,7 @@ class backendTest {
 				/*master accts contents*/};
 		
 		String b[] = new String[]{
-				"ABC 0000000 100 1234567 ***",
+				"WDR 0000000 100 2345678 ***",
 				"EOS",
 				"EOS"/*mergedTSF contents*/};
 		
@@ -316,12 +306,10 @@ class backendTest {
 				///////// CHECK HERE, NOT SURE IF CORRECT
 				"WDRStatementReached.TestingLine03",
 				"WDRStatementReached.TestingLine02",
-				"WDRStatementReached.TestingLine04",
 				"WDRStatementReached.TestingLine06",
-				"WDRStatementReached.TestingLine010",
-				/*clean up output*/
-				"WDRStatementReached.TestingLine01",
-				"WDRStatementReached.TestingLine01"
+				"WDRStatementReached.TestingLine10",
+				"WDRStatementReached.TestingLine08",
+				//errors after
 				};
 		
 		String d[] = new String[] {""};
@@ -333,7 +321,7 @@ class backendTest {
     }
 	@Test
     public void testWDRT8() throws Exception {
-		//Account number does not exist
+		//WDR more than account balance
 		
 		
 		
@@ -346,7 +334,7 @@ class backendTest {
 				/*master accts contents*/};
 		
 		String b[] = new String[]{
-				"ABC 0000000 100 2345678 ***",
+				"WDR 0000000 99999999 1234567 ***",
 				"EOS",
 				"EOS"/*mergedTSF contents*/};
 		
@@ -357,15 +345,14 @@ class backendTest {
 				"WDRStatementReached.TestingLine02",
 				"WDRStatementReached.TestingLine02",
 				/*test specific output*/
-				///////// CHECK HERE, NOT SURE IF CORRECT
 				"WDRStatementReached.TestingLine03",
-				"WDRStatementReached.TestingLine03",
+				"WDRStatementReached.TestingLine02",
 				"WDRStatementReached.TestingLine06",
-				"WDRStatementReached.TestingLine010",
-				"WDRStatementReached.TestingLine08",
-				/*clean up output*/
-				"WDRStatementReached.TestingLine01",
-				"WDRStatementReached.TestingLine01"
+				"WDRStatementReached.TestingLine09",
+				"WDRStatementReached.TestingLine11",
+				"WDRStatementReached.TestingLine12",
+				"WDRStatementReached.TestingLine15"
+				//errors after
 				};
 		
 		String d[] = new String[] {""};

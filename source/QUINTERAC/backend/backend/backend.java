@@ -273,9 +273,13 @@ public class backend {
 		try {
 			double test = Double.parseDouble(in);
 			
-			if (test % 1 > 0) {
-				System.out.println("WDRStatementReached.TestingLine04");
-				test *= 100; //left shift amount 2 if amount entered as XX.x
+			try {
+				int t = Integer.parseInt(in);
+			}catch(NumberFormatException e) {//if not int, shift
+				//if (test % 1 > 0) {
+					System.out.println("WDRStatementReached.TestingLine04");
+					test *= 100; //left shift amount 2 if amount entered as XX.x
+				//}
 			}
 			
 			num=(int)test;
