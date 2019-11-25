@@ -419,32 +419,10 @@ class backendTest {
 	/*
 	 * NEW BACKEND WHITE BOX TESTING
 	 */
-	@Test
-    public void testNEWPath1() throws Exception {
-		//Create new account path 1: invalid account name
-		
-		String a[] = new String[]{"7654321 123 Jane Doe",
-				"1234567 11607 John Doe",
-				"1000002 74076 Jane Hancock",
-				/*master accts contents*/};
-		
-		String b[] = new String[]{"NEW 1000001 000 0000000 Nol??dsfiur",
-				"EOS",
-				"EOS" /*mergedTSF contents*/};
-
-		String c[] = new String[]{"Cannot Create New Account, Invalid Account Name"/*expectedOutput*/};
-		
-		String d[] = new String[] {""};
-		
-        runAndTest(Arrays.asList(a), //
-                Arrays.asList(b), //
-                Arrays.asList(c), //
-                Arrays.asList(d), true);
-    }
 	
 	@Test
-    public void testNEWPath2() throws Exception {
-		//Create new account path 2: correct inputs, successful account creation
+    public void testNEWPath1() throws Exception {
+		//Create new account path 1: correct inputs, successful account creation
 		
 		String a[] = new String[]{"7654321 123 Jane Doe",
 				"1000003 74076 Jane Hancock",
@@ -466,8 +444,77 @@ class backendTest {
     }
 	
 	@Test
+    public void testNEWPath2() throws Exception {
+		//Create new account path 2: new account amount not 0
+		
+		String a[] = new String[]{"7654321 123 Jane Doe",
+				"1234567 11607 John Doe",
+				"1000002 74076 Jane Hancock",
+				/*master accts contents*/};
+		
+		String b[] = new String[]{"NEW 1234567 111 0000000 John Doe",
+				"EOS",
+				"EOS" /*mergedTSF contents*/};
+
+		String c[] = new String[]{"Invalid Amount Entered for New Account"/*expectedOutput*/};
+		
+		String d[] = new String[] {""};
+		
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList(d), true);
+    }
+	
+	@Test
     public void testNEWPath3() throws Exception {
-		//Create new account path 3: invalid amount 
+		//Create new account path 3: account already exists
+		
+		String a[] = new String[]{"7654321 123 Jane Doe",
+				"1234567 11607 John Doe",
+				"1000002 74076 Jane Hancock",
+				/*master accts contents*/};
+		
+		String b[] = new String[]{"NEW 1234567 000 0000000 John Doe",
+				"EOS",
+				"EOS" /*mergedTSF contents*/};
+
+		String c[] = new String[]{"Cannot Create New Account, Account Number already exists"/*expectedOutput*/};
+		
+		String d[] = new String[] {""};
+		
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList(d), true);
+    }
+	
+	@Test
+    public void testNEWPath4() throws Exception {
+		//Create new account path 4: invalid account name
+		
+		String a[] = new String[]{"7654321 123 Jane Doe",
+				"1234567 11607 John Doe",
+				"1000002 74076 Jane Hancock",
+				/*master accts contents*/};
+		
+		String b[] = new String[]{"NEW 1000001 000 0000000 Nol??dsfiur",
+				"EOS",
+				"EOS" /*mergedTSF contents*/};
+
+		String c[] = new String[]{"Cannot Create New Account, Invalid Account Name"/*expectedOutput*/};
+		
+		String d[] = new String[] {""};
+		
+        runAndTest(Arrays.asList(a), //
+                Arrays.asList(b), //
+                Arrays.asList(c), //
+                Arrays.asList(d), true);
+    }
+	
+	@Test
+    public void testNEWPath5() throws Exception {
+		//Create new account path 5: invalid amount 
 		
 		String a[] = new String[]{"7654321 123 Jane Doe",
 				"1000003 74076 Jane Hancock",
@@ -489,8 +536,8 @@ class backendTest {
     }
 
 	@Test
-    public void testNEWPath5() throws Exception {
-		//Create new account path 5: invalid account number
+    public void testNEWPath6() throws Exception {
+		//Create new account path 6: invalid account number
 		
 		String a[] = new String[]{"7654321 123 Jane Doe",
 				"1000003 74076 Jane Hancock",
