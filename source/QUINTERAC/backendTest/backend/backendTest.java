@@ -362,59 +362,6 @@ class backendTest {
                 Arrays.asList(c), //
                 Arrays.asList(d), false);
     }
-	//template
-	@Test
-    public void testWDRTX() throws Exception {
-		//logout before logging in
-		
-		
-		
-		
-		String a[] = new String[]{"7654321 123 Jane Doe",
-				"1234567 11607 John Doe",
-				"1000002 74076 Jane Hancock",
-				"1000001 74070 John Hancock"
-				/*master accts contents*/};
-		
-		String b[] = new String[]{"WDR 0000000 100 1234567 ***",
-				"EOS",
-				"EOS"/*mergedTSF contents*/};
-
-		String c[] = new String[]{/*expectedOutput*/
-				/*always output from reading master accts*/
-				"WDRStatementReached.TestingLine02",
-				"WDRStatementReached.TestingLine02",
-				"WDRStatementReached.TestingLine02",
-				"WDRStatementReached.TestingLine02",
-				"WDRStatementReached.TestingLine03",
-				/*test specific output*/
-				"WDRStatementReached.TestingLine01",
-				"WDRStatementReached.TestingLine02",
-				"WDRStatementReached.TestingLine03",
-				"WDRStatementReached.TestingLine04",
-				"WDRStatementReached.TestingLine05",
-				"WDRStatementReached.TestingLine06",
-				"WDRStatementReached.TestingLine07",
-				"WDRStatementReached.TestingLine08",
-				"WDRStatementReached.TestingLine09",
-				"WDRStatementReached.TestingLine10",
-				"WDRStatementReached.TestingLine11",
-				"WDRStatementReached.TestingLine12",
-				"WDRStatementReached.TestingLine13",
-				"WDRStatementReached.TestingLine14",
-				"WDRStatementReached.TestingLine15",
-				/*clean up output*/
-				"WDRStatementReached.TestingLine01",
-				"WDRStatementReached.TestingLine01"
-				};
-		
-		String d[] = new String[] {""};
-		
-        runAndTest(Arrays.asList(a), //
-                Arrays.asList(b), //
-                Arrays.asList(c), //
-                Arrays.asList(d), false);
-    }
 
 	/*
 	 * NEW BACKEND WHITE BOX TESTING
