@@ -75,6 +75,8 @@ class backendTest {
     public void testWDRT2() throws Exception {
 		//EOS
 		//"WDRStatementReached.TestingLine01"
+		
+		
 		String a[] = new String[]{
 				"7654321 123 Jane Doe",
 				"1234567 11607 John Doe",
@@ -150,7 +152,7 @@ class backendTest {
 	@Test
     public void testWDRT4() throws Exception {
 		//If there are cents in amount
-		
+		//"WDRStatementReached.TestingLine04"
 		
 		
 		
@@ -196,7 +198,8 @@ class backendTest {
 	
 	@Test
     public void testWDRT5() throws Exception {
-		//
+		//Amount is negative
+		//"WDRStatementReached.TestingLine05",
 		
 		
 		
@@ -241,7 +244,7 @@ class backendTest {
 	@Test
     public void testWDRT6() throws Exception {
 		//If not WDR (ABC), dont enter first switch case
-		
+		//"WDRStatementReached.TestingLine07",
 		
 		
 		
@@ -280,7 +283,7 @@ class backendTest {
 	@Test
     public void testWDRT7() throws Exception {
 		//Account number does not exist
-		
+		//"WDRStatementReached.TestingLine03",
 		
 		
 		
@@ -303,7 +306,6 @@ class backendTest {
 				"WDRStatementReached.TestingLine02",
 				"WDRStatementReached.TestingLine02",
 				/*test specific output*/
-				///////// CHECK HERE, NOT SURE IF CORRECT
 				"WDRStatementReached.TestingLine03",
 				"WDRStatementReached.TestingLine02",
 				"WDRStatementReached.TestingLine06",
