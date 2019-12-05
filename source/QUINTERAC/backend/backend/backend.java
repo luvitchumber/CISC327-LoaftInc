@@ -274,7 +274,7 @@ public class backend {
 			double test = Double.parseDouble(in);
 			
 			try {
-				int t = Integer.parseInt(in);
+				Integer.parseInt(in);
 			}catch(NumberFormatException e) {//if not int, shift
 				//if (test % 1 > 0) {
 					System.out.println("WDRStatementReached.TestingLine04");

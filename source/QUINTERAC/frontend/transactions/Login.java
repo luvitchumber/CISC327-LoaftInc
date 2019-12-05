@@ -6,7 +6,7 @@ public class Login extends Transaction {
 
 	public Login(String mode) {
 		super("login");
-		this.mode = mode;
+		this.setMode(mode);
 	}
 
 	/* (non-Javadoc)
@@ -15,6 +15,14 @@ public class Login extends Transaction {
 	@Override
 	public String toString() {
 		return null;
+	}
+
+	public String getMode() {
+		return mode;
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
 	}
 
 }

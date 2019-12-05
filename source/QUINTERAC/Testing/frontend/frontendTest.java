@@ -4,14 +4,11 @@
 package frontend;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
@@ -431,10 +428,10 @@ class frontendTest {
     	//ensure transfer works correctly
 		String a[] = new String[]{"login agent", "deposit 1234567 10000", "logout"};
 		String b[] = new String[]{"1234567"};
-		String c[] = new String[] {"Please Login to begin session","Enter next transaction: "};
+		String c[] = new String[] {"Please Login to begin session","Enter next transaction: ","Enter next transaction: "};
 	    runAndTest(Arrays.asList(a), //
 	               Arrays.asList(b), //
-	               Arrays.asList(), //
+	               Arrays.asList(c), //
 	               Arrays.asList("DEP 1234567 10000 0000000 ***","EOS"), false);
     }
 	
