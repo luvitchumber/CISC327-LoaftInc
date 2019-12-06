@@ -1,13 +1,17 @@
+/*
+ * Quinterac Integration Testing
+ * Loaft Inc.
+ * Author: Luvit Chumber
+ * Date: December 6, 2019
+ * */
 package integration;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
