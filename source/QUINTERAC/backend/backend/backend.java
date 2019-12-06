@@ -23,7 +23,7 @@ public class backend {
 		
 		File masterAcctsFile = new File(args[0]);
 		String[] mergedTsfFileNames = Arrays.copyOfRange(args, 1, args.length); // in case of multiple TSFs
-		File validAcctsFile = new File("validaccts.txt");
+		File validAcctsFile = new File(System.getProperty("user.dir") + "\\files\\validaccts.txt");
 		
 		ArrayList<Account> masterAccts = validateMasterAcctsFile(masterAcctsFile);
 		
