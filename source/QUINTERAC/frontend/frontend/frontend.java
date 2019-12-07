@@ -54,8 +54,9 @@ public class frontend {
 		// Loop until logout
 		while(true) {
 			System.out.println("Enter next transaction: ");
-			inputRaw = in.nextLine().toLowerCase();
+			inputRaw = in.nextLine();
 			input = inputRaw.split(" ");
+			input[0] = input[0].toLowerCase();
 			
 			//if branches for all trans possibilities
 				// validate inputs
