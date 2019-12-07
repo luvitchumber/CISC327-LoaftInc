@@ -50,21 +50,80 @@ public class integrationTest {
 	    System.setOut(outContent);
 	    System.setErr(errContent);
 	    
-	    String t_in_day1[][] = 		  { {"login atm", "deposit 1234567 100", "logout"},
-										{"login atm", "withdraw 1234567 100", "logout"},
-										{"login atm", "deposit 1234567 100", "logout"}};
-	    String t_in_day2[][] = 		  { {"login atm", "deposit 1234567 100", "logout"},
-										{"login atm", "withdraw 1234567 100", "logout"},
-										{"login atm", "deposit 1234567 100", "logout"}};
-	    String t_in_day3[][] = 		  { {"login atm", "deposit 1234567 100", "logout"},
-										{"login atm", "withdraw 1234567 100", "logout"},
-										{"login atm", "deposit 1234567 100", "logout"}};
-	    String t_in_day4[][] = 		  { {"login atm", "deposit 1234567 100", "logout"},
-										{"login atm", "withdraw 1234567 100", "logout"},
-										{"login atm", "deposit 1234567 100", "logout"}};
-	    String t_in_day5[][] = 		  { {"login atm", "deposit 1234567 100", "logout"},
-										{"login atm", "withdraw 1234567 100", "logout"},
-										{"login atm", "deposit 1234567 100", "logout"}};
+	    String t_in_day1[][] = { {"login atm",          //session 1
+			  "createacct 1000000 TayyabA",
+			  "createacct 1000001 LuvitC",
+			  "createacct 1000002 SamirM",
+			  "createacct 1000003 JessicaW",
+			  "logout"}, {"login atm",                  //session 2
+			  "createacct 9999999 JohnDoe420",
+			  "createacct 5000001 JaneDee69",
+			  "logout"}, {"login atm",                  //session 3
+			  "createacct 7777777 BethanyWhite212",
+			  "createacct 3030303 Walter101Grey",
+			  "createacct 8300781 747JonathanBlue",
+			  "logout"} };                   //END DAY 1
+			 
+	    String t_in_day2[][] = { {"login atm",	        //session 1
+		      "deposit 1000000 50000",
+			  "deposit 1000001 100",
+			  "deposit 9999999 200000",
+			  "logout"}, {"login atm",                  //session 2
+			  "deposit 9999999 9500000",
+			  "deposit 5000001 320",
+			  "deposit 8300781 100000",
+			  "deposit 3030303 671000",
+			  "deposit 1000002 500",
+			  "logout"}, {"login atm",                  //session 3
+			  "deposit 7777777 8000000",
+			  "deposit 3030303 500000",
+			  "deposit 1000003 1500",
+			  "deposit 5000001 400000",
+			  "logout"} };					 //END DAY 2
+			 
+	    String t_in_day3[][] = { {"login atm",          //session 1
+			  "transfer 1000000 1000001 1000",
+			  "transfer 1000000 1000002 1000",
+			  "logout"}, {"login atm",                  //session 2
+			  "transfer 7777777 1000000 50000",
+			  "transfer 3030303 8300781 70000",
+			  "transfer 3030303 9999999 100000",
+			  "transfer 5000001 1000003 320",
+			  "logout"}, {"login atm",                  //session 3
+			  "transfer 7777777 1000003 50000",
+			  "transfer 9999999 1000000 1500000",
+			  "transfer 9999999 1000001 100000",
+			  "transfer 9999999 1000002 10000",
+			  "transfer 9999999 1000003 10000",
+			  "logout"} };				     //END DAY 3
+			  
+	    String t_in_day4[][] = { {"login atm",          //session 1
+			  "withdraw 9999999 8180000", 
+			  "logout"}, {"login atm",                  //session 2
+			  "withdraw 1000001 101100",
+			  "withdraw 5000001 400000",
+			  "withdraw 1000003 61820",
+			  "withdraw 1000002 11500",
+			  "withdraw 1000000 98000",
+			  "withdraw 7777777 7900000",
+			  "logout"}, {"login atm",                  //session 3
+			  "withdraw 3030303 1001000",
+			  "withdraw 8300781 170000",
+			  "logout"} };				     //END DAY 4
+			  
+	    String t_in_day5[][] = { {"login atm",		    //session 1
+			  "deleteacct 1000000 TayyabA",
+			  "deleteacct 1000001 LuvitC",
+			  "deleteacct 5000001 JaneDee69",
+			  "logout"}, {"login",                      //session 2
+			  "deleteacct 7777777 BethanyWhite212",
+			  "deleteacct 3030303 Walter101Grey",
+			  "deleteacct 9999999 JohnDoe420",
+			  "logout"}, {"login atm",                  //session 3
+			  "deleteacct 1000002 SamirM",
+			  "deleteacct 1000003 JessicaW",
+			  "deleteacct 8300781 747JonathanBlue",
+			  "logout"} };					 //END DAY 5
 	   
 	    
 	    for (int i =0;i<5;i++) {
