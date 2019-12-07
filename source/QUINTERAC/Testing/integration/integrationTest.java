@@ -25,6 +25,7 @@ public class integrationTest {
 
     private static String runFrontEndDaily(String[][] args,String [][] transactions) throws IOException {
     	String tsf_merged = "";
+    	
     	for (int i = 0; i < args.length; i++) {
     		String userInput = String.join(System.lineSeparator(), transactions[i]);
             ByteArrayInputStream in = new ByteArrayInputStream(userInput.getBytes());
@@ -50,46 +51,55 @@ public class integrationTest {
 	    System.setOut(outContent);
 	    System.setErr(errContent);
 	    
-	    String t_in_day1[][] = { {"login atm",          //session 1
+	    String t_in_day1[][] = { 
+	    	{ "login agent",          //session 1
 			  "createacct 1000000 TayyabA",
 			  "createacct 1000001 LuvitC",
 			  "createacct 1000002 SamirM",
 			  "createacct 1000003 JessicaW",
-			  "logout"}, {"login atm",                  //session 2
+			  "logout"}, 
+	    	{ "login agent",                  //session 2
 			  "createacct 9999999 JohnDoe420",
 			  "createacct 5000001 JaneDee69",
-			  "logout"}, {"login atm",                  //session 3
+			  "logout"}, 
+	    	{ "login agent",                  //session 3
 			  "createacct 7777777 BethanyWhite212",
 			  "createacct 3030303 Walter101Grey",
 			  "createacct 8300781 747JonathanBlue",
 			  "logout"} };                   //END DAY 1
 			 
-	    String t_in_day2[][] = { {"login atm",	        //session 1
+	    String t_in_day2[][] = { 
+	    	{ "login atm",	        //session 1
 		      "deposit 1000000 50000",
 			  "deposit 1000001 100",
 			  "deposit 9999999 200000",
-			  "logout"}, {"login atm",                  //session 2
+			  "logout"}, 
+	    	{ "login atm",                  //session 2
 			  "deposit 9999999 9500000",
 			  "deposit 5000001 320",
 			  "deposit 8300781 100000",
 			  "deposit 3030303 671000",
 			  "deposit 1000002 500",
-			  "logout"}, {"login atm",                  //session 3
+			  "logout"}, 
+	    	{ "login atm",                  //session 3
 			  "deposit 7777777 8000000",
 			  "deposit 3030303 500000",
 			  "deposit 1000003 1500",
 			  "deposit 5000001 400000",
 			  "logout"} };					 //END DAY 2
 			 
-	    String t_in_day3[][] = { {"login atm",          //session 1
+	    String t_in_day3[][] = { 
+	    	{ "login atm",          //session 1
 			  "transfer 1000000 1000001 1000",
 			  "transfer 1000000 1000002 1000",
-			  "logout"}, {"login atm",                  //session 2
+			  "logout"}, 
+	    	{ "login atm",                  //session 2
 			  "transfer 7777777 1000000 50000",
 			  "transfer 3030303 8300781 70000",
 			  "transfer 3030303 9999999 100000",
 			  "transfer 5000001 1000003 320",
-			  "logout"}, {"login atm",                  //session 3
+			  "logout"}, 
+	    	{ "login atm",                  //session 3
 			  "transfer 7777777 1000003 50000",
 			  "transfer 9999999 1000000 1500000",
 			  "transfer 9999999 1000001 100000",
@@ -97,36 +107,42 @@ public class integrationTest {
 			  "transfer 9999999 1000003 10000",
 			  "logout"} };				     //END DAY 3
 			  
-	    String t_in_day4[][] = { {"login atm",          //session 1
+	    String t_in_day4[][] = { 
+	    	{ "login atm",          //session 1
 			  "withdraw 9999999 8180000", 
-			  "logout"}, {"login atm",                  //session 2
+			  "logout"}, 
+	    	{ "login atm",                  //session 2
 			  "withdraw 1000001 101100",
 			  "withdraw 5000001 400000",
 			  "withdraw 1000003 61820",
 			  "withdraw 1000002 11500",
 			  "withdraw 1000000 98000",
 			  "withdraw 7777777 7900000",
-			  "logout"}, {"login atm",                  //session 3
+			  "logout"}, 
+	    	{ "login atm",                  //session 3
 			  "withdraw 3030303 1001000",
 			  "withdraw 8300781 170000",
 			  "logout"} };				     //END DAY 4
 			  
-	    String t_in_day5[][] = { {"login atm",		    //session 1
+	    String t_in_day5[][] = { 
+	    	{ "login agent",		    //session 1
 			  "deleteacct 1000000 TayyabA",
 			  "deleteacct 1000001 LuvitC",
 			  "deleteacct 5000001 JaneDee69",
-			  "logout"}, {"login",                      //session 2
+			  "logout"}, 
+	    	{ "login agent",                      //session 2
 			  "deleteacct 7777777 BethanyWhite212",
 			  "deleteacct 3030303 Walter101Grey",
 			  "deleteacct 9999999 JohnDoe420",
-			  "logout"}, {"login atm",                  //session 3
+			  "logout"}, 
+	    	{ "login agent",                  //session 3
 			  "deleteacct 1000002 SamirM",
 			  "deleteacct 1000003 JessicaW",
 			  "deleteacct 8300781 747JonathanBlue",
 			  "logout"} };					 //END DAY 5
 	   
 	    
-	    for (int i =0;i<5;i++) {
+	    for (int i = 0; i < 5 ; i++) {
 	    	String [][] t_in = null;
 	    	String tsfname1="";
 	    	String tsfname2="";
@@ -171,7 +187,6 @@ public class integrationTest {
 	    		break;
 	    	}
 	  
-	    	// run 3 daily instances
 	    	// create temporary files for tsf transaction
 		    File transaction_summary_file1 = new File(tsfname1);
 		    File transaction_summary_file2 = new File(tsfname2);
@@ -184,7 +199,7 @@ public class integrationTest {
 		    
 		    
 		    // run frontend (runs 3 instances)
-		    String tsf_merged = runFrontEndDaily(args_to_frontend,t_in);
+		    String tsf_merged = runFrontEndDaily(args_to_frontend, t_in);
 		    
 		    //prepare merged tsf
 		    File mergedtsf = new File(mergedtsfname);
@@ -197,23 +212,29 @@ public class integrationTest {
 		    
 		    System.setOut(console);
 		    
+		    // Print Debug Report Each Day
+		    File mAccts = new File(System.getProperty("user.dir")+"\\files\\masteraccts.txt");
+		    
 		    System.out.println("Day " + (i+1));
-		    System.out.println("> Tranactions being called");
+		    System.out.println("> Tranactions being issued");
+		    
 		    for(int j = 0; j<t_in.length;j++) {
 		    	System.out.println(">> FrontEnd #" + (j+1));
 		    	for(int k = 0; k<t_in[j].length; k++) {
 		    		System.out.println(t_in[j][k]);
 		    	}
 		    }
+		    
 		    System.out.println("\n> Merged TSF:");
 		    System.out.println(tsf_merged);
-		    System.out.println("> Updated Master Accounts:");
-		    File mAccts = new File(System.getProperty("user.dir")+"\\files\\masteraccts.txt");
+		    System.out.println("\n> Updated Master Accounts:");
+		    
 		    Scanner sc = new Scanner(mAccts);
 		    while (sc.hasNext()) {
 		    	System.out.println(sc.nextLine());
 		    }
 		    sc.close();
+		    
 		    System.out.println("\n");
 		    System.setOut(outContent);
 	  }
