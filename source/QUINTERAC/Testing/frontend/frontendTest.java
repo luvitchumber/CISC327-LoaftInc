@@ -225,7 +225,7 @@ class frontendTest {
         runAndTest(Arrays.asList(a), //
                 Arrays.asList(b), //
                 Arrays.asList(c), //
-                Arrays.asList("NEW 1234567 000 0000000 johndoe", "EOS"), false);
+                Arrays.asList("NEW 1234567 000 0000000 JohnDoe", "EOS"), false);
     }
 	
 	@Test
@@ -261,7 +261,7 @@ class frontendTest {
         runAndTest(Arrays.asList(a), //
                 Arrays.asList(b), //
                 Arrays.asList(c), //
-                Arrays.asList("DEL 0000000 000 7654321 janedoe", "EOS"), true);
+                Arrays.asList("DEL 0000000 000 7654321 JaneDoe", "EOS"), true);
     }
 	
 	@Test
@@ -273,7 +273,7 @@ class frontendTest {
         runAndTest(Arrays.asList(a), //
                 Arrays.asList(b), //
                 Arrays.asList(c), //
-                Arrays.asList("DEL 0000000 000 7654321 janedoe", "EOS"), true);
+                Arrays.asList("DEL 0000000 000 7654321 JaneDoe", "EOS"), true);
     }
 	
 	@Test
@@ -285,7 +285,7 @@ class frontendTest {
         runAndTest(Arrays.asList(a), //
                 Arrays.asList(b), //
                 Arrays.asList(c), //
-                Arrays.asList("DEL 0000000 000 7654321 janedoe", "EOS"), true);
+                Arrays.asList("DEL 0000000 000 7654321 JaneDoe", "EOS"), true);
     }
 	
 	@Test
@@ -297,7 +297,7 @@ class frontendTest {
         runAndTest(Arrays.asList(a), //
                 Arrays.asList(b), //
                 Arrays.asList(c), //
-                Arrays.asList("DEL 0000000 000 7654321 janedoe", "EOS"), true);
+                Arrays.asList("DEL 0000000 000 7654321 JaneDoe", "EOS"), true);
     }
 	
 	@Test
@@ -309,7 +309,7 @@ class frontendTest {
         runAndTest(Arrays.asList(a), //
                 Arrays.asList(b), //
                 Arrays.asList(c), //
-                Arrays.asList("DEL 0000000 000 7654321 janedoe", "EOS"), false);
+                Arrays.asList("DEL 0000000 000 7654321 JaneDoe", "EOS"), false);
     }
 	
 	@Test
@@ -326,7 +326,7 @@ class frontendTest {
 	
 	@Test
     public void testR17T1() throws Exception {
-    	//inputted account number correct format test
+    	//account number input correct format test
 		String a[] = new String[]{"login atm", "deposit 1234 10000", "logout"};
 		String b[] = new String[]{"1234567"};
 		String c[] = new String[] {"Selected account does not exist"};
@@ -658,6 +658,7 @@ class frontendTest {
         } else {
         printed_lines = errContent.toString().split("[\r\n]+");
         }
+        System.out.println(printed_lines);
         // compare the tail of the terminal outputs:
         int diff = printed_lines.length - expected_terminal_tails.size();
         for (int i = 0; i < expected_terminal_tails.size(); ++i) {

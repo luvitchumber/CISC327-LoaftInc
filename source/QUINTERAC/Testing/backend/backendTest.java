@@ -457,7 +457,7 @@ class backendTest {
                 Arrays.asList(d), true);
     }
 	
-	@Test
+	@Test //test to be retired
     public void testNEWPath5() throws Exception {
 		//Create new account path 5: invalid amount 
 		
@@ -470,13 +470,14 @@ class backendTest {
 				"EOS",
 				"EOS" /*mergedTSF contents*/};
 
-		String c[] = new String[]{"Invalid Amount Entered for New Account"/*expectedOutput*/};
+		
+		//String c[] = new String[]{"Invalid Amount Entered for New Account"/*expectedOutput*/};
 		
 		String d[] = new String[] {""};
 		
         runAndTest(Arrays.asList(a), //
                 Arrays.asList(b), //
-                Arrays.asList(c), //
+                Arrays.asList(/*c*/), //
                 Arrays.asList(d), true);
     }
 
