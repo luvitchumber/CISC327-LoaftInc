@@ -3,7 +3,7 @@ package frontend;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import transactions.Transaction;
+import transactionClasses.Transaction;
 
 public class Terminal {
 	

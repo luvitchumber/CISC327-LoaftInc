@@ -7,14 +7,14 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import transactions.Transaction;
-import transactions.Login;
-import transactions.Logout;
-import transactions.CreateAcct;
-import transactions.DeleteAcct;
-import transactions.Deposit;
-import transactions.Transfer;
-import transactions.Withdraw;
+import transactionClasses.CreateAcct;
+import transactionClasses.DeleteAcct;
+import transactionClasses.Deposit;
+import transactionClasses.Login;
+import transactionClasses.Logout;
+import transactionClasses.Transaction;
+import transactionClasses.Transfer;
+import transactionClasses.Withdraw;
 
 
 public class frontend {

@@ -1,4 +1,4 @@
-package transactions;
+package transactionClasses;
 
 public class Transfer extends Transaction {
 	
