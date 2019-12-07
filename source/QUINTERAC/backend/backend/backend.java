@@ -87,26 +87,34 @@ public class backend {
 	    	String[] in = inRaw.split(" "); // cannot use this method for names, names can have spaces
 	    	String acct = in[0];
 	    	String amountStr = in[1];
-	    	int startIDX = inRaw.lastIndexOf(amountStr);
+	    	int startIDX = inRaw.lastIndexOf(" " + amountStr + " ") + 1; //account for space
 	    	String name = inRaw.substring(startIDX+amountStr.length());
 	    	name = name.trim(); // removes space from front of string;	    	
 	    	
-	    	if (validateAcctNumandReturn(acct).equals("NotValid")) { 	//perform check on single account
-	    		//throw error 
-	    		System.err.println("Error with account number in master accounts files");
-	    		System.err.println("Cannot validate master accounts file.");
-	    	}else if (validateAmountandReturn(amountStr) == -1){
-	    		//throw error 
-	    		System.err.println("Error with amount in master accounts files");
-	    		System.err.println("Cannot validate master accounts file.");
-	    	}else if (validateNameandReturn(name).equals("NotValid")){
-	    		//throw error 
-	    		System.err.println("Error with name in master accounts files");
-	    		System.err.println("Cannot validate master accounts file.");
-	    	}else {
-	    		
-	    		Account cache = new Account(acct,validateAmountandReturn(amountStr),name);
-	    		masterAccts.add(cache);
+	    	try {
+		    	if (validateAcctNumandReturn(acct).equals("NotValid")) { 	//perform check on single account
+		    		//throw error 
+		    		System.err.println("Error with account number in master accounts files");
+		    		System.err.println("Cannot validate master accounts file.");
+		    		throw new IllegalArgumentException("Error with account number in master accounts files");
+		    	}else if (validateAmountandReturn(amountStr) == -1 && !amountStr.equals("0")){
+		    		//throw error 
+		    		System.err.println("Error with amount in master accounts files");
+		    		System.err.println("Cannot validate master accounts file.");
+		    		throw new IllegalArgumentException("Error with amount in master accounts files");
+		    	}else if (validateNameandReturn(name).equals("NotValid")){
+		    		//throw error 
+		    		System.err.println("Error with name in master accounts files");
+		    		System.err.println("Cannot validate master accounts file.");
+		    		throw new IllegalArgumentException("Error with name in master accounts files");
+		    	}else {
+		    		
+		    		Account cache = new Account(acct,validateAmountandReturn(amountStr),name);
+		    		masterAccts.add(cache);
+		    	}
+	    	} catch (IllegalArgumentException e) {
+	    		sc.close();
+	    		throw e;
 	    	}
     	}
 	    sc.close();	//close scanner
@@ -172,7 +180,7 @@ public class backend {
 			    				masterAccts = transaction(masterAccts,"WDR",acctFrom,name,amount); //withdraw first to make sure there are sufficent resources
 			    				masterAccts = transaction(masterAccts,"DEP",acctTo,name,amount);
 			    			}catch (IllegalArgumentException e) {
-			    				throw new IllegalArgumentException("Cannot Transfer Funds, Invalid Amound");
+			    				throw new IllegalArgumentException("Cannot Transfer Funds, Invalid Amount");
 			    			}
 			    			break;
 		    			default:
@@ -247,14 +255,14 @@ public class backend {
 					idx = masterAccts.indexOf(temp);
 					temp = masterAccts.get(idx);
 					currentAmount = temp.getAmount();
-					if (amount<currentAmount) {
+					if (amount<=currentAmount) {
 						System.out.println("WDRStatementReached.TestingLine14");
 						temp.setAmount(currentAmount-amount);
 						masterAccts.set(idx, temp);
 					}else {
 						System.out.println("WDRStatementReached.TestingLine15");
 		//				error
-						throw new IllegalArgumentException("Insufficent funds to transfer");
+						throw new IllegalArgumentException("Insufficent funds for transaction");
 					}
 				}else {
 					System.out.println("WDRStatementReached.TestingLine13");
@@ -284,7 +292,7 @@ public class backend {
 			
 			num=(int)test;
 			
-			if (in.length() < 3 || num > 99999999 || num < 0) {	//cannot exceed 99999999 or be a negative number
+			if ( ( in.length() < 3 && num != 0 ) || num > 99999999 || num < 0 ) {	//cannot exceed 99999999 or be a negative number
 				System.out.println("WDRStatementReached.TestingLine05");
 				num = -1;
 			}
@@ -301,13 +309,15 @@ public class backend {
 		String name = "";
 		boolean isAlphanumeric = true;
 		
-		if (in == null || !in.matches("^[\\sa-zA-Z0-9]*$")) 
+		if (in == null || !in.matches("^[\\sa-zA-Z0-9]*$")) {
 			isAlphanumeric = false;
+		}
 		
-		if (in.length()>=3 && in.length()<=30 && isAlphanumeric) 
+		if (in.length()>=3 && in.length()<=30 && isAlphanumeric) {
 			name=in;
-		else 
+		} else {
 			name="NotValid";
+		}
 		
 		return name;
 	}
