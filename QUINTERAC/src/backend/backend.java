@@ -144,7 +144,7 @@ public class backend {
 		    	String acctTo = in[1];
 		    	String amountStr = in[2];
 		    	String acctFrom = in[3];
-		    	int startIDX = inRaw.lastIndexOf(acctFrom);
+		    	int startIDX = inRaw.lastIndexOf(" " + acctFrom + " ") + 1;
 		    	String name = inRaw.substring(startIDX+acctFrom.length());
 		    	name = name.trim(); // removes space from front of string;	
 		    	
