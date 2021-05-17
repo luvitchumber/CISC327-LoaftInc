@@ -1,6 +1,6 @@
 # QUINTERAC - Banking system quality testing
-## Loaft Inc
-### CISC327 - Software Quality Assurance
+## CISC327 - Software Quality Assurance
+### Loaft Inc
 
 Tayyab Ahmad :grin:
 
